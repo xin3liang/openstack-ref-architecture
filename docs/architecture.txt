@@ -1,0 +1,51 @@
++---+        +---------------------------------+        +---+
+| T |        |                                 +--------+ C |
+| U |        | data-host                       |eth0    | O |
+| N |        |  mysql, rabbit, ceph-mon        |        | L |
+| N |        |                                 |        | O |
+| E |        +---------------------------------+        |   +-----+
+| L |                                                   | N |     |eth0
+|   |        +---------------------------------+        | E |  +---------------+
+| N |        |                                 +--------+ T |  |               |
+| E |        | controller                      |eth0    |   |  | Colo Router   |
+| T |        |  keystone, glance, memcached,   |        |10 |  |  (aus-colo    |
+|   |        |  nova(api etc), neutron-server, |        | . |  |               |
+| 1 |        |  horizon, cinder, ceph-mon      |        |10 |  +---------------+
+| 9 |        |                                 |        | . |       |eth1
+| 2 |        +---------------------------------+        | X |       |
+| . |                                                   | . |       |
+| 1 |        +---------------------------------+        | X |       |
+| 6 |        |                                 +--------+   |       |
+| 8 |        | network-node                    |eth0    |   |       |
+| . |        |  openvswitch_agent, l3_agent,   |        |   |       |
+| 0 |    eth1|  dhcp_agent, metadata_agent     |eth2    |   |       |
+| . +--------+  ceph-mon                       |__      |   |       |
+| X |        +---------------------------------+  \     |   |       |
+|   |                                              \___/|   |-      |
+|   |        +---------------------------------+        |   | \     \  XXXXX
+|   |        |                                 +--------+   |  \    XXXX    X
+|   |        | compute-$X                      |eth0    |   |   \  XX       XX
+|   |    eth1|  nova-compute, ceph-osd         |        |   |    \XX         XXX
+|   +--------+  neutron-openvswitch_agent      |        |   |     X Internet   X
+|   |        +---------------------------------+        |   |     XX         XXX
+|   |                                                   |   |      XXXXXXXXXXX
+|   |        +---------------------------------+        |   |
+|   |        |                                 +--------+   |
+|   |        | compute-$X                      |eth0    |   |
+|   |    eth1|  nova-compute, ceph-osd         |        |   |
+|   +--------+  neutron-openvswitch_agent      |        |   |
++---+        +---------------------------------+        +---+
+
+
+The two networks are physical networks segmented between 2 different VLANS. The
+colo network is our traditional lab internal network used by everything in the
+colo. The openstack services will communicate between each other on this
+fairly safe network. Outbound traffic on this network is routed through the
+colo router.
+
+The "tunnel network" is a 2nd VLAN (can be same or different physical switch).
+This network is private with no outbound routes. The compute nodes and the
+network node talk over this network using VXLAN to provide private virtualized
+networks defined and managed by tenants. The network node as a single interface
+bridged to the public internet and a range of public IPv4 addresses that can
+be assigned as floating IPs to expose VMs to the interent.
