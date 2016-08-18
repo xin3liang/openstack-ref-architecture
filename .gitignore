@@ -1,1 +1,4 @@
 *.swp
+ceph/*.keyring
+ceph/*.conf
+ceph/*.log
