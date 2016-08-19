@@ -1,0 +1,35 @@
+This repository provides all the support code required to deploy a "Developer
+Cloud". Its broken up into 3 sequential parts:
+
+Part 1: Python Virtual Environments
+===================================
+
+Deploying OpenStack components under development and on aarch64 presents some
+challenges. Most notably is that there are no packages to easily deploy. We
+instead build python virtual environments for the components we use and deploy
+those via Ansible. The virtual environments are actually pretty handy because
+we have identical code running everywhere by simply extracting a tar file.
+
+These venvs can be built by running "sudo ./openstack-venvs/build_all.sh" on
+a system with the Debian Reference Platform installed.
+
+Part 2: Deploying Ceph
+======================
+
+We currently don't have Ceph installed via ansible. So before the Developer
+Cloud can be deployed, a Ceph cluster must be installed on the machines. This
+can be done using the scripts under the "ceph" directory on you laptop. See
+docs/deploy-ceph.txt for directions.
+
+Part 3: Deploying OpenStack
+===========================
+
+OpenStack is deployed using Ansible with the playbook defined in the "ansible"
+directory. You'll need to create the files "deployment-vars" and "hosts" to
+match your environment. There are examples to help guide you. Once those files
+are in place, OpenStack can be deployed with::
+
+  ansible-playbook -K -v -i ./hosts ./site.yml -l <data_host>
+  ansible-playbook -K -v -i ./hosts ./site.yml -l <controller_host>
+  ansible-playbook -K -v -i ./hosts ./site.yml -l <network_host>
+  ansible-playbook -K -v -i ./hosts ./site.yml -l <compute_host>
