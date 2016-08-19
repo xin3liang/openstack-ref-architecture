@@ -32,7 +32,7 @@
     - {role: network, tags: [neutron]}
 
 - name: Configure the compute nodes
-  hosts: compute
+  hosts: "!{{data_host}}:!{{network_host}}:!{{controller_host}}"
   become: yes
   vars_files:
     - ["deployment-vars"]
