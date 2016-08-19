@@ -10,6 +10,9 @@
   lineinfile: dest=/etc/memcached.conf regexp=^-l line="-l 0.0.0.0"
   notify: restart-memcached
 
+# force memcached to be reloaded *now* so services can use it
+- meta: flush_handlers
+
 - name: Add Keystone Database
   mysql_db: name=keystone state=present
             login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
@@ -61,3 +64,6 @@
   file: src=/srv/keystone/apache.conf dest=/etc/apache2/sites-enabled/keystone.conf
         state=link
   notify: restart-keystone
+
+# force keystone to be restarted *now* so services can use it
+- meta: flush_handlers
