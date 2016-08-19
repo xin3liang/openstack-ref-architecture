@@ -1,0 +1,55 @@
+- name: Install neutron packages
+  apt: pkg={{item}} state=installed
+  with_items:
+    - dnsmasq
+    - dnsmasq-utils
+    - iputils-arping
+    - openvswitch-switch
+
+- name: Check if external bridge exists
+  command: ovs-vsctl br-exists br-ex
+  register: bridge_exists
+  ignore_errors: yes
+  changed_when: False
+
+- name: Create external bridge
+  when: bridge_exists is defined and bridge_exists.rc == 2
+  command: ovs-vsctl add-br br-ex
+
+- name: Check if external bridge is configured
+  command: ovs-vsctl list-ports br-ex
+  register: bridge_ports
+  changed_when: False
+
+- name: Add external interface to the bridge
+  when: "bridge_ports is defined and '{{network_external_iface}}' not in bridge_ports.stdout"
+  command: ovs-vsctl add-port br-ex {{network_external_iface}}
+
+- include: roles/common/deploy_venv.yml component=neutron notify=restart-network-service
+           url={{neutron_venv_url}} checksum={{neutron_venv_checksum}}
+
+- name: Ensure the neutron-server isn't enabled
+  file: state=absent path={{item}}
+  with_items:
+   - /etc/init.d/neutron-server
+   - /run/systemd/generator.late/neutron-server.service
+
+- name: Configure neutron.conf
+  template: src=roles/neutron/templates/neutron.conf dest=/etc/neutron/neutron.conf
+  notify: restart-network-service
+
+- name: Configure openvswitch_agent.ini
+  template: src=openvswitch_agent.ini dest=/etc/neutron/plugins/ml2/
+  notify: restart-network-service
+
+- name: Configure l3_agent.ini
+  template: src=l3_agent.ini dest=/etc/neutron/
+  notify: restart-network-service
+
+- name: Configure dhcp_agent.ini
+  template: src=dhcp_agent.ini dest=/etc/neutron/
+  notify: restart-network-service
+
+- name: Configure metadata_agent.ini
+  template: src=metadata_agent.ini dest=/etc/neutron/
+  notify: restart-network-service

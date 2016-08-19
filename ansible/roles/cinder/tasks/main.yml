@@ -1,0 +1,26 @@
+- name: Setup cinder v1
+  openstack_service: user={{cinder_user}} password={{cinder_pass}} type=volume
+                     description="OpenStack Block Storage"
+                     url="http://{{cinder_host}}:8776/v1/%(tenant_id)s"
+                     admin_password={{keystone_admin_pass}}
+
+- name: Setup cinder v2
+  openstack_service: user={{cinder_user}} password={{cinder_pass}} type=volumev2
+                     description="OpenStack Block Storage" service="cinderv2"
+                     url="http://{{cinder_host}}:8776/v2/%(tenant_id)s"
+                     admin_password={{keystone_admin_pass}}
+
+- name: Add cinder database
+  mysql_db: name=cinder state=present
+            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+
+- include: roles/common/deploy_venv.yml component=cinder notify=restart-cinder
+           url={{cinder_venv_url}} checksum={{cinder_venv_checksum}}
+
+- name: Configure cinder.conf
+  template: src=cinder.conf dest=/etc/cinder/
+  notify: restart-cinder
+
+- name: Run DB sync
+  when: venv.changed
+  command: /srv/cinder/bin/cinder-manage db sync

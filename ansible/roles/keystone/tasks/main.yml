@@ -1,0 +1,63 @@
+- name: Install keystone dependencies
+  apt: pkg={{item}} state=installed
+  with_items:
+    - apache2
+    - libapache2-mod-wsgi
+    - memcached
+    - python-mysqldb
+
+- name: Configure memcached
+  lineinfile: dest=/etc/memcached.conf regexp=^-l line="-l 0.0.0.0"
+  notify: restart-memcached
+
+- name: Add Keystone Database
+  mysql_db: name=keystone state=present
+            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+
+- include: roles/common/deploy_venv.yml component=keystone notify=restart-keystone
+           url={{keystone_venv_url}} checksum={{keystone_venv_checksum}}
+
+- name: Configure keystone.conf
+  template: src=keystone.conf dest=/etc/keystone/
+  notify: restart-keystone
+
+- name: Configure keystone-paste.ini
+  copy: src=keystone-paste.ini dest=/etc/keystone/
+  notify: restart-keystone
+
+- name: Add CLI environment
+  template: src=nova-admin.rc dest=/srv/keystone/
+
+- name: Run DB sync
+  command: /srv/keystone/bin/keystone-manage db_sync
+  when: venv.changed
+
+- name: Run fernet-setup
+  command: /srv/keystone/bin/keystone-manage fernet_setup
+           --keystone-user keystone --keystone-group keystone
+  when: venv.changed
+
+- name: Bootstrap keystone
+  shell: /srv/keystone/bin/keystone-manage bootstrap
+           --bootstrap-password {{keystone_admin_pass}}
+           --bootstrap-admin-url http://{{controller_host}}:35357
+           --bootstrap-public-url http://{{controller_host}}:5000
+           --bootstrap-internal-url http://{{controller_host}}:5000
+           --bootstrap-region-id RegionOne
+           --bootstrap-project-name service
+           --bootstrap-role-name admin
+           --bootstrap-service-name keystone
+         && touch /etc/keystone/ansible.bootstrapped
+  args:
+    creates: /etc/keystone/ansible.bootstrapped
+
+- name: Disable default apache configuration
+  command: a2dissite 000-default
+  register: result
+  changed_when: "'already disabled' not in result.stdout"
+  notify: restart-keystone
+
+- name: Enable apache configuration
+  file: src=/srv/keystone/apache.conf dest=/etc/apache2/sites-enabled/keystone.conf
+        state=link
+  notify: restart-keystone

@@ -1,0 +1,6 @@
+<secret ephemeral="no" private="no">
+  <uuid>{{nova_ceph_virsh_uuid}}</uuid>
+  <usage type="ceph">
+    <name>client.nova secret</name>
+  </usage>
+</secret>

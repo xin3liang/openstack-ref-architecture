@@ -1,0 +1,42 @@
+- name: Configure the data node
+  hosts: "{{data_host}}"
+  become: yes
+  vars_files:
+    - ["deployment-vars"]
+  roles:
+    - {role: ntp, tags: [ntp]}
+    - {role: data, tags: [data]}
+
+- name: Configure the controller node
+  hosts: "{{controller_host}}"
+  become: yes
+  vars_files:
+    - ["deployment-vars"]
+  roles:
+    - {role: ntp, tags: [ntp]}
+    - {role: cli, tags: [cli]}
+    - {role: keystone, tags: [keystone]}
+    - {role: glance, tags: [glance]}
+    - {role: nova, tags: [nova]}
+    - {role: cinder, tags: [cinder]}
+    - {role: horizon, tags: [horizon]}
+
+- name: Configure the network node
+  hosts: "{{network_host}}"
+  become: yes
+  vars_files:
+    - ["deployment-vars"]
+  roles:
+    - {role: ntp, tags: [ntp]}
+    - {role: nics, tags: [nics]}
+    - {role: network, tags: [neutron]}
+
+- name: Configure the compute nodes
+  hosts: compute
+  become: yes
+  vars_files:
+    - ["deployment-vars"]
+  roles:
+    - {role: ntp, tags: [ntp]}
+    - {role: nics, tags: [nics]}
+    - {role: compute, tags: [compute]}

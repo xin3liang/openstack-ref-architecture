@@ -1,0 +1,6 @@
+<secret ephemeral="no" private="no">
+  <uuid>{{cinder_ceph_virsh_uuid}}</uuid>
+  <usage type="ceph">
+    <name>client.cinder secret</name>
+  </usage>
+</secret>

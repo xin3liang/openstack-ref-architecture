@@ -1,0 +1,18 @@
+- name: Install horizon dependencies
+  apt: pkg={{item}} state=installed
+  with_items:
+    - apache2
+    - libapache2-mod-wsgi
+
+- include: roles/common/deploy_venv.yml component=horizon notify=restart-horizon
+           url={{horizon_venv_url}} checksum={{horizon_venv_checksum}}
+
+- name: Configure settings
+  template: src=horizon_settings.py
+            dest=/srv/horizon/src/openstack_dashboard/local/local_settings.d/ansible.py
+  notify: restart-horizon
+
+- name: Disable OS default site config
+  command: a2dissite 000-default
+  register: result
+  changed_when: "'already disabled' not in result.stdout"

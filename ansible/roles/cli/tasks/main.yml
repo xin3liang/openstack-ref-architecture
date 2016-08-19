@@ -1,0 +1,3 @@
+# NOTE: the notify=restart-chrony is a hack to allow using this generic role
+- include: roles/common/deploy_venv.yml component=openstack-cli notify=restart-chrony
+           url={{cli_venv_url}} checksum={{cli_venv_checksum}}

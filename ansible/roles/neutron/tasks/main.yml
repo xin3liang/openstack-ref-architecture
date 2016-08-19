@@ -1,0 +1,42 @@
+- name: Setup neutron service
+  openstack_service: user={{neutron_user}} password={{neutron_pass}} type=network
+                     description="OpenStack Networking Service"
+                     url="http://{{keystone_host}}:9696"
+                     admin_password={{keystone_admin_pass}}
+
+- name: Add neutron database
+  mysql_db: name=neutron state=present
+            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+
+- name: Install neutron packages
+  apt: pkg={{item}} state=installed
+  with_items:
+    - dnsmasq
+    - dnsmasq-utils
+    - iputils-arping
+
+- include: roles/common/deploy_venv.yml component=neutron notify=restart-neutron-service
+           url={{neutron_venv_url}} checksum={{neutron_venv_checksum}}
+
+# neutron's setup.sh sets up *all* neutron daemons. We only need to run
+# the neutron server from here
+- name: Ensure only neutron service is enabled
+  file: state=absent path={{item}}
+  with_items:
+   - /etc/init.d/neutron-dhcp-agent
+   - /run/systemd/generator.late/neutron-dhcp-agent.service
+   - /etc/init.d/neutron-l3-agent
+   - /run/systemd/generator.late/neutron-l3-agent.service
+   - /etc/init.d/neutron-linuxbridge-agent
+   - /run/systemd/generator.late/neutron-linuxbridge-agent.service
+   - /etc/init.d/neutron-metadata-agent
+   - /run/systemd/generator.late/neutron-metadata-agent.service
+
+- name: Configure neutron.conf
+  template: src=neutron.conf dest=/etc/neutron/neutron.conf
+  notify: restart-neutron-service
+
+- name: Run DB sync
+  when: venv.changed
+  command: /srv/neutron/bin/neutron-db-manage --config-file /etc/neutron/neutron.conf
+           upgrade head

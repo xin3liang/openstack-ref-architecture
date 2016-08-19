@@ -1,0 +1,50 @@
+keystone_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-keystone-venv.tgz
+keystone_venv_checksum: sha256:25e25d1f4f2d0c7f54d37720896a4e43e47bab3d6f743202e49ee755f5bc547e
+glance_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-glance-venv.tgz
+glance_venv_checksum: sha256:bb3a5314d91567f5076941d8fde1480c7b4a66299a1870d3b8c5ee615b5a311f
+nova_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-nova-venv.tgz
+nova_venv_checksum: sha256:d5668e1c4d9cea4f3133ae567ad5f777ceec55b4c68954d22d700f110ad84be8
+neutron_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-neutron-venv.tgz
+neutron_venv_checksum: sha256:17b69b76b5eee7fed2118873402517e8e456ac47eafb5ce6de78b7055623c039
+horizon_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-horizon-venv.tgz
+horizon_venv_checksum: sha256:e2a0113d73edfae58cb2dbae1ffa39dfec1db9a03a72d9ecddc3f3d084613449
+cinder_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-cinder-venv.tgz
+cinder_venv_checksum: sha256:e3e91608f39d698c8b7c66ec5a3cdc3a96d75971e3f0a6aff2ec3906cde7bc9b
+cli_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-openstack-cli-venv.tgz
+cli_venv_checksum: sha256:50cfa2769fe042504edce788faf00d21ac57d63fe2c6c0d73898989b9d818d01
+
+
+data_host: r2-a4
+controller_host: r2-a5
+tunnel_interface: eth1
+network_host: r2-a3
+network_tunnel_ip: "{{ansible_eth1.ipv4.address}}"
+network_external_iface: eth2
+
+keystone_host: "{{controller_host}}"
+glance_host: "{{controller_host}}"
+nova_host: "{{controller_host}}"
+neutron_host: "{{controller_host}}"
+horizon_host: "{{controller_host}}"
+cinder_host: "{{controller_host}}"
+
+keystone_admin_pass: Not5afe4Pr0duct!on
+
+glance_user: glance
+glance_pass: Unsafe1magePassw0rd
+
+nova_neutron_metadata_proxy_shared_secret: f530a126c0be630488a6
+
+nova_user: nova
+nova_pass: UnsafeC0mput3Passw0rd
+nova_ceph_virsh_uuid: 06214a0d-dc30-4e9b-856b-c8f0c0e63d9d
+
+rabbit_user: openstack
+rabbit_pass: UnsafeBunnyPass0rd
+
+neutron_user: neutron
+neutron_pass: UnsafeN3tPassw0rd
+
+cinder_user: cinder
+cinder_pass: UnsafeBl0ckPassw0rd
+cinder_ceph_virsh_uuid: 21cf1630-801b-4dd6-aef5-2bed37fd086a

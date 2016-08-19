@@ -1,0 +1,40 @@
+- name: Install dependencies
+  apt: pkg={{item}} state=installed
+  with_items:
+    - python-ceph
+
+- name: Setup glance service
+  openstack_service: user={{glance_user}} password={{glance_pass}} type=image
+                     description="OpenStack Image Service"
+                     url="http://{{glance_host}}:9292"
+                     admin_password={{keystone_admin_pass}}
+
+- name: Add glance database
+  mysql_db: name=glance state=present
+            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+
+- include: roles/common/deploy_venv.yml component=glance notify=restart-glance
+           url={{glance_venv_url}} checksum={{glance_venv_checksum}}
+
+# python-ceph can't really be built into venv (and doesn't exist in pip)
+# so symlink in what glance needs
+- name: Hack symlinks for python-ceph into venv
+  file: src=/usr/lib/python2.7/dist-packages/{{item}}
+        dest=/srv/glance/lib/python2.7/site-packages/{{item}} state=link
+  with_items:
+    - rbd.aarch64-linux-gnu.so
+    - rados.aarch64-linux-gnu.so
+  notify:
+    - restart-glance
+
+- name: Configure glance-api.conf
+  template: src=glance-api.conf dest=/etc/glance/
+  notify: restart-glance
+
+- name: Configure glance-registry.conf
+  template: src=glance-registry.conf dest=/etc/glance/
+  notify: restart-glance
+
+- name: Run DB sync
+  when: venv.changed
+  command: /srv/glance/bin/glance-manage db sync

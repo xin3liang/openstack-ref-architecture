@@ -1,0 +1,3 @@
+# MANAGED BY ANSIBLE - DO NOT HAND EDIT!
+[mysqld]
+bind-address={{ansible_eth0.ipv4.address}}

@@ -1,0 +1,2 @@
+- name: restart-neutron-service
+  service: name=neutron-server state=restarted

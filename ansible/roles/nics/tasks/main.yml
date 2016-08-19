@@ -1,0 +1,22 @@
+- name: Determine host's last ipv4 quad to use in tunnel network
+  set_fact: last_quad="{{ ansible_default_ipv4.address.split('.')[3] }}"
+
+- name: Setup network interfaces
+  template: src=network_interfaces dest=/etc/network/interfaces.d/devcloud
+            mode=0444
+  register: nics
+
+# normally this is just set as "{{ansible_eth1.ipv4.address}}" in group_vars
+# however, ansible_eth1 won't exist on the first run, so we have to set it
+# to allow the playbook to complete on the first try.
+- name: Update tunnel ip
+  when: nics.changed
+  set_fact: network_tunnel_ip=192.168.0.{{last_quad}}
+
+- name: Bring up tunnel interface
+  when: nics.changed
+  command: ifup {{tunnel_interface}}
+
+- name: Bring up public interface
+  when: nics.changed and ansible_hostname == network_host
+  command: ifup {{network_external_iface}}

@@ -1,0 +1,25 @@
+- name: Download the venv
+  register: venv
+  get_url: url={{url}} checksum={{checksum}}
+           dest=/srv/{{component}}-venv.tgz mode=0440
+  notify: "{{notify}}"
+
+- name: See if we should back up old venv
+  stat: path=/srv/{{component}}
+  register: st
+
+- name: Back up old venv
+  when: venv.changed and st.stat.exists
+  command: mv /srv/{{component}} /srv/{{component}}-{{ansible_date_time.iso8601}}
+
+- name: Extract the venvs
+  when: venv.changed
+  unarchive: src=/srv/{{component}}-venv.tgz dest=/srv copy=no
+
+- name: Run setup on venvs
+  when: venv.changed
+  command: /srv/{{component}}/setup.sh
+
+- name: Reload SystemD units
+  when: venv.changed
+  command: systemctl daemon-reload

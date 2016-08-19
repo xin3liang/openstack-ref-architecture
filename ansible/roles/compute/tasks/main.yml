@@ -1,0 +1,81 @@
+- name: Install dependencies
+  apt: pkg={{item}} state=installed
+  with_items:
+    - ceph-common
+    - conntrack
+    - gir1.2-libosinfo-1.0
+    - ipset
+    - libvirt-bin
+    - libvirt-daemon
+    - openvswitch-switch
+    - python-ceph
+    - qemu
+    - qemu-block-extra
+    - sysfsutils
+
+- name: Install qemu-efi package
+  apt: deb=http://ftp.us.debian.org/debian/pool/main/e/edk2/qemu-efi_0~20160408.ffea0a2c-2_all.deb
+
+- include: roles/common/deploy_venv.yml component=nova notify=restart-nova
+           url={{nova_venv_url}} checksum={{nova_venv_checksum}}
+- include: roles/common/deploy_venv.yml component=neutron notify=restart-neutron
+           url={{neutron_venv_url}} checksum={{neutron_venv_checksum}}
+- include: roles/common/deploy_venv.yml component=cinder notify=restart-cinder-volume
+           url={{cinder_venv_url}} checksum={{cinder_venv_checksum}}
+
+# python-ceph can't really be built into venv (and doesn't exist in pip)
+# so symlink in what glance needs
+- name: Hack symlinks for python-ceph into nova venv
+  file: src=/usr/lib/python2.7/dist-packages/{{item}}
+        dest=/srv/nova/lib/python2.7/site-packages/{{item}} state=link
+  with_items:
+    - rbd.aarch64-linux-gnu.so
+    - rados.aarch64-linux-gnu.so
+  notify:
+    - restart-nova
+- name: Hack symlinks for python-ceph into cinder venv
+  file: src=/usr/lib/python2.7/dist-packages/{{item}}
+        dest=/srv/cinder/lib/python2.7/site-packages/{{item}} state=link
+  with_items:
+    - rbd.aarch64-linux-gnu.so
+    - rados.aarch64-linux-gnu.so
+  notify:
+    - restart-cinder-volume
+
+- name: Ensure the neutron-server isn't enabled
+  file: state=absent path={{item}}
+  with_items:
+   - /etc/init.d/neutron-server
+   - /lib/systemd/system/neutron-server
+
+- name: Configure nova-compute
+  template: src=nova.conf dest=/etc/nova
+  notify: restart-nova
+
+- name: Configure nova
+  template: src=nova.conf dest=/etc/nova
+  notify: restart-nova
+
+- name: Configure neutron.conf
+  template: src=neutron.conf dest=/etc/neutron/
+  notify: restart-neutron
+
+- name: Configure openvswitch_agent.ini
+  template: src=roles/network/templates/openvswitch_agent.ini dest=/etc/neutron/plugins/ml2/
+  notify: restart-neutron
+
+- name: Configure cinder.conf
+  template: src=roles/cinder/templates/cinder.conf dest=/etc/cinder/
+  notify: restart-cinder-volume
+
+# configure libvirtd to allow VM migration
+- name: Copy /etc/default/libvirtd
+  copy: src=default-libvirtd dest=/etc/default/libvirtd
+  notify: restart-libvirtd
+
+- name: Configure libvirtd
+  template: src=libvirtd.conf dest=/etc/libvirt/libvirtd.conf
+  notify: restart-libvirtd
+
+- include: virsh-secret.yml client=nova virsh_uuid={{nova_ceph_virsh_uuid}}
+- include: virsh-secret.yml client=cinder virsh_uuid={{cinder_ceph_virsh_uuid}}

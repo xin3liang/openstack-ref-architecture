@@ -1,0 +1,33 @@
+- name: Setup nova service
+  openstack_service: user={{nova_user}} password={{nova_pass}} type=compute
+                     description="OpenStack Compute Service"
+                     url="http://{{nova_host}}:8774/v2/%(tenant_id)s"
+                     admin_password={{keystone_admin_pass}}
+
+- name: Add nova database
+  mysql_db: name=nova state=present
+            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+
+- name: Add nova-api database
+  mysql_db: name=nova-api state=present
+            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+
+- name: Install nova packages
+  apt: pkg={{item}} state=installed
+  with_items:
+    - libxslt1.1
+
+- include: roles/common/deploy_venv.yml component=nova notify=restart-nova-services
+           url={{nova_venv_url}} checksum={{nova_venv_checksum}}
+
+- name: Configure nova.conf
+  template: src=nova.conf dest=/etc/nova/nova.conf
+  notify: restart-nova-services
+
+- name: Run DB sync
+  when: venv.changed
+  command: /srv/nova/bin/nova-manage db sync
+
+- name: Run API DB sync
+  when: venv.changed
+  command: /srv/nova/bin/nova-manage api_db sync
