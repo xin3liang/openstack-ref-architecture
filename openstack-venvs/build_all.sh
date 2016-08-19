@@ -2,7 +2,7 @@
 
 cd $(dirname $(readlink -f $0))
 
-components="keystone openstack-cli glance neutron nova horizon cinder"
+components="keystone openstack-cli glance neutron nova horizon cinder heat"
 
 for x in $components ; do
 	echo === Cleanup old build of $x

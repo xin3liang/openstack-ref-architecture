@@ -12,6 +12,8 @@ cinder_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-cinder-venv
 cinder_venv_checksum: sha256:e3e91608f39d698c8b7c66ec5a3cdc3a96d75971e3f0a6aff2ec3906cde7bc9b
 cli_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-openstack-cli-venv.tgz
 cli_venv_checksum: sha256:50cfa2769fe042504edce788faf00d21ac57d63fe2c6c0d73898989b9d818d01
+heat_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-heat-venv.tgz
+heat_venv_checksum: sha256:5bd5ecaf2fddfeb5d3497a21936f4196475c7907d8318c5431d2cf33c5c40fd1
 
 
 data_host: r2-a4
@@ -27,6 +29,7 @@ nova_host: "{{controller_host}}"
 neutron_host: "{{controller_host}}"
 horizon_host: "{{controller_host}}"
 cinder_host: "{{controller_host}}"
+heat_host: "{{controller_host}}"
 
 keystone_admin_pass: Not5afe4Pr0duct!on
 
@@ -48,3 +51,8 @@ neutron_pass: UnsafeN3tPassw0rd
 cinder_user: cinder
 cinder_pass: UnsafeBl0ckPassw0rd
 cinder_ceph_virsh_uuid: 21cf1630-801b-4dd6-aef5-2bed37fd086a
+
+heat_user: heat
+heat_pass: UnsafeHeatPassw0rd
+heat_domain_admin: heat_domain_admin
+heat_domain_pass: UnsafeD0main

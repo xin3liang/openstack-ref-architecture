@@ -1,0 +1,33 @@
+- name: Setup Heat
+  openstack_service: user={{heat_user}} password={{heat_pass}} type=orchestration
+                     description="Orchestration"
+                     url="http://{{heat_host}}:8004/v1/%(tenant_id)s"
+                     admin_password={{keystone_admin_pass}}
+
+- name: Setup Heat Cloud Formation
+  openstack_service: user={{heat_user}} password={{heat_pass}} type=cloudformation
+                     description="Orchestration" service="heat-cfn"
+                     url="http://{{heat_host}}:8000/v1/%(tenant_id)s"
+                     admin_password={{keystone_admin_pass}}
+
+- name: Add heat database
+  mysql_db: name=heat state=present
+            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+
+- include: roles/common/deploy_venv.yml component=heat notify=restart-heat
+           url={{heat_venv_url}} checksum={{heat_venv_checksum}}
+
+- name: Configure heat.conf
+  template: src=heat.conf dest=/etc/heat/
+  notify: restart-heat
+
+- name: Run DB sync
+  when: venv.changed
+  command: /srv/heat/bin/heat-manage db_sync
+
+# TODO
+# openstack domain create --description "Stack projects and users" heat
+# openstack user create --domain heat --password {{heat_domain_pass}} {{heat_domain_admin}}
+# openstack role add --domain heat --user-domain heat --user {{heat_domain_admin}} admin
+# openstack role create heat_stack_owner
+# openstack role create heat_stack_user

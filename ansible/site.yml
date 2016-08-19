@@ -20,6 +20,7 @@
     - {role: nova, tags: [nova]}
     - {role: cinder, tags: [cinder]}
     - {role: horizon, tags: [horizon]}
+    - {role: heat, tags: [heat]}
 
 - name: Configure the network node
   hosts: "{{network_host}}"

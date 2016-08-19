@@ -68,6 +68,9 @@ if [ "$SERVICE" == 'cinder' ] ; then
 	fi
 	mv /etc/cinder/cinder/* /etc/cinder/ && rmdir /etc/cinder/cinder
 fi
+if [ "$SERVICE" == 'heat' ] ; then
+	mv /etc/heat/heat/* /etc/heat/ && rmdir /etc/heat/heat
+fi
 if [ "$SERVICE" == 'keystone' ] ; then
   exit 0
 fi

@@ -1,0 +1,6 @@
+- name: restart-heat
+  service: name={{item}} state=restarted
+  with_items:
+    - heat-api
+    - heat-api-cfn
+    - heat-engine
