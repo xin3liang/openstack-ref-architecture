@@ -16,7 +16,7 @@
   when: venv.changed
   unarchive: src=/srv/{{component}}-venv.tgz dest=/srv copy=no
 
-- name: Run setup on venvs
+- name: Run setup on venv
   when: venv.changed
   command: /srv/{{component}}/setup.sh
 
