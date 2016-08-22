@@ -1,8 +1,5 @@
 #!/bin/sh -e
 
-# we don't have ceph packaged in a way that ceph-deploy can use,
-# so here's a quick hack to install
-
 if [ $# -eq 0 ] ; then
 	echo "Usage: $0 <node1> [node2 ...]"
 	exit 1
@@ -17,5 +14,5 @@ for x in $* ; do
 	echo $x >> $hosts
 done
 
-ansible -b -K -i $hosts dev-cloud -m shell -a "wget -O /tmp/ceph.tgz http://people.linaro.org/~andy.doan/devcloud/ceph.tgz"
-ansible -b -K -i $hosts dev-cloud -m shell -a "cd /tmp && tar -xzf ceph.tgz && sudo /tmp/ceph/setup.sh"
+ansible -b -K -i $hosts dev-cloud -m shell -a "echo deb http://repo.linaro.org/ubuntu/leg-ceph jessie main > /etc/apt/sources.list.d/leg-ceph.list"
+ansible -b -K -i $hosts dev-cloud -m shell -a "apt-get update && apt-get install -y ceph"
