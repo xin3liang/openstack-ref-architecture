@@ -16,9 +16,9 @@ Steps to deploy::
   # install ceph debian components (not yet in debian):
   ./ceph-install.sh node1 node2 node3 node4 node5 node6
   # deploy ceph monitors
-  SSH_USER=user.name ./deph-deploy-mons.sh node1 node2 node3
+  SSH_USER=user.name ./ceph-deploy-mons.sh node1 node2 node3
   # deploy ceph osds
-  SSH_USER=user.name ./deph-deploy-osds.sh node4 node5 node6
+  SSH_USER=user.name ./ceph-deploy-osds.sh node4 node5 node6
 
   # create pools and users needed by OpenStack
   ./ceph-create-openstack-pools.sh node1
@@ -28,5 +28,5 @@ Steps to deploy::
 
 If you later on add a new OSD, it can be set up by running::
   ./ceph-install.sh node7
-  SSH_USER=user.name ./deph-deploy-osds.sh node7
+  SSH_USER=user.name ./ceph-deploy-osds.sh node7
   ./ceph-copy-creds.sh node1 node7
