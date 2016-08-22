@@ -6,3 +6,6 @@
 
 - name: restart-cinder-volume
   service: name=cinder-volume state=restarted
+
+- name: restart-libvirtd
+  service: name=libvirtd state=restarted
