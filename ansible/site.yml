@@ -18,6 +18,7 @@
     - {role: keystone, tags: [keystone]}
     - {role: glance, tags: [glance]}
     - {role: nova, tags: [nova]}
+    - {role: neutron, tags: [neutron]}
     - {role: cinder, tags: [cinder]}
     - {role: horizon, tags: [horizon]}
     - {role: heat, tags: [heat]}
