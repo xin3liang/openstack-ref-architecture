@@ -49,7 +49,7 @@
    - /lib/systemd/system/neutron-server
 
 - name: Configure nova-compute
-  template: src=nova.conf dest=/etc/nova
+  template: src=nova-compute.conf dest=/etc/nova
   notify: restart-nova
 
 - name: Configure nova
