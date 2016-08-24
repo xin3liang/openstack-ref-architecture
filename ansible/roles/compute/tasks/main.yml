@@ -14,7 +14,7 @@
     - sysfsutils
 
 - name: Install qemu-efi package
-  apt: deb=http://ftp.us.debian.org/debian/pool/main/e/edk2/qemu-efi_0~20160408.ffea0a2c-2_all.deb
+  apt: deb=http://ftp.us.debian.org/debian/pool/main/e/edk2/qemu-efi_0~20160813.de74668f-1_all.deb
 
 - include: roles/common/deploy_venv.yml component=nova notify=restart-nova
            url={{nova_venv_url}} checksum={{nova_venv_checksum}}
