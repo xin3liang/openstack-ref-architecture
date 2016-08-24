@@ -2,8 +2,8 @@
 
 cd $(dirname $(readlink -f $0))
 
-# newton on Aug 16
-VERSION="bc95434472951a2ecb62f09ee6fd64d4e1253c55"
+# newton on Aug 22
+VERSION="0cd732b2b0d3e18cbdbceecf66a83cd378c27717"
 GIT_URL="https://github.com/openstack/keystone.git"
 
 DESC="OpenStack cloud identity service"

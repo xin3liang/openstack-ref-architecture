@@ -3,8 +3,8 @@
 HERE=$(dirname $(readlink -f $0))
 cd $HERE
 
-# newton on Aug 16
-VERSION="7df813bba423f79bc163cd7fc7dd194791f31d21"
+# newton on Aug 22
+VERSION="30f7a3c308d05390d0ed3e391aaeb538dbb1a5d8"
 GIT_URL="https://github.com/openstack/glance.git"
 
 DESC="Glance API server"

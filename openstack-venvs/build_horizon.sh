@@ -2,8 +2,8 @@
 
 cd $(dirname $(readlink -f $0))
 
-# newton on Aug 16
-VERSION="450baeed4fe74736d0f0825256f758fc4ab099c6"
+# newton on Aug 22
+VERSION="a95159d1482e59920512c3af1915401d13841609"
 GIT_URL="https://github.com/openstack/horizon.git"
 VENV=/srv/horizon
 

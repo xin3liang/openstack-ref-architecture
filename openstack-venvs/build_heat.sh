@@ -3,8 +3,8 @@
 HERE=$(dirname $(readlink -f $0))
 cd $HERE
 
-# newton on Aug 19
-VERSION="4eee944e9b4588e6b94ca5325eaabd22654fa353"
+# newton on Aug 22
+VERSION="50ee32f846cbdf64887ad629eeb3fb6e03ab7acf"
 GIT_URL="https://github.com/openstack/heat.git"
 
 DESC="Heat API"

@@ -3,8 +3,8 @@
 HERE=$(dirname $(readlink -f $0))
 cd $HERE
 
-# newton on Aug 16
-VERSION="fb190f30a911658d8b0c4deaf43cbb8c9e35b672"
+# newton on Aug 22
+VERSION="bafc5081f436e819fc77e3c852b390676ba19b78"
 GIT_URL="https://github.com/openstack/nova.git"
 
 DESC="OpenStack Compute API"

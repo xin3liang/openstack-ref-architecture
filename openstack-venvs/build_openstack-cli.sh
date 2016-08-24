@@ -2,16 +2,16 @@
 
 cd $(dirname $(readlink -f $0))
 
-# newton on Aug 17
+# newton on Aug 22
 VENV=/srv/openstack-cli
 
 CLIENTS="
-	python-keystoneclient:63d039032cd425ef379ffa83af034b23cc80a674
-	python-neutronclient:618bc69660f33f358be70cadc9a4033880fec94e
-	python-novaclient:6e416bf2502e0934037ad0dc606f68a25668ccf1
-	python-glanceclient:5de07c339503c90634e27de342d23276a8833111
-	python-cinderclient:0daa4aa0238f3399e166af8833ef1d2816f361fd
-	python-openstackclient:fc7a69e410f217a436f7dae97b35314019a48b1b
+	python-keystoneclient:1b5c8bad80319dd78104c148fd34b59a825a7a36
+	python-neutronclient:3c5b2839bf37ff92212158acb6f20957e0eb7c96
+	python-novaclient:3b834f25c1d31ef482116344f97b0a1059d9a836:
+	python-glanceclient:d4196325eb05dadfaf62d8facbd8c6fe50f72166
+	python-cinderclient:f802d1ae1add84a3cd590de596d7835c1fce79b3
+	python-openstackclient:684412ca4cc0abad2c2a800d8247d12992b994e5
 "
 
 virtualenv $VENV

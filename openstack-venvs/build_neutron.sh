@@ -3,8 +3,8 @@
 HERE=$(dirname $(readlink -f $0))
 cd $HERE
 
-# newton on Aug 16
-VERSION="58316f7a8c07a4fbe912624a3bf9e08fdc6696f2"
+# newton on Aug 22
+VERSION="14ebfb527dfa8631db0112f605927449584050ad"
 GIT_URL="https://github.com/openstack/neutron.git"
 
 DESC="OpenStack Network API"
