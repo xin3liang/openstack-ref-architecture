@@ -1,18 +1,18 @@
 - name: Setup cinder v1
   openstack_service: user={{cinder_user}} password={{cinder_pass}} type=volume
                      description="OpenStack Block Storage"
-                     url="{{cinder_private_api}}:8776/v1/%(tenant_id)s"
-                     public_url="{{cinder_public_api}}:8776/v1/%(tenant_id)s"
+                     url="{{cinder_private_api}}"
+                     public_url="{{cinder_public_api}}"
                      admin_password={{keystone_admin_pass}}
-                     keystone_url="{{keystone_private_api}}:35357/v3"
+                     keystone_url="{{keystone_private_api}}"
 
 - name: Setup cinder v2
   openstack_service: user={{cinder_user}} password={{cinder_pass}} type=volumev2
                      description="OpenStack Block Storage" service="cinderv2"
-                     url="{{cinder_private_api}}:8776/v2/%(tenant_id)s"
-                     public_url="{{cinder_public_api_v2}}:8776/v2/%(tenant_id)s"
+                     url="{{cinder_private_api_v2}}"
+                     public_url="{{cinder_public_api_v2}}"
                      admin_password={{keystone_admin_pass}}
-                     keystone_url="{{keystone_private_api}}:35357/v3"
+                     keystone_url="{{keystone_private_api}}"
 
 - name: Add cinder database
   mysql_db: name=cinder state=present

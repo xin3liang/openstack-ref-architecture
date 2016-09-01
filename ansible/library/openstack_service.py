@@ -103,9 +103,10 @@ def _create_endpoint(endpoints, type, interface, url, nova_env, dryrun):
                 before = 'Endpoint(%s, %s) = %s\n' % (type, interface, url)
     args = [oscli, 'endpoint', 'create', '--region=RegionOne',
             type, interface, url]
-    if not dryrun and not before:
+    after = 'Endpoint(%s, %s) = %s\n' % (type, interface, url)
+    if not dryrun and before != after:
         subprocess.check_call(args, env=nova_env)
-    return before, 'Endpoint(%s, %s) = %s\n' % (type, interface, url)
+    return before, after
 
 
 def main():
