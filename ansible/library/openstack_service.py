@@ -11,6 +11,7 @@ fields = {
     'type': {'required': True, 'type': "str"},
     'description': {'required': True, 'type': "str"},
     'url': {'required': True, 'type': "str"},
+    'public_url': {'required': True, 'type': "str"},
     'keystone_url': {'required': True, 'type': "str"},
     'admin_password': {'required': True, 'type': "str"},
 }
@@ -136,7 +137,7 @@ def main():
     diff['after'] += after
 
     endpoints = _get_endpoints(nova_env)
-    for intf in ('public', 'internal', 'admin'):
+    for intf in ('internal', 'admin'):
         before, after = _create_endpoint(
             endpoints, module.params['type'], intf, module.params['url'],
             nova_env, module.check_mode)
@@ -144,6 +145,15 @@ def main():
             changed = True
         diff['before'] += before
         diff['after'] += after
+
+    # Added the logic to add public endpoints
+    before, after = _create_endpoint(
+        endpoints, module.params['type'], 'public', module.params['public_url'],
+        nova_env, module.check_mode)
+    if before != after:
+        changed = True
+    diff['before'] += before
+    diff['after'] += after
 
     module.exit_json(changed=changed, diff=diff)
 

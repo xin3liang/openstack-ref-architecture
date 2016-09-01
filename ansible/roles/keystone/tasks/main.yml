@@ -43,9 +43,9 @@
 - name: Bootstrap keystone
   shell: /srv/keystone/bin/keystone-manage bootstrap
            --bootstrap-password {{keystone_admin_pass}}
-           --bootstrap-admin-url http://{{controller_host}}:35357
-           --bootstrap-public-url http://{{controller_host}}:5000
-           --bootstrap-internal-url http://{{controller_host}}:5000
+           --bootstrap-admin-url "{{keystone_private_api}}:35357"
+           --bootstrap-public-url "{{keystone_public_api}}:5000"
+           --bootstrap-internal-url "{{keystone_private_api}}:5000"
            --bootstrap-region-id RegionOne
            --bootstrap-project-name service
            --bootstrap-role-name admin

@@ -1,9 +1,10 @@
 - name: Setup nova service
   openstack_service: user={{nova_user}} password={{nova_pass}} type=compute
                      description="OpenStack Compute Service"
-                     url="http://{{nova_host}}:8774/v2/%(tenant_id)s"
+                     url="{{nova_private_api}}:8774/v2/%(tenant_id)s"
+                     public_url="{{nova_public_api}}:8774/v2/%(tenant_id)s"
                      admin_password={{keystone_admin_pass}}
-                     keystone_url=http://{{keystone_host}}:35357/v3
+                     keystone_url="{{keystone_private_api}}:35357/v3"
 
 - name: Add nova database
   mysql_db: name=nova state=present

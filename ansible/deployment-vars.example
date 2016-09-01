@@ -31,6 +31,24 @@ horizon_host: "{{controller_host}}"
 cinder_host: "{{controller_host}}"
 heat_host: "{{controller_host}}"
 
+
+public_api_host: https://YourPublicURL
+keystone_public_api: "{{public_api_host}}"
+nova_public_api: "{{public_api_host}}"
+neutron_public_api: "{{public_api_host}}"
+cinder_public_api_v2: "{{public_api_host}}"
+cinder_public_api: "{{public_api_host}}"
+glance_public_api: "http://{{controller_host}}"
+heat_public_api: "{{public_api_host}}"
+
+keystone_private_api: "http://{{keystone_host}}"
+nova_private_api: "http://{{nova_host}}"
+neutron_private_api: "http://{{neutron_host}}"
+cinder_private_api_v2: "http://{{cinder_host}}"
+cinder_private_api: "http://{{cinder_host}}"
+glance_private_api: "http://{{glance_host}}"
+heat_private_api: "http://{{heat_host}}"
+
 keystone_admin_pass: Not5afe4Pr0duct!on
 
 glance_user: glance

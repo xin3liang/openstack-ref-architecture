@@ -6,9 +6,10 @@
 - name: Setup glance service
   openstack_service: user={{glance_user}} password={{glance_pass}} type=image
                      description="OpenStack Image Service"
-                     url="http://{{glance_host}}:9292"
+                     url="{{glance_private_api}}:9292"
+                     public_url="{{glance_public_api}}:9292"
                      admin_password={{keystone_admin_pass}}
-                     keystone_url=http://{{keystone_host}}:35357/v3
+                     keystone_url="{{keystone_private_api}}:35357/v3"
 
 - name: Add glance database
   mysql_db: name=glance state=present

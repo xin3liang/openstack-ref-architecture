@@ -1,9 +1,10 @@
 - name: Setup neutron service
   openstack_service: user={{neutron_user}} password={{neutron_pass}} type=network
                      description="OpenStack Networking Service"
-                     url="http://{{keystone_host}}:9696"
+                     url="{{neutron_private_api}}:9696"
+                     public_url="{{neutron_public_api}}:9696"
                      admin_password={{keystone_admin_pass}}
-                     keystone_url=http://{{keystone_host}}:35357/v3
+                     keystone_url="{{keystone_private_api}}:35357/v3"
 
 - name: Add neutron database
   mysql_db: name=neutron state=present
