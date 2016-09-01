@@ -3,4 +3,4 @@ ceph/*.keyring
 ceph/*.conf
 ceph/*.log
 ansible/hosts
-ansible/deployment-vars
+ansible/secrets

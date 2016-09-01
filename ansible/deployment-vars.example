@@ -1,53 +1,6 @@
-keystone_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-keystone-venv.tgz
-keystone_venv_checksum: sha256:913c5f4e3120542add9a5e41666cbd29afe8e8fae4b9355311c2a1c689f0936f
-glance_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-glance-venv.tgz
-glance_venv_checksum: sha256:d1dd11225f226ff6db79a6557c56e09c29b4058395a15f438c04d8ed42b48253
-nova_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-nova-venv.tgz
-nova_venv_checksum: sha256:4bca92865d42006af1d67ee82aef631b594bcd8f8ac86f936c2ca5558cdd70f3
-neutron_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-neutron-venv.tgz
-neutron_venv_checksum: sha256:7af99e6f2ed977cc2281a28875507c222e6d8f492a856d6178b136924110193c
-horizon_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-horizon-venv.tgz
-horizon_venv_checksum: sha256:b04cbf33806da40cb5c89c934737d6bdf931501193b69c49a85c5309dfc66010
-cinder_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-cinder-venv.tgz
-cinder_venv_checksum: sha256:02d2217cd925de28c8376736ce543ccb8022943192c5439408c75eb2023642f7
-cli_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-openstack-cli-venv.tgz
-cli_venv_checksum: sha256:fd0a9dd6ed48ba09f65f04972f4ded757b2e9209104285a20b01e616bc7f29b3
-heat_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-heat-venv.tgz
-heat_venv_checksum: sha256:c72f2941cd36c08d808d77247b8ef72dc83d88072b1edf8a79c8f9ab4d8ed67a
-
-
 data_host: r2-a4
 controller_host: r2-a5
-tunnel_interface: eth1
 network_host: r2-a3
-network_tunnel_ip: "{{ansible_eth1.ipv4.address}}"
-network_external_iface: eth2
-
-keystone_host: "{{controller_host}}"
-glance_host: "{{controller_host}}"
-nova_host: "{{controller_host}}"
-neutron_host: "{{controller_host}}"
-horizon_host: "{{controller_host}}"
-cinder_host: "{{controller_host}}"
-heat_host: "{{controller_host}}"
-
-
-public_api_host: https://YourPublicURL
-keystone_public_api: "{{public_api_host}}"
-nova_public_api: "{{public_api_host}}"
-neutron_public_api: "{{public_api_host}}"
-cinder_public_api_v2: "{{public_api_host}}"
-cinder_public_api: "{{public_api_host}}"
-glance_public_api: "http://{{controller_host}}"
-heat_public_api: "{{public_api_host}}"
-
-keystone_private_api: "http://{{keystone_host}}"
-nova_private_api: "http://{{nova_host}}"
-neutron_private_api: "http://{{neutron_host}}"
-cinder_private_api_v2: "http://{{cinder_host}}"
-cinder_private_api: "http://{{cinder_host}}"
-glance_private_api: "http://{{glance_host}}"
-heat_private_api: "http://{{heat_host}}"
 
 keystone_admin_pass: Not5afe4Pr0duct!on
 

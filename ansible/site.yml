@@ -2,7 +2,8 @@
   hosts: "{{data_host}}"
   become: yes
   vars_files:
-    - ["deployment-vars"]
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: data, tags: [data]}
@@ -11,7 +12,8 @@
   hosts: "{{controller_host}}"
   become: yes
   vars_files:
-    - ["deployment-vars"]
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: cli, tags: [cli]}
@@ -27,7 +29,8 @@
   hosts: "{{network_host}}"
   become: yes
   vars_files:
-    - ["deployment-vars"]
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: nics, tags: [nics]}
@@ -37,7 +40,8 @@
   hosts: "!{{data_host}}:!{{network_host}}:!{{controller_host}}"
   become: yes
   vars_files:
-    - ["deployment-vars"]
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: nics, tags: [nics]}
