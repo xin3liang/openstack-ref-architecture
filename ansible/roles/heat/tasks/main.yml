@@ -3,12 +3,14 @@
                      description="Orchestration"
                      url="http://{{heat_host}}:8004/v1/%(tenant_id)s"
                      admin_password={{keystone_admin_pass}}
+                     keystone_url=http://{{keystone_host}}:35357/v3
 
 - name: Setup Heat Cloud Formation
   openstack_service: user={{heat_user}} password={{heat_pass}} type=cloudformation
                      description="Orchestration" service="heat-cfn"
                      url="http://{{heat_host}}:8000/v1/%(tenant_id)s"
                      admin_password={{keystone_admin_pass}}
+                     keystone_url=http://{{keystone_host}}:35357/v3
 
 - name: Add heat database
   mysql_db: name=heat state=present

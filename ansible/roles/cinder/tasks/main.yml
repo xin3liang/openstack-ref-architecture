@@ -3,12 +3,14 @@
                      description="OpenStack Block Storage"
                      url="http://{{cinder_host}}:8776/v1/%(tenant_id)s"
                      admin_password={{keystone_admin_pass}}
+                     keystone_url=http://{{keystone_host}}:35357/v3
 
 - name: Setup cinder v2
   openstack_service: user={{cinder_user}} password={{cinder_pass}} type=volumev2
                      description="OpenStack Block Storage" service="cinderv2"
                      url="http://{{cinder_host}}:8776/v2/%(tenant_id)s"
                      admin_password={{keystone_admin_pass}}
+                     keystone_url=http://{{keystone_host}}:35357/v3
 
 - name: Add cinder database
   mysql_db: name=cinder state=present

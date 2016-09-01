@@ -3,6 +3,7 @@
                      description="OpenStack Compute Service"
                      url="http://{{nova_host}}:8774/v2/%(tenant_id)s"
                      admin_password={{keystone_admin_pass}}
+                     keystone_url=http://{{keystone_host}}:35357/v3
 
 - name: Add nova database
   mysql_db: name=nova state=present

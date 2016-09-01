@@ -11,20 +11,21 @@ fields = {
     'type': {'required': True, 'type': "str"},
     'description': {'required': True, 'type': "str"},
     'url': {'required': True, 'type': "str"},
+    'keystone_url': {'required': True, 'type': "str"},
     'admin_password': {'required': True, 'type': "str"},
 }
 
 oscli = '/usr/local/bin/openstack'
 
 
-def _os_env(admin_pass):
+def _os_env(admin_pass, keystone_url):
     return {
         'OS_PROJECT_DOMAIN_NAME': 'Default',
         'OS_USER_DOMAIN_NAME': 'Default',
         'OS_PROJECT_NAME': 'service',
         'OS_USERNAME': 'admin',
         'OS_PASSWORD': admin_pass,
-        'OS_AUTH_URL': 'http://r2-a5:35357/v3',
+        'OS_AUTH_URL': keystone_url,
         'OS_IDENTITY_API_VERSION': '3',
     }
 
@@ -111,7 +112,8 @@ def main():
     diff = {'before': '', 'after': ''}
     changed = False
 
-    nova_env = _os_env(module.params['admin_password'])
+    nova_env = _os_env(
+        module.params['admin_password'], module.params['keystone_url'])
 
     if module.params['user'] != 'keystone':
         before, after = _create_user(
