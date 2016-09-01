@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+DISKS="${DISKS-/dev/sdb /dev/sdc /dev/sdd}"
+
 if ! which ceph-deploy ; then
 	echo "ERROR: ceph-deploy must be installed (via pip or apt)"
 	exit 1
@@ -26,7 +28,9 @@ done
 ansible -b -K -i $hosts dev-cloud -m shell -a "echo $SSH_USER ALL=\(ALL\) NOPASSWD:ALL > /etc/sudoers.d/zz-ceph-deploy"
 
 for node in $* ; do
-	ansible -b -i $hosts $node -m shell -a "mkdir /srv/ceph_store && chown ceph:ceph /srv/ceph_store"
-	ceph-deploy osd prepare ${node}:/srv/ceph_store
-	ceph-deploy osd activate ${node}:/srv/ceph_store
+	for disk in $DISKS ; do
+		# TODO separate disk for journal
+		ceph-deploy osd prepare --zap-disk ${node}:$disk
+		ceph-deploy osd activate ${node}:${disk}1:${disk}2
+	done
 done

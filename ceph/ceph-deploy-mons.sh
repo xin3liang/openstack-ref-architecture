@@ -29,8 +29,8 @@ ceph-deploy new $*
 cat >> ceph.conf <<EOF
 
 # needed for raw directories rather than disks
-osd max object name len = 256
-osd max object namespace len = 64
+#osd max object name len = 256
+#osd max object namespace len = 64
 
 [client.images]
 keyring = /etc/ceph/ceph.client.images.keyring
