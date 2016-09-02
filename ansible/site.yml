@@ -7,6 +7,7 @@
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: data, tags: [data]}
+    - {role: zabbix-agent, tags: [zabbix-agent]}
 
 - name: Configure the controller node
   hosts: "{{controller_host}}"
@@ -24,6 +25,7 @@
     - {role: cinder, tags: [cinder]}
     - {role: horizon, tags: [horizon]}
     - {role: heat, tags: [heat]}
+    - {role: zabbix-agent, tags: [zabbix-agent]}
 
 - name: Configure the network node
   hosts: "{{network_host}}"
@@ -35,9 +37,10 @@
     - {role: ntp, tags: [ntp]}
     - {role: nics, tags: [nics]}
     - {role: network, tags: [neutron]}
+    - {role: zabbix-agent, tags: [zabbix-agent]}
 
 - name: Configure the compute nodes
-  hosts: "!{{data_host}}:!{{network_host}}:!{{controller_host}}"
+  hosts: "!{{data_host}}:!{{network_host}}:!{{controller_host}}:!{{zabbix_server}}"
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
@@ -46,3 +49,15 @@
     - {role: ntp, tags: [ntp]}
     - {role: nics, tags: [nics]}
     - {role: compute, tags: [compute]}
+    - {role: zabbix-agent, tags: [zabbix-agent]}
+
+- name: Configure zabbix-server
+#  hosts: "{{zabbix_server}}"
+  hosts: zabbix_server
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  become: yes
+  roles:
+    - {role: zabbix-server, tags: [zabbix-server]}
+    - {role: zabbix-agent, tags: [zabbix-agent]}

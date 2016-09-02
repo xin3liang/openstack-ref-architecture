@@ -1,0 +1,65 @@
+---
+- name: Install zabbix-server
+  apt: pkg="{{item}}" state=latest update_cache=yes default_release=jessie-backports
+  with_items:
+    - zabbix-server-pgsql
+    - zabbix-frontend-php
+
+- name: Include postgres
+  include: postgres.yml
+
+- name: Include apache
+  include: apache.yml
+
+- name: Ensure Zabbix frontend config exists
+  template: src=zabbix.conf.php.j2 dest=/etc/zabbix/zabbix.conf.php
+
+- name: Copy zabbix template
+  template: src=zabbix_server.conf.j2 dest=/etc/zabbix/zabbix_server.conf
+  notify: restart-zabbix-server
+
+- name: Ensure zabbix-server is running
+  service: name=zabbix-server state=started enabled=yes
+
+- name: Create a new host or update an existing host's info
+  local_action:
+    module: zabbix_host
+    server_url: "http://{{zabbix_server}}"
+    login_user: Admin
+    login_password: zabbix
+    host_name: "{{item}}"
+    host_groups: "Linux servers"
+    link_templates: "Template OS Linux"
+    status: enabled
+    state: present
+    inventory_mode: automatic
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 0
+        ip: ""
+        dns: "{{item}}"
+        port: 10050
+  with_items: "{{groups['dev-cloud']}}"
+#  environment:
+#    http_proxy: http://localhost:8081
+  tags: zabbix-hosts
+
+- name: Enable Zabbix Server Monitoring
+  local_action:
+    module: zabbix_host
+    server_url: "http://{{zabbix_server}}"
+    login_user: Admin
+    login_password: zabbix
+    host_name: "Zabbix server"
+    host_groups: "Zabbix servers"
+    link_templates:
+      - "Template App Zabbix Server"
+      - "Template OS Linux"
+    status: enabled
+    state: present
+#  environment:
+#    http_proxy: http://localhost:8081
+  tags: zabbix-hosts
+
+

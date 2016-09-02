@@ -1,0 +1,51 @@
+---
+# Need to always define 'become_user: postgres' or it will not work!
+
+- name: Install postgres packages
+  apt: pkg="{{item}}" state=installed update-cache=yes
+  with_items:
+    - postgresql
+    - python-psycopg2
+    - postgresql-contrib
+
+- name: Enable postgres to listen on local interface
+  lineinfile: dest=/etc/postgresql/9.4/main/postgresql.conf
+              regexp="^listen_addresses"
+              insertafter="^#listen_addresses"
+              line="listen_addresses = 'localhost'"
+  notify:
+    - restart-postgres
+
+- name: Ensure the PostgreSQL service is running
+  service: name=postgresql state=started enabled=yes
+
+- name: Create postgres user
+  become_user: "postgres"
+  postgresql_user: user="{{zabbix_db_user}}"
+                   password="{{zabbix_db_password}}"
+                   role_attr_flags=SUPERUSER
+
+- name: Create postgres database
+  become_user: "postgres"
+  postgresql_db: name="{{zabbix_db_name}}"
+                 owner="{{zabbix_db_user}}"
+                 template=template0
+                 encoding=UTF8
+
+- name: Get table list
+  become_user: "postgres"
+  shell: psql zabbix -c "select * from pg_catalog.pg_tables"
+  register: result
+
+- name: Ensure schema exists
+  become_user: "postgres"
+  shell: /bin/zcat /usr/share/zabbix-server-pgsql/schema.sql.gz | psql "{{zabbix_db_name}}"
+  when: "result is defined and 'hosts' not in result.stdout"
+- name: Ensure images exists
+  become_user: "postgres"
+  shell: /bin/zcat /usr/share/zabbix-server-pgsql/images.sql.gz | psql "{{zabbix_db_name}}"
+  when: "result is defined and 'hosts' not in result.stdout"
+- name: Ensure data exists
+  become_user: "postgres"
+  shell: /bin/zcat /usr/share/zabbix-server-pgsql/data.sql.gz | psql "{{zabbix_db_name}}"
+  when: "result is defined and 'hosts' not in result.stdout"

@@ -1,0 +1,44 @@
+---
+- name: Install Apache
+  apt: pkg="{{item}}" state=latest update_cache=yes
+  with_items:
+    - apache2
+
+# Not in jessie-backports
+
+- name: Install php5-ldap
+  apt: deb={{item}}
+  with_items:
+    - http://security.debian.org/pool/updates/main/p/php5/php5-common_5.6.24+dfsg-0+deb8u1_arm64.deb
+    - http://ftp.uk.debian.org/debian/pool/main/o/openssl/libssl1.0.0_1.0.2h-1~bpo8+2_arm64.deb
+    - http://security.debian.org/pool/updates/main/p/php5/php5-ldap_5.6.24+dfsg-0+deb8u1_arm64.deb
+
+- name: apache2 | enable apache2 modules
+  apache2_module: state=present name="{{item}}"
+  with_items:
+    - ssl
+    - rewrite
+  notify:
+    - restart-apache
+
+- name: apache2 | Copy apache config file
+  template: src=zabbix_apache.conf.j2 dest=/etc/apache2/sites-available/zabbix_apache.conf
+  notify:
+    - restart-apache
+
+- name: Enable site config
+  command: a2ensite zabbix_apache.conf
+  register: result
+  changed_when: "'already enabled' not in result.stdout"
+  notify:
+      - restart-apache
+
+- name: Disable OS default site config
+  command: a2dissite 000-default
+  register: result
+  changed_when: "'already disabled' not in result.stdout"
+  notify:
+      - restart-apache
+
+- name: Ensure Apache has restarted
+  service: name=apache2 state=restarted

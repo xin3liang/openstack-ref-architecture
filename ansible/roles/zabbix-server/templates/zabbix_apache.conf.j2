@@ -1,0 +1,64 @@
+# ANSIBLE MANAGED DO NOT EDIT
+
+<VirtualHost *:80>
+
+    ServerName {{ zabbix_server }}
+    ServerAlias {{ zabbix_server }}
+
+    DocumentRoot /usr/share/zabbix
+
+    ErrorLog ${APACHE_LOG_DIR}/{{ inventory_hostname }}-error.log
+    CustomLog ${APACHE_LOG_DIR}/{{ inventory_hostname }}-access.log combined
+
+    <Directory "/usr/share/zabbix">
+     Options FollowSymLinks
+     AllowOverride None
+     Order allow,deny
+     Allow from all
+
+     php_value max_execution_time 300
+     php_value memory_limit 128M
+     php_value post_max_size 16M
+     php_value upload_max_filesize 2M
+     php_value max_input_time 300
+     php_value date.timezone Europe/London
+     php_value always_populate_raw_post_data -1
+     </Directory>
+
+     <Directory "/usr/share/zabbix/conf">
+        Order deny,allow
+        Deny from all
+         <files *.php>
+            Order deny,allow
+            Deny from all
+         </files>
+     </Directory>
+
+     <Directory "/usr/share/zabbix/api">
+      Order deny,allow
+         Deny from all
+         <files *.php>
+          Order deny,allow
+          Deny from all
+         </files>
+     </Directory>
+
+     <Directory "/usr/share/zabbix/include">
+         Order deny,allow
+         Deny from all
+         <files *.php>
+          Order deny,allow
+          Deny from all
+         </files>
+     </Directory>
+
+     <Directory "/usr/share/zabbix/include/classes">
+         Order deny,allow
+         Deny from all
+         <files *.php>
+          Order deny,allow
+          Deny from all
+         </files>
+     </Directory>
+
+    </VirtualHost>

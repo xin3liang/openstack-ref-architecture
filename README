@@ -27,9 +27,23 @@ Part 3: Deploying OpenStack
 OpenStack is deployed using Ansible with the playbook defined in the "ansible"
 directory. You'll need to create the files "deployment-vars" and "hosts" to
 match your environment. There are examples to help guide you. Once those files
-are in place, OpenStack can be deployed with::
+are in place, OpenStack can be deployed with:
 
   ansible-playbook -K -v -i ./hosts ./site.yml -l <data_host>
   ansible-playbook -K -v -i ./hosts ./site.yml -l <controller_host>
   ansible-playbook -K -v -i ./hosts ./site.yml -l <network_host>
   ansible-playbook -K -v -i ./hosts ./site.yml -l <compute_host>
+
+Part 4: Deploying Zabbix
+===========================
+
+Zabbix is deployed using Ansible. Much like OpenStack, you must update the
+"deployment-vars" and "hosts" to match your enviroment.
+
+To deploy Zabbix you must have zabbix-api installed "pip install zabbix-api".
+
+It is required you setup a subdomain, for example monitoring.example.com,
+for Zabbix to work.
+
+
+  ansible-playbook -K -v -i ./hosts ./site.yml -l <zabbix_server>
