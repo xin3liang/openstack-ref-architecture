@@ -2,6 +2,24 @@ data_host: r2-a4
 controller_host: r2-a5
 network_host: r2-a3
 
+# Ceph needs a unique value from "uuidgen"
+ceph_fsid: "e05d6376-6965-4c48-9b36-b8f5c518e3b9"
+
+# Generated with: ceph-authtool -g --gen-print-key
+ceph_mon_pass: "AQD+HM9XTYv+CRAAK8PqN/vLYxetv18R0gnSAw=="
+ceph_admin_pass: "AQA1Hc9XXWHTNBAAckb3I3kYvZ97GSwl0jkyLA=="
+ceph_bootstrap_osd_pass: "AQC6h89XrotVBRAA2huhk0VW7c6VIWQyETl+gA=="
+ceph_glance_pass: "AQBrHc9XZNzwMBAAwhPr4Gbcn77E/6AezPMhqg=="
+ceph_nova_pass: "AQCLHc9XBR00ERAA3ZOXE/6Lugiub+IcX0VUmA=="
+ceph_cinder_pass: "AQCBHc9X7x2NLBAA2nKjpTpUaH5eHv6+FqvZog=="
+
+# Potentially host specific, this is a list of HDDs ceph should enlist
+# on a host as an OSD.
+ceph_host_osds:
+  - sdb
+  - sdc
+  - sdd
+
 keystone_admin_pass: Not5afe4Pr0duct!on
 
 glance_user: glance

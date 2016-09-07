@@ -1,0 +1,12 @@
+- name: Copy the bootstrap osd keyring
+  file: src=/etc/ceph/ceph.client.bootstrap-osd.keyring state=link force=yes
+        dest=/var/lib/ceph/bootstrap-osd/ceph.keyring
+
+- name: Prepare disk /dev/{{item}}
+  when: "{{ansible_devices[item]['partitions']|count}} != 2"
+  command: ceph-disk prepare --zap-disk --cluster ceph --cluster-uuid {{ceph_fsid}} /dev/{{item}}
+  register: ceph_disk
+
+- name: Activate disk /dev/{{item}}
+  when: ceph_disk is defined and ceph_disk.changed
+  command: ceph-disk activate /dev/{{item}}1

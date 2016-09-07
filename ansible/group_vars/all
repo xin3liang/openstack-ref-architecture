@@ -16,6 +16,13 @@ heat_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-heat-venv.tgz
 heat_venv_checksum: sha256:c72f2941cd36c08d808d77247b8ef72dc83d88072b1edf8a79c8f9ab4d8ed67a
 
 
+# Ceph needs an odd number of MONs. 3 is a good number for a small/mid-sized deployment,
+# So we'll use our non-compute nodes:
+ceph_mons:
+  - "{{data_host}}"
+  - "{{network_host}}"
+  - "{{controller_host}}"
+
 # the network interface for compute and network nodes to handle tenant networking
 tunnel_interface: eth1
 network_tunnel_ip: "{{ansible_eth1.ipv4.address}}"

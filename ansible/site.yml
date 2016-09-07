@@ -7,6 +7,7 @@
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: data, tags: [data]}
+    - {role: ceph, tags: [ceph]}
     - {role: zabbix-agent, tags: [zabbix-agent]}
 
 - name: Configure the controller node
@@ -17,6 +18,7 @@
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
+    - {role: ceph, tags: [ceph]}
     - {role: cli, tags: [cli]}
     - {role: keystone, tags: [keystone]}
     - {role: glance, tags: [glance]}
@@ -36,6 +38,7 @@
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: nics, tags: [nics]}
+    - {role: ceph, tags: [ceph]}
     - {role: network, tags: [neutron]}
     - {role: zabbix-agent, tags: [zabbix-agent]}
 
@@ -48,6 +51,7 @@
   roles:
     - {role: ntp, tags: [ntp]}
     - {role: nics, tags: [nics]}
+    - {role: ceph, tags: [ceph]}
     - {role: compute, tags: [compute]}
     - {role: zabbix-agent, tags: [zabbix-agent]}
 
