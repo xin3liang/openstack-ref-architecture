@@ -1,6 +1,6 @@
 ---
 - name: Ensure Zabbix Agent is installed
-  apt: pkg=zabbix-agent state=latest update_cache=yes
+  apt: pkg=zabbix-agent state=present update_cache=yes
 
 - name: Copy zabbix-agent template
   template: src=zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf

@@ -1,6 +1,6 @@
 ---
 - name: Install zabbix-server
-  apt: pkg="{{item}}" state=latest update_cache=yes default_release=jessie-backports
+  apt: pkg="{{item}}" state=present update_cache=yes default_release=jessie-backports
   with_items:
     - zabbix-server-pgsql
     - zabbix-frontend-php

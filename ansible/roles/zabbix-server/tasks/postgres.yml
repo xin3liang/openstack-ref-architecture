@@ -31,11 +31,13 @@
                  owner="{{zabbix_db_user}}"
                  template=template0
                  encoding=UTF8
+  register: db_register
 
 - name: Get table list
   become_user: "postgres"
-  shell: psql zabbix -c "select * from pg_catalog.pg_tables"
+  command: psql zabbix -c "select * from pg_catalog.pg_tables"
   register: result
+  when: db_register.changed
 
 - name: Ensure schema exists
   become_user: "postgres"
