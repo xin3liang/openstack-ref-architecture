@@ -13,16 +13,8 @@ we have identical code running everywhere by simply extracting a tar file.
 These venvs can be built by running "sudo ./openstack-venvs/build_all.sh" on
 a system with the Debian Reference Platform installed.
 
-Part 2: Deploying Ceph
-======================
-
-We currently don't have Ceph installed via ansible. So before the Developer
-Cloud can be deployed, a Ceph cluster must be installed on the machines. This
-can be done using the scripts under the "ceph" directory on you laptop. See
-docs/deploy-ceph.txt for directions.
-
-Part 3: Deploying OpenStack
-===========================
+Part 2: Deploying OpenStack/Ceph
+================================
 
 OpenStack is deployed using Ansible with the playbook defined in the "ansible"
 directory. You'll need to create the files "deployment-vars" and "hosts" to
@@ -34,7 +26,7 @@ are in place, OpenStack can be deployed with:
   ansible-playbook -K -v -i ./hosts ./site.yml -l <network_host>
   ansible-playbook -K -v -i ./hosts ./site.yml -l <compute_host>
 
-Part 4: Deploying Zabbix
+Part 3: Deploying Zabbix
 ===========================
 
 Zabbix is deployed using Ansible. Much like OpenStack, you must update the
