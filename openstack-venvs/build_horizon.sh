@@ -22,6 +22,7 @@ EOF
 
 . bin/activate
 pip install --upgrade setuptools
+pip install pytz
 pip install -r src/requirements.txt
 pip install python-memcached
 
