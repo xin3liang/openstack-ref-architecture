@@ -2,7 +2,19 @@
 
 VENV=/srv/$PROJECT_NAME
 
-apt-get install -y git libyaml-dev libxml2-dev libxslt1-dev libmysqlclient-dev libffi-dev libssl-dev libvirt-dev python-dev pkg-config libvirt-dev python-virtualenv
+if [ -f /etc/debian_version ]; then
+    apt-get install -y git libyaml-dev libxml2-dev libxslt1-dev libmysqlclient-dev libffi-dev libssl-dev libvirt-dev python-dev pkg-config libvirt-dev python-virtualenv
+fi
+
+if [ -f /etc/redhat-release ]; then
+    CMD=yum
+
+    if [ -f /etc/fedora-release ]; then
+	CMD=dnf
+    fi
+
+    $CMD install -y libyaml-devel libxml2-devel libxslt-devel mysql-devel libffi-devel openssl-devel libvirt-devel python-devel pkgconfig python-virtualenv
+fi
 
 virtualenv $VENV
 
