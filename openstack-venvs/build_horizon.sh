@@ -21,6 +21,7 @@ COMPRESS_ENABLED = True
 EOF
 
 . bin/activate
+pip install --upgrade setuptools
 pip install -r src/requirements.txt
 pip install python-memcached
 
