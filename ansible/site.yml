@@ -1,62 +1,186 @@
-- name: Configure the data node
-  hosts: "{{data_host}}"
-  become: yes
-  vars_files:
-    - ["secrets/deployment-vars", "deployment-vars.example"]
-    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
-  roles:
-    - {role: ntp, tags: [ntp]}
-    - {role: data, tags: [data]}
-    - {role: ceph, tags: [ceph]}
-    - {role: zabbix-agent, tags: [zabbix-agent]}
+# Gather facts from all nodes
+#
+- hosts: all
+  tasks:
+    - name: setup
+      setup:
 
-- name: Configure the controller node
-  hosts: "{{controller_host}}"
+# Make sure time is correct in all servers
+#
+- name: Configure ntp
+  hosts: ntp_servers
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
-    - {role: ceph, tags: [ceph]}
+
+# Data Node Deployment
+#
+- name: Deploy MySQL servers
+  hosts: mysql_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: mysql, tags: [mysql]}
+
+- name: Deploy Rabbitmq servers
+  hosts: rabbit_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: rabbitmq, tags: [rabbitmq]}
+
+# TODO: add ceph mons
+# I don't see how to make this work without two different roles, one for OSD one for Monitors
+# since we are installing them on different hosts and want to be able to add/remove them
+# as necessary
+#
+# - name: Deploy Ceph monitors
+#   hosts: ceph_monitors
+#   become: yes
+#   vars_files:
+#     - ["secrets/deployment-vars", "deployment-vars.example"]
+#     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+#   roles:
+#     - {role:ceph-mon, tags: [ceph-mon]}
+#     - {role: ntp, tags: [ntp]}
+
+# Controller Deployment
+#
+- name: Configure OpenStack client app
+  hosts: cli_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: cli, tags: [cli]}
+
+- name: Configure Keystone
+  hosts: keystone_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: keystone, tags: [keystone]}
+
+- name: Configure memcache
+  hosts: memcache_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: memcached, tags: [memcached]}
+
+- name: Configure Glance
+  hosts: glance_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: glance, tags: [glance]}
+
+- name: Configure Nova API
+  hosts: nova_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: nova, tags: [nova]}
+
+- name: Configure Neutron API
+  hosts: neutron_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: neutron, tags: [neutron]}
+
+- name: Configure Cinder API
+  hosts: cinder_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: cinder, tags: [cinder]}
+
+- name: Configure  Horizon
+  hosts: horizon_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: horizon, tags: [horizon]}
+
+- name: Configure Heat API
+  hosts: heat_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: heat, tags: [heat]}
-    - {role: zabbix-agent, tags: [zabbix-agent]}
 
-- name: Configure the network node
-  hosts: "{{network_host}}"
+# Networking node Deployment
+#
+- name: Configure Nics and Neutron
+  hosts: networking_servers
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
-    - {role: ntp, tags: [ntp]}
     - {role: nics, tags: [nics]}
-    - {role: ceph, tags: [ceph]}
-    - {role: network, tags: [neutron]}
-    - {role: zabbix-agent, tags: [zabbix-agent]}
+    - {role: network, tags: [network]}
 
-- name: Configure the compute nodes
-  hosts: "!{{data_host}}:!{{network_host}}:!{{controller_host}}:!{{zabbix_server}}"
+# Compute Nodes Deployment
+#
+- name: Configure Compute
+  hosts: compute_servers
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
-    - {role: ntp, tags: [ntp]}
-    - {role: nics, tags: [nics]}
-    - {role: ceph, tags: [ceph]}
     - {role: compute, tags: [compute]}
-    - {role: zabbix-agent, tags: [zabbix-agent]}
+    - {role: nics, tags: [nics]}
 
+- name: Configure Cinder Volumes
+  hosts: compute_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: cinder-volume, tags: [cinder-volume]}
+
+# TODO: Add ceph
+# - name: Configure Ceph OSDs
+#   hosts: "ceph_osds"
+#   become: yes
+#   vars_files:
+#     - ["secrets/deployment-vars", "deployment-vars.example"]
+#     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+#   roles:
+#     - {role:ceph-osd, tags: [ceph-osd]}
+#     - {role: ntp, tags: [ntp]}
+
+
+# Deploy Zabbix
 - name: Configure zabbix-server
-#  hosts: "{{zabbix_server}}"
   hosts: zabbix_server
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
@@ -64,4 +188,13 @@
   become: yes
   roles:
     - {role: zabbix-server, tags: [zabbix-server]}
+    - {role: zabbix-agent, tags: [zabbix-agent]}
+
+- name: Configure Zabbix Agents
+  hosts: zabbix_agents
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
     - {role: zabbix-agent, tags: [zabbix-agent]}
