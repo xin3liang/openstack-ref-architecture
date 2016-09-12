@@ -1,5 +1,2 @@
 - name: restart-keystone
   service: name=apache2 state=reloaded
-
-- name: restart-memcached
-  service: name=memcached state=restarted

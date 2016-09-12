@@ -3,15 +3,7 @@
   with_items:
     - apache2
     - libapache2-mod-wsgi
-    - memcached
     - python-mysqldb
-
-- name: Configure memcached
-  lineinfile: dest=/etc/memcached.conf regexp=^-l line="-l 0.0.0.0"
-  notify: restart-memcached
-
-# force memcached to be reloaded *now* so services can use it
-- meta: flush_handlers
 
 - name: Add Keystone Database
   mysql_db: name=keystone state=present
