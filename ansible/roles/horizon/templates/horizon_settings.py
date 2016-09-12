@@ -23,7 +23,7 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '{{controller_host}}:11211',
+        'LOCATION': '{{horizon_host}}:11211',
     }
 }
 

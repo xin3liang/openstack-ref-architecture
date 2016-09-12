@@ -1,7 +1,6 @@
 - name: Install dependencies
   apt: pkg={{item}} state=installed
   with_items:
-    - ceph-common
     - conntrack
     - gir1.2-libosinfo-1.0
     - ipset
@@ -20,8 +19,6 @@
            url={{nova_venv_url}} checksum={{nova_venv_checksum}}
 - include: roles/common/deploy_venv.yml component=neutron notify=restart-neutron
            url={{neutron_venv_url}} checksum={{neutron_venv_checksum}}
-- include: roles/common/deploy_venv.yml component=cinder notify=restart-cinder-volume
-           url={{cinder_venv_url}} checksum={{cinder_venv_checksum}}
 
 # python-ceph can't really be built into venv (and doesn't exist in pip)
 # so symlink in what glance needs
@@ -33,14 +30,6 @@
     - rados.aarch64-linux-gnu.so
   notify:
     - restart-nova
-- name: Hack symlinks for python-ceph into cinder venv
-  file: src=/usr/lib/python2.7/dist-packages/{{item}}
-        dest=/srv/cinder/lib/python2.7/site-packages/{{item}} state=link
-  with_items:
-    - rbd.aarch64-linux-gnu.so
-    - rados.aarch64-linux-gnu.so
-  notify:
-    - restart-cinder-volume
 
 - name: Ensure the neutron-server isn't enabled
   file: state=absent path={{item}}
@@ -63,10 +52,6 @@
 - name: Configure openvswitch_agent.ini
   template: src=openvswitch_agent.ini dest=/etc/neutron/plugins/ml2/
   notify: restart-neutron
-
-- name: Configure cinder.conf
-  template: src=roles/cinder/templates/cinder.conf dest=/etc/cinder/
-  notify: restart-cinder-volume
 
 # configure libvirtd to allow VM migration
 - name: Copy /etc/default/libvirtd

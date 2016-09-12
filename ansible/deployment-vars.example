@@ -44,7 +44,7 @@ nova_api_db_pass: UnsafeC0mput3Passw0rd
 nova_ceph_virsh_uuid: 06214a0d-dc30-4e9b-856b-c8f0c0e63d9d
 
 rabbit_user: openstack
-rabbit_pass: UnsafeBunnyPass0rd
+rabbit_pass: UnsafeBunnyPassw0rd
 rabbit_db_user: rabbit
 rabbit_db_pass: UnsafeBunnyPassw0rd
 

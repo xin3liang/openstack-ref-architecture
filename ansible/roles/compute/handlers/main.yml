@@ -4,8 +4,5 @@
 - name: restart-neutron
   service: name=neutron-openvswitch-agent state=restarted
 
-- name: restart-cinder-volume
-  service: name=cinder-volume state=restarted
-
 - name: restart-libvirtd
   service: name=libvirtd state=restarted

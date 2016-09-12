@@ -24,7 +24,7 @@
   copy: src=keystone-paste.ini dest=/etc/keystone/
   notify: restart-keystone
 
-- name: Add CLI environment
+- name: Add CLI credentials file
   template: src=nova-admin.rc dest=/srv/keystone/
 
 - name: Run DB sync

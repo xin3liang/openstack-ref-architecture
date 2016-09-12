@@ -16,12 +16,8 @@ heat_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-heat-venv.tgz
 heat_venv_checksum: sha256:c72f2941cd36c08d808d77247b8ef72dc83d88072b1edf8a79c8f9ab4d8ed67a
 
 
-# Ceph needs an odd number of MONs. 3 is a good number for a small/mid-sized deployment,
-# So we'll use our non-compute nodes:
-ceph_mons:
-  - "{{data_host}}"
-  - "{{network_host}}"
-  - "{{controller_host}}"
+# Ceph needs an odd number of MONs. 3 is a good number for a small/mid-sized deployment
+ceph_mons: "{% for host in groups['ceph_mons_servers'] %} - {{ hostvars[host]['ansible_fqdn'] }} '\n' {% if not loop.last %},{% endif %}{% endfor %}"
 
 # the network interface for compute and network nodes to handle tenant networking
 tunnel_interface: eth1
@@ -30,24 +26,37 @@ network_tunnel_ip: "{{ansible_eth1.ipv4.address}}"
 # the network node's interface connected to public internet
 network_external_iface: eth2
 
-keystone_host: "{{controller_host}}"
-glance_host: "{{controller_host}}"
-nova_host: "{{controller_host}}"
-neutron_host: "{{controller_host}}"
-horizon_host: "{{controller_host}}"
-cinder_host: "{{controller_host}}"
-heat_host: "{{controller_host}}"
+keystone_host: "{{ hostvars[groups['keystone_servers'][0]]['ansible_fqdn'] }}"
+cli_host: "{{ hostvars[groups['cli_servers'][0]]['ansible_fqdn'] }}"
+glance_host: "{{ hostvars[groups['glance_servers'][0]]['ansible_fqdn'] }}"
+nova_host: "{{ hostvars[groups['nova_servers'][0]]['ansible_fqdn'] }}"
+neutron_host: "{{ hostvars[groups['neutron_servers'][0]]['ansible_fqdn'] }}"
+horizon_host: "{{ hostvars[groups['horizon_servers'][0]]['ansible_fqdn'] }}"
+cinder_host: "{{ hostvars[groups['cinder_servers'][0]]['ansible_fqdn'] }}"
+heat_host: "{{ hostvars[groups['heat_servers'][0]]['ansible_fqdn'] }}"
+mysql_host: "{{ hostvars[groups['mysql_servers'][0]]['ansible_fqdn'] }}"
+rabbit_host: "{{ hostvars[groups['rabbit_servers'][0]]['ansible_fqdn'] }}"
+
+# future (with DNS):
+# mysql_servers: "mysql.mycloud"
+# memcached_servers: "memcached.mycloud"
+# rabbitmq_servers: "rabbitmq.mycloud"
+
+## Memcached option
+memcached_port: 11211
+memcached_servers: "{% for host in groups['memcache_servers'] %}{{ hostvars[host]['ansible_fqdn'] }}:{{ memcached_port }}{% if not loop.last %},{% endif %}{% endfor %}"
+
 
 # If you want to expose your openstack endpoints to the public, you can override this
 # value to point to something like https://example.com (no trailing slash)
-public_api_host: http://{{controller_host}}
+# public_api_host: http://example.com
 
 keystone_public_api: "{{public_api_host}}:5000"
 nova_public_api: "{{public_api_host}}:8774/v2/%(tenant_id)s"
 neutron_public_api: "{{public_api_host}}:9696"
 cinder_public_api_v2: "{{public_api_host}}:8776/v2/%(tenant_id)s"
 cinder_public_api: "{{public_api_host}}:8776/v1/%(tenant_id)s"
-glance_public_api: "http://{{controller_host}}:9292"
+glance_public_api: "http://{{glance_host}}:9292"
 heat_public_api: "{{public_api_host}}:8004/v1/%(tenant_id)s"
 heat_cfm_public_api: "{{public_api_host}}:8000/v1/%(tenant_id)s"
 
