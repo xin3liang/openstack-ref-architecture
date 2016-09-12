@@ -1,3 +1,5 @@
 # NOTE: the notify=restart-chrony is a hack to allow using this generic role
+# TODO: Fix the dependency on chrony as it may not be present on the server where we are installing
+# adding a role that installs ntp on all the servers so that time is synchronized across the cloud
 - include: roles/common/deploy_venv.yml component=openstack-cli notify=restart-chrony
            url={{cli_venv_url}} checksum={{cli_venv_checksum}}
