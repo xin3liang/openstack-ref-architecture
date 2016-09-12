@@ -61,7 +61,7 @@
   notify: restart-neutron
 
 - name: Configure openvswitch_agent.ini
-  template: src=roles/network/templates/openvswitch_agent.ini dest=/etc/neutron/plugins/ml2/
+  template: src=openvswitch_agent.ini dest=/etc/neutron/plugins/ml2/
   notify: restart-neutron
 
 - name: Configure cinder.conf
