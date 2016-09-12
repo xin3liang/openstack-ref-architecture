@@ -16,7 +16,11 @@
 
 - name: Add heat database
   mysql_db: name=heat state=present
-            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+            login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
+- name: Add heat DB user
+  mysql_user: name={{heat_db_user}} password={{heat_db_pass}} priv=heat.*:ALL state=present
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - include: roles/common/deploy_venv.yml component=heat notify=restart-heat
            url={{heat_venv_url}} checksum={{heat_venv_checksum}}

@@ -14,9 +14,13 @@
                      admin_password={{keystone_admin_pass}}
                      keystone_url="{{keystone_private_api}}"
 
-- name: Add cinder database
+- name: Add cinder DB
   mysql_db: name=cinder state=present
-            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+            login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
+- name: Add cinder DB user
+  mysql_user: name={{cinder_db_user}} password={{cinder_db_pass}} priv=cinder.*:ALL state=present
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - include: roles/common/deploy_venv.yml component=cinder notify=restart-cinder
            url={{cinder_venv_url}} checksum={{cinder_venv_checksum}}

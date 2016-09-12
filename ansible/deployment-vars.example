@@ -25,28 +25,45 @@ mysql_root_user: mysql
 mysql_root_pass: UnsafeMySQLPassw0rd
 
 keystone_admin_pass: Not5afe4Pr0duct!on
+keystone_db_user: keystone
+keystone_db_pass: UnsafeIdentityPassw0rd
 
 glance_user: glance
 glance_pass: Unsafe1magePassw0rd
+glance_db_user: glance
+glance_db_pass: UnsafePassword
 
 nova_neutron_metadata_proxy_shared_secret: f530a126c0be630488a6
 
 nova_user: nova
-nova_pass: UnsafeC0mput3Passw0rd
+nova_db_pass: UnsafeC0mput3Passw0rd
+nova_db_user: nova
+nova_db_pass: UnsafeC0mput3Passw0rd
+nova_api_db_user: nova-api
+nova_api_db_pass: UnsafeC0mput3Passw0rd
 nova_ceph_virsh_uuid: 06214a0d-dc30-4e9b-856b-c8f0c0e63d9d
 
 rabbit_user: openstack
 rabbit_pass: UnsafeBunnyPass0rd
+rabbit_db_user: rabbit
+rabbit_db_pass: UnsafeBunnyPassw0rd
 
 neutron_user: neutron
 neutron_pass: UnsafeN3tPassw0rd
+neutron_db_user: neutron
+neutron_db_pass: UnsafePassword
 
 cinder_user: cinder
 cinder_pass: UnsafeBl0ckPassw0rd
+cinder_db_user: cinder
+cinder_db_pass: UnsafePassword
 cinder_ceph_virsh_uuid: 21cf1630-801b-4dd6-aef5-2bed37fd086a
 
 heat_user: heat
 heat_pass: UnsafeHeatPassw0rd
+heat_db_user: heat
+heat_db_pass: UnsafePassword
+
 heat_domain_admin: heat_domain_admin
 heat_domain_pass: UnsafeD0main
 

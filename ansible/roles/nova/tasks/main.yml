@@ -8,11 +8,19 @@
 
 - name: Add nova database
   mysql_db: name=nova state=present
-            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+            login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
+- name: Add nova DB user
+  mysql_user: name={{nova_db_user}} password={{nova_db_pass}} priv=nova.*:ALL state=present
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - name: Add nova-api database
   mysql_db: name=nova-api state=present
-            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+            login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
+- name: Add nova-api DB user
+  mysql_user: name={{nova_api_db_user}} password={{nova_api_db_pass}} priv=nova-api.*:ALL state=present
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - name: Install nova packages
   apt: pkg={{item}} state=installed

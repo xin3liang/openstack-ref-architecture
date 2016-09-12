@@ -5,9 +5,13 @@
     - libapache2-mod-wsgi
     - python-mysqldb
 
-- name: Add Keystone Database
+- name: Add keystone DB
   mysql_db: name=keystone state=present
-            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+            login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
+- name: Add keystone DB user
+  mysql_user: name={{keystone_db_user}} password={{keystone_db_pass}} priv=keystone.*:ALL state=present
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - include: roles/common/deploy_venv.yml component=keystone notify=restart-keystone
            url={{keystone_venv_url}} checksum={{keystone_venv_checksum}}

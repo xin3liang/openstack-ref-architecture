@@ -8,7 +8,11 @@
 
 - name: Add neutron database
   mysql_db: name=neutron state=present
-            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+            login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
+- name: Add neutron DB user
+  mysql_user: name={{neutron_db_user}} password={{neutron_db_pass}} priv=neutron.*:ALL state=present
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - name: Install neutron packages
   apt: pkg={{item}} state=installed

@@ -11,9 +11,14 @@
                      admin_password={{keystone_admin_pass}}
                      keystone_url="{{keystone_private_api}}"
 
-- name: Add glance database
+- name: Add glance DB
   mysql_db: name=glance state=present
-            login_host={{data_host}} login_user={{nova_user}} login_password={{nova_pass}}
+            login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
+- name: Add glance DB user
+  mysql_user: name={{glance_db_user}} password={{glance_db_pass}} priv=glance.*:ALL state=present
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
+
 
 - include: roles/common/deploy_venv.yml component=glance notify=restart-glance
            url={{glance_venv_url}} checksum={{glance_venv_checksum}}
