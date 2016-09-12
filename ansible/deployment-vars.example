@@ -1,4 +1,5 @@
-data_host: r2-a4
+mysql_host: r2-a4
+rabbit_host: r2-a4
 controller_host: r2-a5
 network_host: r2-a3
 
