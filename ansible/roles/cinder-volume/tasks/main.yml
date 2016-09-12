@@ -1,0 +1,25 @@
+- name: Install dependencies
+  apt: pkg={{item}} state=installed
+  with_items:
+    - ceph-common
+    - gir1.2-libosinfo-1.0
+    - python-ceph
+    - sysfsutils
+
+- include: roles/common/deploy_venv.yml component=cinder notify=restart-cinder-volume
+           url={{cinder_venv_url}} checksum={{cinder_venv_checksum}}
+
+# python-ceph can't really be built into venv (and doesn't exist in pip)
+# so symlink in what glance needs
+- name: Hack symlinks for python-ceph into cinder venv
+  file: src=/usr/lib/python2.7/dist-packages/{{item}}
+        dest=/srv/cinder/lib/python2.7/site-packages/{{item}} state=link
+  with_items:
+    - rbd.aarch64-linux-gnu.so
+    - rados.aarch64-linux-gnu.so
+  notify:
+    - restart-cinder-volume
+
+- name: Configure cinder.conf
+  template: src=cinder.conf dest=/etc/cinder/
+  notify: restart-cinder-volume
