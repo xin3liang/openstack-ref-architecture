@@ -1,0 +1,14 @@
+# TODO secure mysql and rabbit
+
+- name: Install mysql and rabbitmq
+  apt: pkg={{item}} state=installed
+  with_items:
+    - mysql-server
+    - python-mysqldb
+
+- name: Configure mysql access
+  template: src=mysql.cnf dest=/etc/mysql/conf.d/devcloud-ansible.cnf
+  notify: restart-mysql
+
+- name: Configure an OpenStack DB user
+  mysql_user: host=% name={{mysql_root_user}} password={{mysql_root_pass}} priv=*.*:ALL,GRANT state=present

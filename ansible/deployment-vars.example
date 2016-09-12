@@ -20,6 +20,9 @@ ceph_host_osds:
   - sdc
   - sdd
 
+mysql_root_user: mysql
+mysql_root_pass: UnsafeMySQLPassw0rd
+
 keystone_admin_pass: Not5afe4Pr0duct!on
 
 glance_user: glance
