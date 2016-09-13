@@ -36,20 +36,25 @@
   roles:
     - {role: rabbitmq, tags: [rabbitmq]}
 
-# TODO: add ceph mons
-# I don't see how to make this work without two different roles, one for OSD one for Monitors
-# since we are installing them on different hosts and want to be able to add/remove them
-# as necessary
+# Adding Ceph Monitors
 #
-# - name: Deploy Ceph monitors
-#   hosts: ceph_monitors
-#   become: yes
-#   vars_files:
-#     - ["secrets/deployment-vars", "deployment-vars.example"]
-#     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
-#   roles:
-#     - {role:ceph-mon, tags: [ceph-mon]}
-#     - {role: ntp, tags: [ntp]}
+- name: Deploy Ceph monitors
+  hosts: ceph_monitors
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: ceph, osd: False, mon: True}
+
+- name: Configure Ceph cluster
+  hosts: hostvars[groups['ceph_monitors'][0]]['ansible_fqdn']
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: ceph-bootstrap}
 
 # Controller Deployment
 #
@@ -148,6 +153,15 @@
 
 # Compute Nodes Deployment
 #
+- name: Configure Ceph OSDs
+  hosts: ceph_osds
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: ceph, osd: True, mon: False}
+
 - name: Configure Compute
   hosts: compute_servers
   become: yes
@@ -157,6 +171,7 @@
   roles:
     - {role: compute, tags: [compute]}
     - {role: nics, tags: [nics]}
+    - {role: ceph, osd: False, mon: False}
 
 - name: Configure Cinder Volumes
   hosts: compute_servers
@@ -166,17 +181,6 @@
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: cinder-volume, tags: [cinder-volume]}
-
-# TODO: Add ceph
-# - name: Configure Ceph OSDs
-#   hosts: "ceph_osds"
-#   become: yes
-#   vars_files:
-#     - ["secrets/deployment-vars", "deployment-vars.example"]
-#     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
-#   roles:
-#     - {role:ceph-osd, tags: [ceph-osd]}
-#     - {role: ntp, tags: [ntp]}
 
 
 # Deploy Zabbix

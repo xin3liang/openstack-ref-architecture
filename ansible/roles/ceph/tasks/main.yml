@@ -34,6 +34,6 @@
       }
 
 - {include: osd.yml, with_items: "{{ceph_host_osds}}",
-   when: "inventory_hostname not in ceph_mons"}
+   when: "{{osd}}"}
 - {include: mon.yml,
-   when: "inventory_hostname in ceph_mons"}
+   when: "{{mon}}"}
