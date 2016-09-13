@@ -5,16 +5,17 @@
     - name: setup
       setup:
 
-# Make sure time is correct in all servers
+# Make sure monitoring agent and time agent are in all servers
 #
-- name: Configure ntp
-  hosts: ntp_servers
+- name: Configure ntp and zabbix_agents
+  hosts: all
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
+    - {role: zabbix-agent, tags: [zabbix-agent]}
 
 # Data Node Deployment
 #
@@ -192,13 +193,4 @@
   become: yes
   roles:
     - {role: zabbix-server, tags: [zabbix-server]}
-    - {role: zabbix-agent, tags: [zabbix-agent]}
 
-- name: Configure Zabbix Agents
-  hosts: zabbix_agents
-  become: yes
-  vars_files:
-    - ["secrets/deployment-vars", "deployment-vars.example"]
-    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
-  roles:
-    - {role: zabbix-agent, tags: [zabbix-agent]}

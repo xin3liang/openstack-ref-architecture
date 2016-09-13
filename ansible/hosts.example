@@ -1,11 +1,5 @@
-[zabbix-agents]
-server[1:9]
-
 [zabbix-servers]
 server9
-
-[ntp_servers]
-server[1:9]
 
 [ceph_monitors]
 server[1:3]
