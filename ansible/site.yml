@@ -40,7 +40,7 @@
 # Adding Ceph Monitors
 #
 - name: Deploy Ceph monitors
-  hosts: ceph_monitors
+  hosts: ceph_monitor_servers
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
@@ -48,8 +48,11 @@
   roles:
     - {role: ceph, osd: False, mon: True}
 
+# Quorum is required to start defining users and pools (configure ceph).
+# The configuration should be done after the Ceph Monitors have been
+# deployed and the cluster is up
 - name: Configure Ceph cluster
-  hosts: hostvars[groups['ceph_monitors'][0]]['ansible_fqdn']
+  hosts: hostvars[groups['ceph_monitor_servers'][0]]['ansible_fqdn']
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
@@ -155,7 +158,7 @@
 # Compute Nodes Deployment
 #
 - name: Configure Ceph OSDs
-  hosts: ceph_osds
+  hosts: ceph_osd_servers
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
@@ -186,7 +189,7 @@
 
 # Deploy Zabbix
 - name: Configure zabbix-server
-  hosts: zabbix_server
+  hosts: zabbix_servers
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
