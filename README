@@ -13,8 +13,51 @@ we have identical code running everywhere by simply extracting a tar file.
 These venvs can be built by running "sudo ./openstack-venvs/build_all.sh" on
 a system with the Debian Reference Platform installed.
 
-Part 2: Deploying OpenStack/Ceph
-================================
+Part 2: Deploying Ceph
+======================
+
+1) Monitors are deployed and the cluster bootstrapped:
+
+  ansible-playbook -K -v -i ./hosts ./site.yml --tags ceph-mon
+
+Check that the cluster is up and running by connecting to one of the monitors
+and checking:
+
+  ssh server1
+  ceph daemon mon.server1 mon_status
+
+2) OSDs assume a full HD will be dedicated to Ceph at least. A default
+configuration if all the servers that will be OSDs have the same HD layout
+can be spedified in group_vars/all as follows:
+
+ceph_host_osds:
+  - sbX
+  - sbY
+  - sbZ
+
+If some server has a different configuration, you will specify this in your
+host_vars folder, in a file with the name of your server. For example:
+
+$ cat hostvars/server1
+
+ceph_host_osds:
+  - sbZ
+  - sbY
+
+After configuring the osds are deployed as follows:
+
+  ansible-playbook -K -v -i ./hosts ./site.yml --tags ceph-osd
+
+2.1) In the case of setting up a cluster from scratch where ceph has been installed
+previously, there is an option to force the resetting of all the disks (this
+option WILL DELETE all the data on the osds specified). This option is not
+idempotent. It is safe to use if you have cleanly deployed the machine and
+the disk to be used as OSD had a previously installed ceph:
+
+  --extra-vars 'ceph_force_prepare=true'
+
+Part 3: Deploying OpenStack
+===========================
 
 OpenStack is deployed using Ansible with the playbook defined in the "ansible"
 directory. You'll need to create the files "deployment-vars" and "hosts" to

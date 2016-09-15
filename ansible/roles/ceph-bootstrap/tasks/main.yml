@@ -1,2 +1,2 @@
-- {include: configure_mon.yml}
-- {include: user.yml}
+- include: configure_mon.yml
+  run_once: true

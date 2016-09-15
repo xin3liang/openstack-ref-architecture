@@ -15,7 +15,7 @@
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
-    - {role: zabbix-agent, tags: [zabbix-agent]}
+#    - {role: zabbix-agent, tags: [zabbix-agent]}
 
 # Data Node Deployment
 #
@@ -46,19 +46,19 @@
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
-    - {role: ceph, osd: False, mon: True}
+    - {role: ceph, osd: False, mon: True, tags: [ceph-mon]}
 
 # Quorum is required to start defining users and pools (configure ceph).
 # The configuration should be done after the Ceph Monitors have been
 # deployed and the cluster is up
 - name: Configure Ceph cluster
-  hosts: hostvars[groups['ceph_monitor_servers'][0]]['ansible_fqdn']
+  hosts: ceph_monitor_servers
   become: yes
   vars_files:
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
-    - {role: ceph-bootstrap}
+    - {role: ceph-bootstrap, tags: [ceph-mon]}
 
 # Controller Deployment
 #
@@ -164,7 +164,7 @@
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
-    - {role: ceph, osd: True, mon: False}
+    - {role: ceph, osd: True, mon: False, tags: [ceph-osd]}
 
 - name: Configure Compute
   hosts: compute_servers

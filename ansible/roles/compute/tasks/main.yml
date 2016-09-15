@@ -4,7 +4,8 @@
     - conntrack
     - gir1.2-libosinfo-1.0
     - ipset
-    - libvirt-bin
+    - libvirt-clients
+    - libvirt-daemon-system
     - libvirt-daemon
     - openvswitch-switch
     - python-ceph

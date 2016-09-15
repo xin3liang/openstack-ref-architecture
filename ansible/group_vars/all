@@ -1,3 +1,5 @@
+# vi:syntax=yaml
+
 keystone_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-keystone-venv.tgz
 keystone_venv_checksum: sha256:913c5f4e3120542add9a5e41666cbd29afe8e8fae4b9355311c2a1c689f0936f
 glance_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-glance-venv.tgz
@@ -17,7 +19,13 @@ heat_venv_checksum: sha256:c72f2941cd36c08d808d77247b8ef72dc83d88072b1edf8a79c8f
 
 
 # Ceph needs an odd number of MONs. 3 is a good number for a small/mid-sized deployment
-ceph_mons: "{% for host in groups['ceph_mons_servers'] %} - {{ hostvars[host]['ansible_fqdn'] }} '\n' {% if not loop.last %},{% endif %}{% endfor %}"
+ceph_mons: "{% for host in groups['ceph_monitor_servers'] %}{{ hostvars[host]['ansible_fqdn'] }}{% if not loop.last %}, {% endif %}{% endfor %}"
+ceph_mon_initial_members: "{% for host in groups['ceph_monitor_servers'] %}{{ hostvars[host]['ansible_hostname'] }}{% if not loop.last %}, {% endif %}{% endfor %}"
+
+ceph_host_osds:
+  - sdb
+  - sdc
+  - sdd
 
 # the network interface for compute and network nodes to handle tenant networking
 tunnel_interface: eth1

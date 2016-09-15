@@ -1,4 +1,4 @@
-[zabbix-servers]
+[zabbix_server]
 server9
 
 [ceph_monitor_servers]

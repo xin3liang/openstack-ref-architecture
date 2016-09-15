@@ -10,5 +10,5 @@
   register: ceph_user
 
 - name: Create or update {{user}} user
-  when: "ceph_user is defined and ceph_configured.stdout != ceph_user.stdout"
+  when: (ceph_user is defined and ceph_configured.stdout != ceph_user.stdout)
   command: "ceph auth import -i /etc/ceph/ceph.client.{{user}}.keyring"
