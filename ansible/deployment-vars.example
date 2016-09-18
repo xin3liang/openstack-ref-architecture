@@ -14,12 +14,8 @@ ceph_glance_pass: "AQBrHc9XZNzwMBAAwhPr4Gbcn77E/6AezPMhqg=="
 ceph_nova_pass: "AQCLHc9XBR00ERAA3ZOXE/6Lugiub+IcX0VUmA=="
 ceph_cinder_pass: "AQCBHc9X7x2NLBAA2nKjpTpUaH5eHv6+FqvZog=="
 
-# Potentially host specific, this is a list of HDDs ceph should enlist
-# on a host as an OSD.
-ceph_host_osds:
-  - sdb
-  - sdc
-  - sdd
+serial_console_public_url: "ws://www.example.cloud:6083"
+public_api_host: "https://www.example.cloud"
 
 mysql_root_user: mysql
 mysql_root_pass: UnsafeMySQLPassw0rd
