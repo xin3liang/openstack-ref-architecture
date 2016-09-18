@@ -37,6 +37,15 @@
   roles:
     - {role: rabbitmq, tags: [rabbitmq]}
 
+- name: Configure memcache
+  hosts: memcache_servers
+  become: yes
+  vars_files:
+    - ["secrets/deployment-vars", "deployment-vars.example"]
+    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+  roles:
+    - {role: memcached, tags: [memcached]}
+
 # Adding Ceph Monitors
 #
 - name: Deploy Ceph monitors
@@ -80,14 +89,6 @@
   roles:
     - {role: keystone, tags: [keystone]}
 
-- name: Configure memcache
-  hosts: memcache_servers
-  become: yes
-  vars_files:
-    - ["secrets/deployment-vars", "deployment-vars.example"]
-    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
-  roles:
-    - {role: memcached, tags: [memcached]}
 
 - name: Configure Glance
   hosts: glance_servers
@@ -173,9 +174,8 @@
     - ["secrets/deployment-vars", "deployment-vars.example"]
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
-    - {role: compute, tags: [compute]}
     - {role: nics, tags: [nics]}
-    - {role: ceph, osd: False, mon: False}
+    - {role: compute, tags: [compute]}
 
 - name: Configure Cinder Volumes
   hosts: compute_servers
@@ -188,12 +188,12 @@
 
 
 # Deploy Zabbix
-- name: Configure zabbix-server
-  hosts: zabbix_servers
-  vars_files:
-    - ["secrets/deployment-vars", "deployment-vars.example"]
-    - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
-  become: yes
-  roles:
-    - {role: zabbix-server, tags: [zabbix-server]}
+# - name: Configure zabbix-server
+#   hosts: zabbix_servers
+#   vars_files:
+#     - ["secrets/deployment-vars", "deployment-vars.example"]
+#     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
+#   become: yes
+#   roles:
+#     - {role: zabbix-server, tags: [zabbix-server]}
 
