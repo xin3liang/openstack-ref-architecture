@@ -64,7 +64,7 @@ nova_public_api: "{{public_api_host}}:8774/v2/%(tenant_id)s"
 neutron_public_api: "{{public_api_host}}:9696"
 cinder_public_api_v2: "{{public_api_host}}:8776/v2/%(tenant_id)s"
 cinder_public_api: "{{public_api_host}}:8776/v1/%(tenant_id)s"
-glance_public_api: "http://{{glance_host}}:9292"
+glance_public_api: "{{public_api_host}}:9292"
 heat_public_api: "{{public_api_host}}:8004/v1/%(tenant_id)s"
 heat_cfm_public_api: "{{public_api_host}}:8000/v1/%(tenant_id)s"
 
