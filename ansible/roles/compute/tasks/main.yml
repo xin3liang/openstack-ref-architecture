@@ -12,6 +12,7 @@
     - qemu
     - qemu-block-extra
     - sysfsutils
+    - genisoimage
 
 - name: Install qemu-efi package
   apt: deb=http://ftp.us.debian.org/debian/pool/main/e/edk2/qemu-efi_0~20160813.de74668f-1_all.deb
