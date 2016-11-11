@@ -1,4 +1,4 @@
 [gerrit]
 host=review.linaro.org
 port=29418
-project=infrastructure/developer-cloud
+project=leg/sdi/openstack-ref-architecture
