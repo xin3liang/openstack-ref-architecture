@@ -1,0 +1,26 @@
+@import "/themes/default/variables";
+
+// $navbar-height:                    36px !default;
+// $navbar-margin-bottom:             $line-height-computed !default;
+// $navbar-border-radius:             0 !default;
+// $navbar-padding-horizontal:        floor(($grid-gutter-width / 2)) !default;
+// $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2) !default;
+// $navbar-collapse-max-height:       340px !default;
+
+$navbar-default-color:             #fff;
+$navbar-default-bg:                #0084ab;
+$navbar-default-border:            #049ecb;
+
+$navbar-default-link-color:                $navbar-default-color;
+$navbar-default-link-hover-color:          $navbar-default-color;
+$navbar-default-link-hover-bg:             #d5d5d5;
+$navbar-default-link-active-color:         $navbar-default-color;
+$navbar-default-link-active-bg:            $navbar-default-link-hover-bg;
+$navbar-default-link-disabled-color:       $gray-light;
+$navbar-default-link-disabled-bg:          transparent;
+
+// Navbar brand label
+$navbar-default-brand-color:               $navbar-default-link-color;
+$navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%);
+$navbar-default-brand-hover-bg:            transparent;
+

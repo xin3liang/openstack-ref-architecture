@@ -7,9 +7,29 @@
 - include: roles/common/deploy_venv.yml component=horizon notify=restart-horizon
            url={{horizon_venv_url}} checksum={{horizon_venv_checksum}}
 
+- name: Ensure devcloud theme directory exists
+  file: path=/srv/horizon/src/openstack_dashboard/themes/devcloud/img state=directory
+
 - name: Configure settings
   template: src=horizon_settings.py
             dest=/srv/horizon/src/openstack_dashboard/local/local_settings.d/ansible.py
+  notify: restart-horizon
+
+- name: Theme setup
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+    - { src: 'devcloud/_styles.scss', dest: '/srv/horizon/src/openstack_dashboard/themes/devcloud/_styles.scss' }
+    - { src: 'devcloud/_variables.scss', dest: '/srv/horizon/src/openstack_dashboard/themes/devcloud/_variables.scss' }
+    - { src: 'devcloud/img/logo.png', dest: '/srv/horizon/src/openstack_dashboard/themes/devcloud/img/logo.png' }
+    - { src: 'devcloud/img/logo-splash.png', dest: '/srv/horizon/src/openstack_dashboard/themes/devcloud/img/logo-splash.png' }
+  register: theme
+
+- name: Theme installation script copy
+  copy: src=install-theme.sh dest=/tmp/install-theme.sh mode=755
+
+- name: Theme installation run
+  when: theme.changed
+  shell: "/tmp/install-theme.sh"
   notify: restart-horizon
 
 - name: Disable OS default site config

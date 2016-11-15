@@ -10,6 +10,10 @@ ALLOWED_HOSTS = ['*']
 
 DEFAULT_THEME = 'default'
 
+AVAILABLE_THEMES = [
+    ('devcloud', 'DevCloud', 'themes/devcloud'),
+]
+
 OPENSTACK_HOST = "{{keystone_host}}"
 OPENSTACK_KEYSTONE_URL = "http://%s:5000/v3" % OPENSTACK_HOST
 
