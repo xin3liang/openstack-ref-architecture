@@ -76,3 +76,35 @@ cinder_private_api: "http://{{cinder_host}}:8776/v1/%(tenant_id)s"
 glance_private_api: "http://{{glance_host}}:9292"
 heat_private_api: "http://{{heat_host}}:8004/v1/%(tenant_id)s"
 heat_cfm_private_api: "http://{{heat_host}}:8000/v1/%(tenant_id)s"
+
+
+front_end_services:
+  - name: horizon
+    port: 443
+    host: "{{horizon_host}}"
+    remote_port: 80
+    preserve_host: true
+  - name: keystone
+    port: 5000
+    host: "{{keystone_host}}"
+  - name: keystone
+    port: 35357
+    host: "{{keystone_host}}"
+  - name: glance
+    port: 9292
+    host: "{{glance_host}}"
+  - name: nova
+    port: 8774
+    host: "{{nova_host}}"
+  - name: neutron
+    port: 9696
+    host: "{{neutron_host}}"
+  - name: cinder
+    port: 8776
+    host: "{{cinder_host}}"
+  - name: heat
+    port: 8000
+    host: "{{heat_host}}"
+  - name: heat
+    port: 8004
+    host: "{{heat_host}}"

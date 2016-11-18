@@ -1,3 +1,6 @@
+[web_frontend_servers]
+server0
+
 [zabbix_server]
 server9
 

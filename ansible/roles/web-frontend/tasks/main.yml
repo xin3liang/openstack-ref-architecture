@@ -1,0 +1,14 @@
+- name: Install apache
+  apt: pkg=apache2 state=installed
+
+- name: Enable mod-proxy-http
+  apache2_module: state=present name=proxy_http
+  notify: restart-apache
+
+- name: Install apache configuration
+  template: src=apache.conf dest=/etc/apache2/sites-available/devcloud.conf
+  notify: restart-apache
+
+- name: Enable the apache configuration
+  file: src=/etc/apache2/sites-available/devcloud.conf state=link
+        dest=/etc/apache2/sites-enabled/devcloud.conf
