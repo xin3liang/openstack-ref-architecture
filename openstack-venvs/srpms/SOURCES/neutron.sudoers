@@ -1,0 +1,1 @@
+neutron ALL=(ALL) NOPASSWD:ALL
