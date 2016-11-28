@@ -32,7 +32,7 @@ glance_db_pass: UnsafePassword
 nova_neutron_metadata_proxy_shared_secret: f530a126c0be630488a6
 
 nova_user: nova
-nova_db_pass: UnsafeC0mput3Passw0rd
+nova_pass: UnsafeC0mput3Passw0rd
 nova_db_user: nova
 nova_db_pass: UnsafeC0mput3Passw0rd
 nova_api_db_user: nova-api
