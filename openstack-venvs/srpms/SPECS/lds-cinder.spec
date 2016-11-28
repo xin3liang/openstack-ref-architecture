@@ -1,6 +1,6 @@
 Name:		lds-cinder
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -9,7 +9,7 @@ Source1:	cinder.logrotate
 Source2:	cinder.sudoers
 
 Requires:	ceph-common python-ceph sysfsutils
-Requires(pre):  shadow-utils
+Requires(pre):  shadow-utils libvirt
 
 %description
 
@@ -56,7 +56,9 @@ cp -a src/etc/cinder/* %{buildroot}/etc/cinder/
 /srv/cinder/lib*
 /srv/cinder/share
 /srv/cinder/pip-selfcheck.json
-/etc
+/etc/sudoers.d/cinder
+/etc/logrotate.d/cinder
+/etc/cinder
 
 %files services
 /srv/cinder/cinder-api-init.d
@@ -84,7 +86,7 @@ for init in api scheduler
 do
     name=cinder-$init-init.d
     ln -sf /srv/cinder/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %post compute-node-services
@@ -92,11 +94,16 @@ for init in volume
 do
     name=cinder-$init-init.d
     ln -sf /srv/cinder/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %changelog
-* Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-0.9
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- fixed conflict with sudo package
+- fixed command to enable systemd service
+- predepend on libvirt to have it's group when we create user
+
+* Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - enabled init services
 - handle /etc/cinder
 - create /usr/local/bin/ symlinks in post to not conflict with lds-glance

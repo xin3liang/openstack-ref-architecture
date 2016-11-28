@@ -1,6 +1,6 @@
 Name:		lds-heat
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -12,9 +12,9 @@ Requires(pre):	shadow-utils
 
 %description
 
-%package heat-services
+%package services
 Summary:	OpenStack heat venv services
-%description heat-services
+%description services
 
 %package src
 Summary:	OpenStack heat venv src
@@ -45,7 +45,7 @@ cp -a src/etc/heat/* %{buildroot}/etc/heat/
 %files src
 /srv/heat/src
 
-%files heat-services
+%files services
 /srv/heat/heat-api-cfn-init.d
 /srv/heat/heat-api-init.d
 /srv/heat/heat-engine-init.d
@@ -79,10 +79,14 @@ for init in api api-cfn engine
 do
     name=heat-$init-init.d
     ln -sf /srv/heat/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %changelog
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- fixed command to enable systemd service
+- fixed name of heat-services subpackage
+
 * Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - enabled init services
 - Handle /etc/heat directory

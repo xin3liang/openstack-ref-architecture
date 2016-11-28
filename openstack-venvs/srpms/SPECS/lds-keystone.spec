@@ -1,6 +1,6 @@
 Name:		lds-keystone
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -42,9 +42,13 @@ ln -sf /srv/keystone/apache.conf %{buildroot}/etc/apache2/sites-enabled/keystone
 /srv/keystone/lib*
 /srv/keystone/apache.conf
 /srv/keystone/pip-selfcheck.json
-/etc
+/etc/apache2/sites-enabled/keystone.conf
+/etc/keystone
 
 %changelog
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- changed list of files to not own whole /etc
+
 * Tue Nov 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - handle /etc/keystone directory
 - added deps from ansible

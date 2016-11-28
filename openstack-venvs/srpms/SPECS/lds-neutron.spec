@@ -1,6 +1,6 @@
 Name:		lds-neutron
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -9,7 +9,7 @@ Source1:	neutron.logrotate
 Source2:	neutron.sudoers
 
 Requires:	dnsmasq dnsmasq-utils iputils
-Requires(pre):	shadow-utils
+Requires(pre):	shadow-utils libvirt
 
 %description
 
@@ -56,7 +56,9 @@ cp -a src/etc/neutron/* %{buildroot}/etc/neutron/
 /srv/neutron/lib*
 /srv/neutron/pip-selfcheck.json
 /usr/local/bin
-/etc
+/etc/sudoers.d/neutron
+/etc/logrotate.d/neutron
+/etc/neutron
 
 %files services
 /srv/neutron/neutron-dhcp-agent-init.d
@@ -86,7 +88,7 @@ for init in dhcp-agent l3-agent metadata-agent server
 do
     name=neutron-$init-init.d
     ln -sf /srv/neutron/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %post compute-node-services
@@ -94,10 +96,15 @@ for init in openvswitch-agent
 do
     name=neutron-$init-init.d
     ln -sf /srv/neutron/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %changelog
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- fixed conflict with sudo package
+- fixed command to enable systemd service
+- predepend on libvirt to have it's group when we create user
+
 * Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - enable init services
 - provide neutron-ns-metadata-proxy in /usr/local/bin 

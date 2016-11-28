@@ -1,6 +1,6 @@
 Name:		lds-nova
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -11,7 +11,7 @@ Source2:	nova.sudoers
 Requires:	libvirt-daemon libvirt-client
 Requires:	sysfsutils conntrack ipset
 Requires:	python-ceph 
-Requires(pre):  shadow-utils
+Requires(pre):  shadow-utils libvirt
 
 %description
 
@@ -69,7 +69,9 @@ cp -a src/etc/nova/* %{buildroot}/etc/nova/
 /srv/nova/share
 /srv/nova/pip-selfcheck.json
 /usr/local/bin
-/etc
+/etc/sudoers.d/nova
+/etc/logrotate.d/nova
+/etc/nova
 
 
 %pre
@@ -91,7 +93,7 @@ for init in api cert conductor consoleauth scheduler
 do
     name=nova-$init-init.d
     ln -sf /srv/nova/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %post compute-node-services
@@ -99,10 +101,15 @@ for init in compute
 do
     name=nova-$init-init.d
     ln -sf /srv/nova/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %changelog
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- fixed conflict with sudo package
+- fixed command to enable systemd service
+- predepend on libvirt to have it's group when we create user
+
 * Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - enabled init services
 - handle /usr/local/bin symlinks in postinstall

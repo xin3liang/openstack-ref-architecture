@@ -1,6 +1,6 @@
 Name:		lds-horizon
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack horizon venv
 
 License:	Apache
@@ -37,8 +37,11 @@ ln -sf /srv/horizon/apache.conf %{buildroot}/etc/apache2/sites-enabled/horizon.c
 /srv/horizon/lib*
 /srv/horizon/share
 /srv/horizon/apache.conf
-/etc
+/etc/apache2/sites-enabled/horizon.conf
 
 %changelog
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- changed list of files to not own whole /etc
+
 * Thu Nov 10 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - added deps from ansible

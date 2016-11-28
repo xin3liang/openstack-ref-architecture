@@ -1,6 +1,6 @@
 Name:		lds-openstack-cli
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack CLI venv
 
 License:	Apache
@@ -24,9 +24,12 @@ do
 done
 
 %files
-/srv
+/srv/openstack-cli
 /usr/local/bin
 
 %changelog
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- own only own directory in /srv
+
 * Thu Nov 10 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - added deps from ansible

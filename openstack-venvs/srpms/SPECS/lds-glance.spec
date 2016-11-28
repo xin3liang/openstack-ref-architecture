@@ -1,6 +1,6 @@
 Name:		lds-glance
 Version:	2016.12
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -9,7 +9,7 @@ Source1:	glance.logrotate
 Source2:	glance.sudoers
 
 Requires:	python-ceph 
-Requires(pre):	shadow-utils
+Requires(pre):	shadow-utils libvirt
 
 %description
 
@@ -52,7 +52,9 @@ cp -a src/etc/* %{buildroot}/etc/glance/
 /srv/glance/lib*
 /srv/glance/share
 /srv/glance/pip-selfcheck.json
-/etc
+/etc/sudoers.d/glance
+/etc/logrotate.d/glance
+/etc/glance
 
 %files services
 /srv/glance/glance-api-init.d
@@ -77,10 +79,14 @@ for init in api registry
 do
     name=glance-$init-init.d
     ln -sf /srv/glance/$name /etc/init.d/$name
-    systemd enable $name
+    systemctl enable $name
 done
 
 %changelog
+* Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
+- fixed conflict with sudo package
+- fixed command to enable systemd service
+
 * Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - enable init services
 - dropped libvirt-qemu group
