@@ -1,6 +1,6 @@
 Name:		lds-nova
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -8,9 +8,33 @@ Source0:	nova.tgz
 Source1:	nova.logrotate
 Source2:	nova.sudoers
 
-Requires:	libvirt-daemon libvirt-client
-Requires:	sysfsutils conntrack ipset
-Requires:	python-ceph 
+Requires:	bridge-utils
+Requires:	conntrack
+Requires:	conntrack-tools
+Requires:	curl
+Requires:	dnsmasq
+Requires:	dnsmasq-utils
+Requires:	ebtables
+Requires:	genisoimage
+Requires:	ipmitool
+Requires:	ipset
+Requires:	iptables iptables-ipv6
+Requires:	iscsi-initiator-utils
+Requires:	libvirt-client
+Requires:	libvirt-daemon-kvm
+Requires:	libvirt-python
+Requires:	lvm2
+Requires:	openssh
+Requires:	openssh-clients
+Requires:	python-ceph
+Requires:	python-libguestfs
+Requires:	qemu-system-aarch64
+Requires:	radvd
+Requires:	rsync
+Requires:	sg3_utils
+Requires:	sudo
+Requires:	sysfsutils
+
 Requires(pre):  shadow-utils libvirt
 
 %description
@@ -18,10 +42,12 @@ Requires(pre):  shadow-utils libvirt
 %package compute-node-services
 Summary:	OpenStack Nova venv services for compute node
 %description compute-node-services
+Requires(post):   systemd
 
 %package services
 Summary:	OpenStack Nova venv services
 %description services
+Requires(post):   systemd
 
 %package src
 Summary:	OpenStack Nova venv src
@@ -105,6 +131,10 @@ do
 done
 
 %changelog
+* Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
+- added set of missing dependencies
+- *-services requires systemd to be installed for postinstall
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - fixed conflict with sudo package
 - fixed command to enable systemd service
