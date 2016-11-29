@@ -1,6 +1,6 @@
 Name:		lds-cinder
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -16,10 +16,12 @@ Requires(pre):  shadow-utils libvirt
 %package services
 Summary:	OpenStack cinder venv services
 %description services
+Requires(post):   systemd
 
 %package compute-node-services
 Summary:	OpenStack cinder venv services for compute node
 %description compute-node-services
+Requires(post):   systemd
 
 %package src
 Summary:	OpenStack cinder venv src
@@ -98,6 +100,9 @@ do
 done
 
 %changelog
+* Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
+- *-services requires systemd to be installed for postinstall
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - fixed conflict with sudo package
 - fixed command to enable systemd service

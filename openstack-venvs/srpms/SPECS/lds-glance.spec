@@ -1,6 +1,6 @@
 Name:		lds-glance
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -8,7 +8,7 @@ Source0:	glance.tgz
 Source1:	glance.logrotate
 Source2:	glance.sudoers
 
-Requires:	python-ceph 
+Requires:	python-ceph
 Requires(pre):	shadow-utils libvirt
 
 %description
@@ -16,6 +16,7 @@ Requires(pre):	shadow-utils libvirt
 %package services
 Summary:	OpenStack glance venv services
 %description services
+Requires(post):   systemd
 
 %package src
 Summary:	OpenStack glance venv src
@@ -83,6 +84,9 @@ do
 done
 
 %changelog
+* Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
+- *-services requires systemd to be installed for postinstall
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - fixed conflict with sudo package
 - fixed command to enable systemd service

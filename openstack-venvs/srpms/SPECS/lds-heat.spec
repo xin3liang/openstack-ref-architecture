@@ -1,6 +1,6 @@
 Name:		lds-heat
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -15,6 +15,7 @@ Requires(pre):	shadow-utils
 %package services
 Summary:	OpenStack heat venv services
 %description services
+Requires(post):   systemd
 
 %package src
 Summary:	OpenStack heat venv src
@@ -58,7 +59,9 @@ cp -a src/etc/heat/* %{buildroot}/etc/heat/
 /srv/heat/share
 /srv/heat/pip-selfcheck.json
 /usr/local/bin
-/etc
+/etc/sudoers.d/heat
+/etc/logrotate.d/heat
+/etc/heat
 
 
 %pre
@@ -83,6 +86,10 @@ do
 done
 
 %changelog
+* Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
+- *-services requires systemd to be installed for postinstall
+- fixed conflict with sudo package
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - fixed command to enable systemd service
 - fixed name of heat-services subpackage

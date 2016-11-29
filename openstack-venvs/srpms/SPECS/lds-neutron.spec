@@ -1,6 +1,6 @@
 Name:		lds-neutron
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -16,10 +16,12 @@ Requires(pre):	shadow-utils libvirt
 %package services
 Summary:	OpenStack neutron venv services
 %description services
+Requires(post):   systemd
 
 %package compute-node-services
 Summary:	OpenStack neutron venv services for compute node
 %description compute-node-services
+Requires(post):   systemd
 
 %package src
 Summary:	OpenStack neutron venv src
@@ -100,6 +102,9 @@ do
 done
 
 %changelog
+* Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
+- *-services requires systemd to be installed for postinstall
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - fixed conflict with sudo package
 - fixed command to enable systemd service
@@ -107,7 +112,7 @@ done
 
 * Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - enable init services
-- provide neutron-ns-metadata-proxy in /usr/local/bin 
+- provide neutron-ns-metadata-proxy in /usr/local/bin
 - move openvswitch-agent init to neutron-compute-node-services
 - handle /usr/local/bin symlinks in post
 - added deps from ansible
