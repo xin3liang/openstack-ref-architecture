@@ -1,6 +1,6 @@
 Name:		lds-neutron
 Version:	2016.12
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -9,6 +9,9 @@ Source1:	neutron.logrotate
 Source2:	neutron.sudoers
 
 Requires:	dnsmasq dnsmasq-utils iputils
+Requires:	radvd conntrack-tools
+Requires:	keepalived ipset iptables psmisc sudo
+Requires:	bridge-utils ebtables kmod
 Requires(pre):	shadow-utils libvirt
 
 %description
@@ -102,6 +105,9 @@ do
 done
 
 %changelog
+* Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
+- added more dependencies
+
 * Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
 - *-services requires systemd to be installed for postinstall
 

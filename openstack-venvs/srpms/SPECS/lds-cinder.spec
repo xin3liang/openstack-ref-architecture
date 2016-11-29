@@ -1,6 +1,6 @@
 Name:		lds-cinder
 Version:	2016.12
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -9,6 +9,7 @@ Source1:	cinder.logrotate
 Source2:	cinder.sudoers
 
 Requires:	ceph-common python-ceph sysfsutils
+Requires:	lvm2 sudo qemu-img sysfsutils
 Requires(pre):  shadow-utils libvirt
 
 %description
@@ -100,6 +101,9 @@ do
 done
 
 %changelog
+* Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
+- added more dependencies
+
 * Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
 - *-services requires systemd to be installed for postinstall
 
