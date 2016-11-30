@@ -35,7 +35,6 @@ network_tunnel_ip: "{{ansible_eth1.ipv4.address}}"
 network_external_iface: eth2
 
 keystone_host: "{{ hostvars[groups['keystone_servers'][0]]['ansible_fqdn'] }}"
-cli_host: "{{ hostvars[groups['cli_servers'][0]]['ansible_fqdn'] }}"
 glance_host: "{{ hostvars[groups['glance_servers'][0]]['ansible_fqdn'] }}"
 nova_host: "{{ hostvars[groups['nova_servers'][0]]['ansible_fqdn'] }}"
 neutron_host: "{{ hostvars[groups['neutron_servers'][0]]['ansible_fqdn'] }}"
