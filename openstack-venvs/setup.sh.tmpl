@@ -60,11 +60,11 @@ if [ "$SERVICE" == 'neutron' ] ; then
 fi
 if [ "$SERVICE" == 'cinder' ] ; then
 	if which qemu-system-aarch64 ; then
-		rm /srv/cinder/cinder-scheduler-init.d
-		rm /srv/cinder/cinder-api-init.d
+		[ -e /srv/cinder/cinder-scheduler-init.d ] && rm /srv/cinder/cinder-scheduler-init.d
+		[ -e /srv/cinder/cinder-api-init.d ] && rm /srv/cinder/cinder-api-init.d
 		cp $SERVICE_DIR/bin/cinder-rootwrap /usr/local/bin
 	else
-		rm /srv/cinder/cinder-volume-init.d
+		[ -e /srv/cinder/cinder-volume-init.d ] && rm /srv/cinder/cinder-volume-init.d
 	fi
 	mv /etc/cinder/cinder/* /etc/cinder/ && rmdir /etc/cinder/cinder
 fi
