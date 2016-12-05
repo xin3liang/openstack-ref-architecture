@@ -62,3 +62,6 @@ fi
 cd $VENV/src
 pip install -r reqs.txt
 python setup.py install
+
+# remove git data
+rm -rf .git
