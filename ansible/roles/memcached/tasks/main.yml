@@ -1,11 +1,15 @@
 - name: Install memcached
-  apt: pkg={{item}} state=installed
+  package: name={{item}} state=present
   with_items:
     - memcached
 
 - name: Configure memcached
+  when: ansible_os_family == 'Debian'
   lineinfile: dest=/etc/memcached.conf regexp=^-l line="-l 0.0.0.0"
   notify: restart-memcached
+
+- name: Ensure memcached daemon is enabled
+  service: name=memcached enabled=true state=started
 
 # force memcached to be reloaded *now* so services can use it
 - meta: flush_handlers
