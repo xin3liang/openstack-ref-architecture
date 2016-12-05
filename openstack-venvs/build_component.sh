@@ -27,6 +27,8 @@ chmod +x $VENV/setup.sh
 
 git clone $GIT_URL $VENV/src
 cd $VENV/src
+git config user.email "ci_notifications@linaro.org"
+git config user.name "Jenkins"
 git checkout -b $VERSION
 
 . $VENV/bin/activate
