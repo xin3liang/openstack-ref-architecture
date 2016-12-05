@@ -1,0 +1,7 @@
+mysql_packages:
+  - mysql-server
+  - python-mysqldb
+
+mysql_confd: /etc/mysql/conf.d
+
+mysql_daemon: mysql

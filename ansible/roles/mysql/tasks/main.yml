@@ -1,14 +1,16 @@
-# TODO secure mysql and rabbit
+# TODO secure mysql
+- include_vars: "{{ansible_os_family}}.yml"
 
-- name: Install mysql and rabbitmq
-  apt: pkg={{item}} state=installed
-  with_items:
-    - mysql-server
-    - python-mysqldb
+- name: Install mysql
+  package: name={{item}} state=present
+  with_items: "{{mysql_packages}}"
 
 - name: Configure mysql access
-  template: src=mysql.cnf dest=/etc/mysql/conf.d/devcloud-ansible.cnf
+  template: src=mysql.cnf dest={{mysql_confd}}/devcloud-ansible.cnf
   notify: restart-mysql
+
+- name: Ensure daemon is enabled
+  service: name={{mysql_daemon}} enabled=true state=started
 
 - name: Configure an OpenStack DB user
   mysql_user: host=% name={{mysql_root_user}} password={{mysql_root_pass}} priv=*.*:ALL,GRANT state=present

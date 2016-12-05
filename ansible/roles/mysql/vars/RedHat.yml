@@ -1,0 +1,7 @@
+mysql_packages:
+  - mariadb-server
+  - MySQL-python
+
+mysql_confd: /etc/my.cnf.d
+
+mysql_daemon: mariadb
