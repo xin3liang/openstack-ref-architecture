@@ -14,6 +14,6 @@ done
 cd /srv
 for x in $components ; do
 	echo === Tarballing $x
-	tar -czf /tmp/${x}.tgz $x
+	tar --exclude ${x}/src/.git -czf /tmp/${x}.tgz $x
 done
 sha256sum /tmp/*.tgz
