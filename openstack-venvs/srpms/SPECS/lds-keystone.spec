@@ -1,6 +1,6 @@
 Name:		lds-keystone
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -22,15 +22,11 @@ rm -rf src/.git
 %install
 install -d \
            %{buildroot}/srv/keystone \
-           %{buildroot}/etc/keystone \
-           %{buildroot}/etc/apache2/sites-enabled
+           %{buildroot}/etc/keystone
 
 cp -a * %{buildroot}/srv/keystone/
 cp -a src/etc/* %{buildroot}/etc/keystone/
-
-cd %{buildroot}
-ln -sf /srv/keystone/apache.conf %{buildroot}/etc/apache2/sites-enabled/keystone.conf # to check paths
-
+rm -f %{buildroot}/srv/keystone/apache.conf
 
 %files src
 /srv/keystone/src
@@ -40,12 +36,13 @@ ln -sf /srv/keystone/apache.conf %{buildroot}/etc/apache2/sites-enabled/keystone
 /srv/keystone/etc
 /srv/keystone/include
 /srv/keystone/lib*
-/srv/keystone/apache.conf
 /srv/keystone/pip-selfcheck.json
-/etc/apache2/sites-enabled/keystone.conf
 /etc/keystone
 
 %changelog
+* Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
+- removed apache config - #2687
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - changed list of files to not own whole /etc
 
