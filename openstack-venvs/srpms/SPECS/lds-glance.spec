@@ -1,6 +1,6 @@
 Name:		lds-glance
 Version:	2016.12
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -17,6 +17,7 @@ Requires(pre):	shadow-utils libvirt
 Summary:	OpenStack glance venv services
 %description services
 Requires(post):   systemd
+Requires:	lds-glance
 
 %package src
 Summary:	OpenStack glance venv src
@@ -84,6 +85,9 @@ do
 done
 
 %changelog
+* Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
+- added interpackages dependencies so *-services depend on main one - #2682
+
 * Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
 - *-services requires systemd to be installed for postinstall
 

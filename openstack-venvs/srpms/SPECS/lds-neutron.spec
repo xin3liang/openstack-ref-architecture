@@ -1,6 +1,6 @@
 Name:		lds-neutron
 Version:	2016.12
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -20,11 +20,13 @@ Requires(pre):	shadow-utils libvirt
 Summary:	OpenStack neutron venv services
 %description services
 Requires(post):   systemd
+Requires:	lds-neutron
 
 %package compute-node-services
 Summary:	OpenStack neutron venv services for compute node
 %description compute-node-services
 Requires(post):   systemd
+Requires:	lds-neutron
 
 %package src
 Summary:	OpenStack neutron venv src
@@ -105,6 +107,9 @@ do
 done
 
 %changelog
+* Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
+- added interpackages dependencies so *-services depend on main one - #2682
+
 * Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
 - added more dependencies
 

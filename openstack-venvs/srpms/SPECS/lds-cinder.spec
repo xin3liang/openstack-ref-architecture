@@ -1,6 +1,6 @@
 Name:		lds-cinder
 Version:	2016.12
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -18,11 +18,13 @@ Requires(pre):  shadow-utils libvirt
 Summary:	OpenStack cinder venv services
 %description services
 Requires(post):   systemd
+Requires:	lds-cinder
 
 %package compute-node-services
 Summary:	OpenStack cinder venv services for compute node
 %description compute-node-services
 Requires(post):   systemd
+Requires:	lds-cinder
 
 %package src
 Summary:	OpenStack cinder venv src
@@ -101,6 +103,9 @@ do
 done
 
 %changelog
+* Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
+- added interpackages dependencies so *-services depend on main one - #2682
+
 * Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
 - added more dependencies
 

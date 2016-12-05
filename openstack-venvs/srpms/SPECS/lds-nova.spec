@@ -1,6 +1,6 @@
 Name:		lds-nova
 Version:	2016.12
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -43,11 +43,13 @@ Requires(pre):  shadow-utils libvirt
 Summary:	OpenStack Nova venv services for compute node
 %description compute-node-services
 Requires(post):   systemd
+Requires:	lds-nova
 
 %package services
 Summary:	OpenStack Nova venv services
 %description services
 Requires(post):   systemd
+Requires:	lds-nova
 
 %package src
 Summary:	OpenStack Nova venv src
@@ -131,6 +133,9 @@ do
 done
 
 %changelog
+* Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
+- added interpackages dependencies so *-services depend on main one - #2682
+
 * Tue Nov 29 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
 - added set of missing dependencies
 - *-services requires systemd to be installed for postinstall
