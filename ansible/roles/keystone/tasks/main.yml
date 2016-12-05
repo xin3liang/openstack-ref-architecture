@@ -1,9 +1,8 @@
+- include_vars: "{{ansible_os_family}}.yml"
+
 - name: Install keystone dependencies
-  apt: pkg={{item}} state=installed
-  with_items:
-    - apache2
-    - libapache2-mod-wsgi
-    - python-mysqldb
+  package: pkg={{item}} state=present
+  with_items: "{{keystone_packages}}"
 
 - name: Add keystone DB
   mysql_db: name=keystone state=present
@@ -51,15 +50,18 @@
     creates: /etc/keystone/ansible.bootstrapped
 
 - name: Disable default apache configuration
+  when: ansible_os_family == 'Debian'
   command: a2dissite 000-default
   register: result
   changed_when: "'already disabled' not in result.stdout"
   notify: restart-keystone
 
 - name: Enable apache configuration
-  file: src=/srv/keystone/apache.conf dest=/etc/apache2/sites-enabled/keystone.conf
-        state=link
+  template: src=apache.conf dest={{apache_sites}}/keystone.conf
   notify: restart-keystone
+
+- name: Ensure apache is enabled and running
+  service: name={{apache_daemon}} enabled=true state=started
 
 # force keystone to be restarted *now* so services can use it
 - meta: flush_handlers

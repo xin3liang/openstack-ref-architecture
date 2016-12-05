@@ -1,2 +1,2 @@
 - name: restart-keystone
-  service: name=apache2 state=reloaded
+  service: name={{apache_daemon}} state=reloaded

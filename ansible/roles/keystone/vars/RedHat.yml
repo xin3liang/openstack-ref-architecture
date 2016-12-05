@@ -1,0 +1,8 @@
+keystone_packages:
+  - httpd
+  - mod_wsgi
+  - MySQL-python
+
+apache_sites: /etc/httpd/conf.d
+apache_logs: /var/log/httpd
+apache_daemon: httpd
