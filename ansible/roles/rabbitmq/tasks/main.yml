@@ -1,9 +1,10 @@
-# TODO secure mysql and rabbit
+# TODO secure rabbit
 
 - name: Install rabbitmq
-  apt: pkg={{item}} state=installed
-  with_items:
-    - rabbitmq-server
+  package: name=rabbitmq-server state=present
+
+- name: Ensure daemon is enabled
+  service: name=rabbitmq-server enabled=true state=started
 
 - name: Configure an OpenStack Rabbit user
   rabbitmq_user: user={{rabbit_user}} password={{rabbit_pass}} vhost=/
