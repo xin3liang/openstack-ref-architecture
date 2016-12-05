@@ -1,6 +1,6 @@
 Name:		lds-horizon
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack horizon venv
 
 License:	Apache
@@ -22,11 +22,11 @@ rm -rf src/.git
 %install
 install -d \
            %{buildroot}/srv/horizon \
-           %{buildroot}/etc/apache2/sites-enabled
+           %{buildroot}/etc/httpd/conf.d
 
 cp -a * %{buildroot}/srv/horizon/
 cd %{buildroot}
-ln -sf /srv/horizon/apache.conf %{buildroot}/etc/apache2/sites-enabled/horizon.conf # to check paths
+ln -sf /srv/horizon/apache.conf %{buildroot}/etc/httpd/conf.d/horizon.conf
 
 %files src
 /srv/horizon/src
@@ -37,9 +37,12 @@ ln -sf /srv/horizon/apache.conf %{buildroot}/etc/apache2/sites-enabled/horizon.c
 /srv/horizon/lib*
 /srv/horizon/share
 /srv/horizon/apache.conf
-/etc/apache2/sites-enabled/horizon.conf
+/etc/httpd/conf.d/horizon.conf
 
 %changelog
+* Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
+- moved apache config to place where CentOS expects it
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - changed list of files to not own whole /etc
 
