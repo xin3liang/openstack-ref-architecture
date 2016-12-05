@@ -1,2 +1,2 @@
 - name: restart-chrony
-  service: name=chrony state=restarted
+  service: name={{chrony_daemon}} state=restarted

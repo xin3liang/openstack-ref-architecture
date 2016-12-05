@@ -1,7 +1,12 @@
+- include_vars: "{{ansible_os_family}}.yml"
+
 - name: Install chrony for NTP
-  apt: pkg=chrony state=installed
+  package: name=chrony state=present
+
+- name: Ensure daemon is enabled
+  service: name={{chrony_daemon}} enabled=true state=started
 
 - name: Configure chrony (ntp)
-  copy: src=chrony.conf dest=/etc/chrony/chrony.conf
+  copy: src=chrony.conf dest={{chrony_conf}}
   notify:
     - restart-chrony
