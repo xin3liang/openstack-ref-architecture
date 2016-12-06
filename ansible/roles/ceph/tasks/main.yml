@@ -1,8 +1,5 @@
-- name: Enable Linaro Ceph overlay
-  apt_repository: repo="deb http://repo.linaro.org/ubuntu/leg-ceph jessie main" state=present
-
 - name: Install Ceph
-  apt: pkg=ceph state=installed
+  package: name=ceph state=present
 
 - name: Copy ceph.conf
   template: src=ceph.conf dest=/etc/ceph/
