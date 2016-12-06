@@ -1,6 +1,6 @@
-Name:		lds-keystone
+Name:		erp-keystone
 Version:	2016.12
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -40,6 +40,9 @@ rm -f %{buildroot}/srv/keystone/apache.conf
 /etc/keystone
 
 %changelog
+* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-4
+- Update to newest virtualenv tarballs built for CentOS
+
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
 - removed apache config - #2687
 

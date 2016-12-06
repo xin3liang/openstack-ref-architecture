@@ -1,6 +1,6 @@
-Name:		lds-neutron
+Name:		erp-neutron
 Version:	2016.12
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -20,13 +20,13 @@ Requires(pre):	shadow-utils libvirt
 Summary:	OpenStack neutron venv services
 %description services
 Requires(post):   systemd
-Requires:	lds-neutron
+Requires:	erp-neutron
 
 %package compute-node-services
 Summary:	OpenStack neutron venv services for compute node
 %description compute-node-services
 Requires(post):   systemd
-Requires:	lds-neutron
+Requires:	erp-neutron
 
 %package src
 Summary:	OpenStack neutron venv src
@@ -107,6 +107,9 @@ do
 done
 
 %changelog
+* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-6
+- Update to newest virtualenv tarballs built for CentOS
+
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
 - added interpackages dependencies so *-services depend on main one - #2682
 

@@ -1,6 +1,6 @@
-Name:		lds-openstack-cli
+Name:		erp-openstack-cli
 Version:	2016.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	OpenStack CLI venv
 
 License:	Apache
@@ -28,6 +28,9 @@ done
 /usr/local/bin
 
 %changelog
+* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-3
+- Update to newest virtualenv tarballs built for CentOS
+
 * Mon Nov 28 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-2
 - own only own directory in /srv
 

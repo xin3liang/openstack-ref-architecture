@@ -1,6 +1,6 @@
-Name:		lds-cinder
+Name:		erp-cinder
 Version:	2016.12
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -18,13 +18,13 @@ Requires(pre):  shadow-utils libvirt
 Summary:	OpenStack cinder venv services
 %description services
 Requires(post):   systemd
-Requires:	lds-cinder
+Requires:	erp-cinder
 
 %package compute-node-services
 Summary:	OpenStack cinder venv services for compute node
 %description compute-node-services
 Requires(post):   systemd
-Requires:	lds-cinder
+Requires:	erp-cinder
 
 %package src
 Summary:	OpenStack cinder venv src
@@ -103,6 +103,9 @@ do
 done
 
 %changelog
+* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-6
+- Update to newest virtualenv tarballs built for CentOS
+
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
 - added interpackages dependencies so *-services depend on main one - #2682
 
@@ -120,5 +123,5 @@ done
 * Wed Nov 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-1
 - enabled init services
 - handle /etc/cinder
-- create /usr/local/bin/ symlinks in post to not conflict with lds-glance
+- create /usr/local/bin/ symlinks in post to not conflict with glance
 - move compute node services into separate package

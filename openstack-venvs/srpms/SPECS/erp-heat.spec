@@ -1,6 +1,6 @@
-Name:		lds-heat
+Name:		erp-heat
 Version:	2016.12
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -16,7 +16,7 @@ Requires(pre):	shadow-utils
 Summary:	OpenStack heat venv services
 %description services
 Requires(post):   systemd
-Requires:	lds-heat
+Requires:	erp-heat
 
 %package src
 Summary:	OpenStack heat venv src
@@ -87,6 +87,9 @@ do
 done
 
 %changelog
+* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-5
+- Update to newest virtualenv tarballs built for CentOS
+
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
 - added interpackages dependencies so *-services depend on main one - #2682
 

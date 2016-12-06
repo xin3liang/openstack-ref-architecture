@@ -1,6 +1,6 @@
-Name:		lds-glance
+Name:		erp-glance
 Version:	2016.12
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -17,7 +17,7 @@ Requires(pre):	shadow-utils libvirt
 Summary:	OpenStack glance venv services
 %description services
 Requires(post):   systemd
-Requires:	lds-glance
+Requires:	erp-glance
 
 %package src
 Summary:	OpenStack glance venv src
@@ -85,6 +85,9 @@ do
 done
 
 %changelog
+* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-5
+- Update to newest virtualenv tarballs built for CentOS
+
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
 - added interpackages dependencies so *-services depend on main one - #2682
 
@@ -100,4 +103,4 @@ done
 - dropped libvirt-qemu group
 - handle /etc/glance directory
 - added deps from ansible
-- create /usr/local/bin/ symlinks in post to not conflict with lds-cinder
+- create /usr/local/bin/ symlinks in post to not conflict with cinder

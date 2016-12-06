@@ -1,6 +1,6 @@
-Name:		lds-horizon
+Name:		erp-horizon
 Version:	2016.12
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	OpenStack horizon venv
 
 License:	Apache
@@ -40,6 +40,9 @@ ln -sf /srv/horizon/apache.conf %{buildroot}/etc/httpd/conf.d/horizon.conf
 /etc/httpd/conf.d/horizon.conf
 
 %changelog
+* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-4
+- Update to newest virtualenv tarballs built for CentOS
+
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3
 - moved apache config to place where CentOS expects it
 
