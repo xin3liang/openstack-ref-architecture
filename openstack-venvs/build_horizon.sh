@@ -26,6 +26,11 @@ pip install pytz
 pip install -r src/requirements.txt
 pip install python-memcached
 
+# Adding dependancy due to upstream bug
+# https://bugs.launchpad.net/horizon/+bug/1643689
+# TODO: remove later
+pip install -U "XStatic-roboto-fontface===0.4.3.2"
+
 ./src/manage.py collectstatic --noinput
 ./src/manage.py compress
 ./src/manage.py make_web_conf --wsgi
