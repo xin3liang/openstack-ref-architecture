@@ -1,4 +1,4 @@
 # MANAGED BY ANSIBLE - DO NOT HAND EDIT!
 [mysqld]
-bind-address={{ansible_eth0.ipv4.address}}
+bind-address={{mysql_bind_addr}}
 max_connections=1500
