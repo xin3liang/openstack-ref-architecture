@@ -7,6 +7,9 @@ VERSION="a95159d1482e59920512c3af1915401d13841609"
 GIT_URL="https://github.com/openstack/horizon.git"
 VENV=/srv/horizon
 
+# we do not have systemd services
+NOSERVICES=1
+
 virtualenv $VENV
 git clone $GIT_URL $VENV/src
 cd $VENV/src

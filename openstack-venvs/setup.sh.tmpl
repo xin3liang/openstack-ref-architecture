@@ -1,5 +1,17 @@
 #!/bin/bash -e
 
+OS=unknown
+LIBVIRTGROUPS=libvirt
+
+if [ -f /etc/debian_version ]; then
+    OS=debian
+    LIBVIRTGROUPS=libvirt,libvirt-qemu
+fi
+
+if [ -f /etc/redhat-release ]; then
+    OS=redhat
+fi
+
 SERVICE="#PROJECT_NAME#"
 SERVICE_DIR=$(dirname $(readlink -f $0))
 
@@ -29,15 +41,14 @@ cd $SERVICE_DIR
 if [ "$SERVICE" == 'nova' ] ; then
 	if which qemu-system-aarch64 ; then
 		# we are configuring a compute node
-		usermod -G libvirt,libvirt-qemu $SERVICE
-		for x in *-init.d ; do
-			if [ "$x" != "nova-compute-init.d" ] ; then
-				rm $x
-			fi
-		done
+		usermod -G $LIBVIRTGROUPS $SERVICE
+		cp $SERVICE_DIR/systemd-services/erp-nova-compute.service $SERVICE_DIR/
 	else
 		# we are configuring a controller
-		[ -e nova-compute-init.d ] && rm nova-compute-init.d
+		for service in api cert conductor consoleauth scheduler
+		do
+		    cp $SERVICE_DIR/systemd-services/erp-nova-${service}.service $SERVICE_DIR/
+		done
 	fi
 	mv /etc/nova/nova/* /etc/nova/ && rmdir /etc/nova/nova
 	cp $SERVICE_DIR/bin/nova-rootwrap /usr/local/bin
@@ -47,12 +58,12 @@ fi
 if [ "$SERVICE" == 'neutron' ] ; then
 	if which qemu-system-aarch64 ; then
 		# we are configuring a compute node
-		for x in *-init.d ; do
-			if [ "$x" != "neutron-openvswitch-agent-init.d" ] ; then
-				rm $x
-			fi
+		cp $SERVICE_DIR/systemd-services/erp-neutron-openvswitch-agent.service $SERVICE_DIR/
+	else
+		for service in dhcp-agent l3-agent metadata-agent server
+		do
+		    cp $SERVICE_DIR/systemd-services/erp-neutron-${service}.service $SERVICE_DIR/
 		done
-
 	fi
 	mv /etc/neutron/neutron/* /etc/neutron/ && rmdir /etc/neutron/neutron
 	cp $SERVICE_DIR/bin/neutron-rootwrap /usr/local/bin
@@ -60,30 +71,31 @@ if [ "$SERVICE" == 'neutron' ] ; then
 fi
 if [ "$SERVICE" == 'cinder' ] ; then
 	if which qemu-system-aarch64 ; then
-		[ -e /srv/cinder/cinder-scheduler-init.d ] && rm /srv/cinder/cinder-scheduler-init.d
-		[ -e /srv/cinder/cinder-api-init.d ] && rm /srv/cinder/cinder-api-init.d
-		cp $SERVICE_DIR/bin/cinder-rootwrap /usr/local/bin
+		# we are configuring a compute node
+		cp $SERVICE_DIR/systemd-services/erp-cinder-volume.service $SERVICE_DIR/
 	else
-		[ -e /srv/cinder/cinder-volume-init.d ] && rm /srv/cinder/cinder-volume-init.d
+		for service in api scheduler
+		do
+		    cp $SERVICE_DIR/systemd-services/erp-cinder-${service}.service $SERVICE_DIR/
+		done
 	fi
 	mv /etc/cinder/cinder/* /etc/cinder/ && rmdir /etc/cinder/cinder
 fi
 if [ "$SERVICE" == 'heat' ] ; then
+	for service in api-cfn api engine
+	do
+	    cp $SERVICE_DIR/systemd-services/erp-heat-${service}.service $SERVICE_DIR/
+	done
 	mv /etc/heat/heat/* /etc/heat/ && rmdir /etc/heat/heat
 fi
 if [ "$SERVICE" == 'keystone' ] ; then
   exit 0
 fi
 
-for x in *-init.d ; do
-	d=$(basename $x | sed -e 's/-init.d//')
-	[ -e /etc/init.d/$d ] && rm /etc/init.d/$d
-	ln -s $SERVICE_DIR/$x /etc/init.d/$d
-	d="${d}.service"
-	[ -e /lib/systemd/system/$d ] && rm /lib/systemd/system/$d
-	[ -e /etc/systemd/system/$d ] && rm /etc/systemd/system/$d
-	[ -e /run/systemd/generator.late/$d ] && rm /run/systemd/generator.late/$d
-	systemctl enable $d || true
+for service in *.service
+do
+	mv $service /usr/lib/systemd/system/
+	systemctl enable $service
 done
 
 cat > /etc/sudoers.d/$SERVICE <<EOF

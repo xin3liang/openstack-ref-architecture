@@ -13,8 +13,8 @@ NAME=keystone-all
 DAEMON=/srv/keystone/bin/keystone-all
 CONFIG_FILE=/etc/keystone/keystone.conf
 
+# we do not have systemd services
+NOSERVICES=1
+
 source ./build_component.sh
 /srv/keystone/bin/pip install python-openstackclient
-
-# keystone runs from apache so there's no /etc/init.d or systemd servicd
-rm /srv/keystone/keystone-init.d

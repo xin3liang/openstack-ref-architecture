@@ -17,6 +17,8 @@ if [ -f /etc/redhat-release ]; then
     $CMD install -y gcc make libyaml-devel libxml2-devel libxslt-devel mysql-devel libffi-devel openssl-devel libvirt-devel python-devel pkgconfig python-virtualenv
 fi
 
+rm -rf $VENV
+
 virtualenv $VENV
 
 source ./build_daemons.sh
