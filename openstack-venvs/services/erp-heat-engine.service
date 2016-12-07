@@ -1,0 +1,12 @@
+[Unit]
+Description=Openstack Heat Engine Service
+After=syslog.target network.target mysqld.service erp-openstack-glance-api.service erp-openstack-glance-registry.service erp-openstack-nova-api.service erp-openstack-nova.compute.service erp-openstack-nova-scheduler.service erp-openstack-nova-cert.service erp-openstack-cinder-volume.service
+
+[Service]
+Type=simple
+User=heat
+ExecStart=/srv/heat/bin/heat-engine --config-file /etc/heat/heat.conf --log-file /var/log/heat/engine.log
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
