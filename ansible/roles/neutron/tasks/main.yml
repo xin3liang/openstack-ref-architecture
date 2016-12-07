@@ -1,3 +1,5 @@
+- include_vars: "{{ansible_os_family}}.yml"
+
 - name: Setup neutron service
   openstack_service: user={{neutron_user}} password={{neutron_pass}} type=network
                      description="OpenStack Networking Service"
@@ -15,11 +17,8 @@
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - name: Install neutron packages
-  apt: pkg={{item}} state=installed
-  with_items:
-    - dnsmasq
-    - dnsmasq-utils
-    - iputils-arping
+  package: name={{item}} state=present
+  with_items: "{{neutron_packages}}"
 
 - include: roles/common/deploy_venv.yml component=neutron notify=restart-neutron-service
            url={{neutron_venv_url}} checksum={{neutron_venv_checksum}}
