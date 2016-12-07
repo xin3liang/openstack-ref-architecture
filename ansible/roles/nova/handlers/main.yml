@@ -1,8 +1,8 @@
 - name: restart-nova-services
   service: name={{item}} state=restarted
   with_items:
-    - nova-api
-    - nova-consoleauth
-    - nova-scheduler
-    - nova-conductor
-    - nova-cert
+    - erp-nova-api
+    - erp-nova-consoleauth
+    - erp-nova-scheduler
+    - erp-nova-conductor
+    - erp-nova-cert
