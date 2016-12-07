@@ -88,6 +88,13 @@ if [ "$SERVICE" == 'heat' ] ; then
 	done
 	mv /etc/heat/heat/* /etc/heat/ && rmdir /etc/heat/heat
 fi
+if [ "$SERVICE" == 'glance' ] ; then
+	for service in api registry
+	do
+	    cp $SERVICE_DIR/systemd-services/erp-glance-${service}.service $SERVICE_DIR/
+	done
+	mv /etc/glance/glance/* /etc/glance/ && rmdir /etc/glance/glance
+fi
 if [ "$SERVICE" == 'keystone' ] ; then
   exit 0
 fi
