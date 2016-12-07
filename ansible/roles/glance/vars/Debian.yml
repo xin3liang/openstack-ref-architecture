@@ -1,0 +1,3 @@
+ceph_python_libs:
+  - /usr/lib/python2.7/dist-packages/rbd.aarch64-linux-gnu.so
+  - /usr/lib/python2.7/dist-packages/rados.aarch64-linux-gnu.so

@@ -1,7 +1,10 @@
+- include_vars: "{{ansible_os_family}}.yml"
+
 - name: Install dependencies
-  apt: pkg={{item}} state=installed
+  package: name={{item}} state=present
   with_items:
-    - python-ceph
+    - python-rbd
+    - python-rados
 
 - name: Setup glance service
   openstack_service: user={{glance_user}} password={{glance_pass}} type=image
@@ -26,11 +29,9 @@
 # python-ceph can't really be built into venv (and doesn't exist in pip)
 # so symlink in what glance needs
 - name: Hack symlinks for python-ceph into venv
-  file: src=/usr/lib/python2.7/dist-packages/{{item}}
-        dest=/srv/glance/lib/python2.7/site-packages/{{item}} state=link
-  with_items:
-    - rbd.aarch64-linux-gnu.so
-    - rados.aarch64-linux-gnu.so
+  file: src={{item}}
+        dest=/srv/glance/lib/python2.7/site-packages/{{item.split('/')[-1]}} state=link
+  with_items: "{{ceph_python_libs}}"
   notify:
     - restart-glance
 
