@@ -51,8 +51,8 @@ if [ "$SERVICE" == 'nova' ] ; then
 		done
 	fi
 	mv /etc/nova/nova/* /etc/nova/ && rmdir /etc/nova/nova
-	cp $SERVICE_DIR/bin/nova-rootwrap /usr/local/bin
-	cp $SERVICE_DIR/bin/privsep-helper /usr/local/bin
+	cp $SERVICE_DIR/bin/nova-rootwrap /usr/bin
+	cp $SERVICE_DIR/bin/privsep-helper /usr/bin
 	sudo -u nova mkdir -p /var/lib/nova/instances
 fi
 if [ "$SERVICE" == 'neutron' ] ; then

@@ -8,7 +8,7 @@ NotifyAccess=all
 TimeoutStartSec=0
 Restart=always
 User=nova
-ExecStart=/srv/nova/bin/nova-api --config-file /etc/nova/nova.conf --config-file /etc/nova/nova-api.conf --log-file /var/log/nova/api.log
+ExecStart=/srv/nova/bin/nova-api --config-file /etc/nova/nova.conf --log-file /var/log/nova/api.log
 
 [Install]
 WantedBy=multi-user.target
