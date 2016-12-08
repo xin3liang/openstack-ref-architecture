@@ -1,2 +1,2 @@
 chrony_conf: /etc/chrony/chrony.conf
-chrony_daemon: chronyd
+chrony_daemon: chrony
