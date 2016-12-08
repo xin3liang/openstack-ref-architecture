@@ -1,0 +1,20 @@
+compute_packages:
+  - conntrack-tools
+  - edk2-aarch64
+  - ipset
+  - libvirt-client
+  - libvirt-daemon
+  - libvirt-daemon-driver-storage
+  - libvirt-daemon-driver-interface
+  - libvirt-daemon-driver-qemu
+  - libvirt-daemon-driver-secret
+  - openvswitch
+  - python-rados
+  - python-rbd
+  - qemu
+  - sysfsutils
+  - genisoimage
+
+compute_python_libs:
+  - /usr/lib64/python2.7/site-packages/rbd.so
+  - /usr/lib64/python2.7/site-packages/rados.so

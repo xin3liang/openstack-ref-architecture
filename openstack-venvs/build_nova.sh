@@ -19,6 +19,7 @@ source ./build_component.sh
 # https://review.openstack.org/#/c/335512/4
 git fetch git://git.openstack.org/openstack/nova refs/changes/12/335512/4 && git cherry-pick FETCH_HEAD
 python setup.py install
+pip install -U libvirt_python==2.2.0
 
 cd $HERE
 

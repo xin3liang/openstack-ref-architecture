@@ -1,8 +1,8 @@
 - name: restart-nova
-  service: name=nova-compute state=restarted
+  service: name=erp-nova-compute enabled=true state=restarted
 
 - name: restart-neutron
-  service: name=neutron-openvswitch-agent state=restarted
+  service: name=erp-neutron-openvswitch-agent enabled=true state=restarted
 
 - name: restart-libvirtd
-  service: name=libvirtd state=restarted
+  service: name=libvirtd enabled=true state=restarted

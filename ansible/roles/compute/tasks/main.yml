@@ -1,20 +1,11 @@
+- include_vars: "{{ansible_os_family}}.yml"
+
 - name: Install dependencies
-  apt: pkg={{item}} state=installed
-  with_items:
-    - conntrack
-    - gir1.2-libosinfo-1.0
-    - ipset
-    - libvirt-clients
-    - libvirt-daemon-system
-    - libvirt-daemon
-    - openvswitch-switch
-    - python-ceph
-    - qemu
-    - qemu-block-extra
-    - sysfsutils
-    - genisoimage
+  package: name={{item}} state=present
+  with_items: "{{compute_packages}}"
 
 - name: Install qemu-efi package
+  when: ansible_os_family == 'Debian'
   apt: deb=http://ftp.us.debian.org/debian/pool/main/e/edk2/qemu-efi_0~20160813.de74668f-2_all.deb
 
 - include: roles/common/deploy_venv.yml component=nova notify=restart-nova
@@ -25,11 +16,9 @@
 # python-ceph can't really be built into venv (and doesn't exist in pip)
 # so symlink in what glance needs
 - name: Hack symlinks for python-ceph into nova venv
-  file: src=/usr/lib/python2.7/dist-packages/{{item}}
-        dest=/srv/nova/lib/python2.7/site-packages/{{item}} state=link
-  with_items:
-    - rbd.aarch64-linux-gnu.so
-    - rados.aarch64-linux-gnu.so
+  file: src={{item}}
+        dest=/srv/nova/lib/python2.7/site-packages/{{item.split('/')[-1]}} state=link
+  with_items: "{{compute_python_libs}}"
   notify:
     - restart-nova
 
@@ -63,6 +52,9 @@
 - name: Configure libvirtd
   template: src=libvirtd.conf dest=/etc/libvirt/libvirtd.conf
   notify: restart-libvirtd
+
+- name: Ensure libvirtd is running
+  service: name=libvirtd enabled=true state=started
 
 - include: virsh-secret.yml client=nova virsh_uuid={{nova_ceph_virsh_uuid}}
 - include: virsh-secret.yml client=cinder virsh_uuid={{cinder_ceph_virsh_uuid}}
