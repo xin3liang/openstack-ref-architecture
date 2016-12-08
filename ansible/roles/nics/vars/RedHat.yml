@@ -1,0 +1,7 @@
+projects_nic:
+  src: ifcfg-projects
+  dest: /etc/sysconfig/network-scripts/ifcfg-{{tunnel_interface}}
+
+ext_nic:
+  src: ifcfg-ext
+  dest: /etc/sysconfig/network-scripts/ifcfg-{{network_external_iface}}

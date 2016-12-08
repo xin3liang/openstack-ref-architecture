@@ -1,0 +1,7 @@
+projects_nic:
+  src: projects_interface
+  dest: /etc/network/interfaces.d/devcloud-projects
+
+ext_nic:
+  src: ext_interface
+  dest: /etc/network/interfaces.d/devcloud-ext

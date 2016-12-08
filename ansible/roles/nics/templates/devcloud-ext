@@ -1,0 +1,6 @@
+# MANAGED BY ANSIBLE - DO NOT HAND EDIT!
+
+auto {{network_external_iface}}
+iface {{network_external_iface}} inet manual
+        up ip link set dev $IFACE up
+        down ip link set dev $IFACE down

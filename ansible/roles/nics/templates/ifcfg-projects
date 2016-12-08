@@ -1,0 +1,13 @@
+# MANAGED BY ANSIBLE - DO NOT HAND EDIT!
+TYPE=Ethernet
+BOOTPROTO=none
+DEFROUTE=no
+PEERDNS=no
+PEERROUTES=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=no
+NAME={{tunnel_interface}}
+DEVICE={{tunnel_interface}}
+ONBOOT=yes
+IPADDR=192.168.0.{{last_quad}}
+NETMASK=255.255.0.0
