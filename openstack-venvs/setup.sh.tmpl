@@ -60,7 +60,7 @@ if [ "$SERVICE" == 'neutron' ] ; then
 		# we are configuring a compute node
 		cp $SERVICE_DIR/systemd-services/erp-neutron-openvswitch-agent.service $SERVICE_DIR/
 	else
-		for service in dhcp-agent l3-agent metadata-agent server
+		for service in dhcp-agent l3-agent metadata-agent server openvswitch-agent
 		do
 		    cp $SERVICE_DIR/systemd-services/erp-neutron-${service}.service $SERVICE_DIR/
 		done
