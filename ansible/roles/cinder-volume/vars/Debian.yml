@@ -1,0 +1,11 @@
+ceph_python_libs:
+  - /usr/lib/python2.7/dist-packages/rbd.aarch64-linux-gnu.so
+  - /usr/lib/python2.7/dist-packages/rados.aarch64-linux-gnu.so
+
+cinder_volume_deps:
+  - python-rados
+  - python-rbd
+  - ceph-common
+  - girl1.2-libosinfo-1.0
+  - python-ceph
+  - sysfsutils

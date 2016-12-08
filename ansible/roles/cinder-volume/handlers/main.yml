@@ -1,2 +1,2 @@
 - name: restart-cinder-volume
-  service: name=cinder-volume state=restarted
+  service: name=erp-cinder-volume state=restarted
