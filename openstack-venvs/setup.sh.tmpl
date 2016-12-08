@@ -107,4 +107,5 @@ done
 
 cat > /etc/sudoers.d/$SERVICE <<EOF
 $SERVICE ALL=(ALL) NOPASSWD:ALL
+Defaults:$SERVICE  !requiretty
 EOF
