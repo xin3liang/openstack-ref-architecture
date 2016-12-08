@@ -1,0 +1,4 @@
+network_packages:
+  - dnsmasq
+  - dnsmasq-utils
+  - openvswitch

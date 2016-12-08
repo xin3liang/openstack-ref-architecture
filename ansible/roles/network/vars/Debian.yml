@@ -1,0 +1,5 @@
+network_packages:
+  - dnsmasq
+  - dnsmasq-utils
+  - iputils-arping
+  - openvswitch-switch

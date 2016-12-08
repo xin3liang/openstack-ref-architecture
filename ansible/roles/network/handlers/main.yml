@@ -1,7 +1,7 @@
 - name: restart-network-service
-  service: name={{item}} state=restarted
+  service: name={{item}} enabled=true state=restarted
   with_items:
-    - neutron-l3-agent
-    - neutron-dhcp-agent
-    - neutron-metadata-agent
-    - neutron-openvswitch-agent
+    - erp-neutron-l3-agent
+    - erp-neutron-dhcp-agent
+    - erp-neutron-metadata-agent
+    - erp-neutron-openvswitch-agent

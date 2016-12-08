@@ -1,10 +1,11 @@
+- include_vars: "{{ansible_os_family}}.yml"
+
 - name: Install neutron packages
-  apt: pkg={{item}} state=installed
-  with_items:
-    - dnsmasq
-    - dnsmasq-utils
-    - iputils-arping
-    - openvswitch-switch
+  package: name={{item}} state=present
+  with_items: "{{network_packages}}"
+
+- name: Ensure ovs is enabled and running
+  service: name=openvswitch enabled=true state=started
 
 - name: Check if external bridge exists
   command: ovs-vsctl br-exists br-ex
