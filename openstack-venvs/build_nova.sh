@@ -15,10 +15,6 @@ DAEMON=/srv/nova/bin/nova-api
 CONFIG_FILE=/etc/nova/nova.conf
 source ./build_component.sh
 
-# Newton requires 3.0 version of kombu and its now 4.0
-pip install kombu==3.0.35
-pip install vine==1.1.3
-
 # APPLY PATCH UEFI shutdown patch
 # https://review.openstack.org/#/c/335512/4
 git fetch git://git.openstack.org/openstack/nova refs/changes/12/335512/4 && git cherry-pick FETCH_HEAD

@@ -39,6 +39,10 @@ pip install --upgrade pip
 pip install --upgrade pbr
 pip install --upgrade setuptools
 
+# Newton requires 3.0 version of kombu and its now 4.0
+pip install kombu==3.0.35
+pip install vine==1.1.3
+
 # add requirements based on our deployment choices
 cp $VENV/src/requirements.txt $VENV/src/reqs.txt
 echo "python-memcached" >> $VENV/src/reqs.txt
