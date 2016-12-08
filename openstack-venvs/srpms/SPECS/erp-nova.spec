@@ -1,6 +1,6 @@
 Name:		erp-nova
 Version:	2016.12
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -64,9 +64,9 @@ rm -rf src/.git
 install -d \
            %{buildroot}/srv/nova \
            %{buildroot}/etc/nova \
+           %{buildroot}/usr/lib/systemd/system \
            %{buildroot}/var/log/nova \
            %{buildroot}/var/lib/nova/instances \
-           %{buildroot}/usr/local/bin \
            %{buildroot}/etc/logrotate.d \
            %{buildroot}/etc/sudoers.d
 
@@ -75,19 +75,22 @@ install -m 0644 %{_sourcedir}/nova.sudoers   %{buildroot}/etc/sudoers.d/nova
 
 cp -a * %{buildroot}/srv/nova/
 cp -a src/etc/nova/* %{buildroot}/etc/nova/
+cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
+
+
 
 %files src
 /srv/nova/src
 
 %files compute-node-services
-/srv/nova/nova-compute-init.d
+/usr/lib/systemd/system/erp-nova-compute.service
 
 %files services
-/srv/nova/nova-api-init.d
-/srv/nova/nova-cert-init.d
-/srv/nova/nova-conductor-init.d
-/srv/nova/nova-consoleauth-init.d
-/srv/nova/nova-scheduler-init.d
+/usr/lib/systemd/system/erp-nova-api.service
+/usr/lib/systemd/system/erp-nova-cert.service
+/usr/lib/systemd/system/erp-nova-conductor.service
+/usr/lib/systemd/system/erp-nova-consoleauth.service
+/usr/lib/systemd/system/erp-nova-scheduler.service
 
 %files
 /srv/nova/bin
@@ -96,7 +99,7 @@ cp -a src/etc/nova/* %{buildroot}/etc/nova/
 /srv/nova/lib*
 /srv/nova/share
 /srv/nova/pip-selfcheck.json
-/usr/local/bin
+/srv/nova/systemd-services
 /etc/sudoers.d/nova
 /etc/logrotate.d/nova
 /etc/nova
@@ -113,27 +116,26 @@ exit 0
 %post
 for cmd in nova-rootwrap privsep-helper
 do
-    ln -sf /srv/nova/bin/$cmd /usr/local/bin/$cmd
+    ln -sf /srv/nova/bin/$cmd /usr/bin/$cmd
 done
 
 %post services
-for init in api cert conductor consoleauth scheduler
+for name in api cert conductor consoleauth scheduler
 do
-    name=nova-$init-init.d
-    ln -sf /srv/nova/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-nova-$name
 done
 
 %post compute-node-services
-for init in compute
+for name in compute
 do
-    name=nova-$init-init.d
-    ln -sf /srv/nova/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-nova-$name
 done
 
 %changelog
-* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-5
+* Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
+- switch to new systemd services
+
+* Tue Dec 06 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
 - Update to newest virtualenv tarballs built for CentOS
 
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4

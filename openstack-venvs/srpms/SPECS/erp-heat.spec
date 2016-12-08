@@ -1,6 +1,6 @@
 Name:		erp-heat
 Version:	2016.12
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -31,9 +31,9 @@ rm -rf src/.git
 install -d \
            %{buildroot}/srv/heat \
            %{buildroot}/etc/heat \
+           %{buildroot}/usr/lib/systemd/system \
            %{buildroot}/var/log/heat \
            %{buildroot}/var/lib/heat/instances \
-           %{buildroot}/usr/local/bin \
            %{buildroot}/etc/heat \
            %{buildroot}/etc/logrotate.d \
            %{buildroot}/etc/sudoers.d
@@ -43,14 +43,15 @@ install -m 0644 %{_sourcedir}/heat.sudoers   %{buildroot}/etc/sudoers.d/heat
 
 cp -a * %{buildroot}/srv/heat/
 cp -a src/etc/heat/* %{buildroot}/etc/heat/
+cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 
 %files src
 /srv/heat/src
 
 %files services
-/srv/heat/heat-api-cfn-init.d
-/srv/heat/heat-api-init.d
-/srv/heat/heat-engine-init.d
+/usr/lib/systemd/system/erp-heat-api-cfn.service
+/usr/lib/systemd/system/erp-heat-api.service
+/usr/lib/systemd/system/erp-heat-engine.service
 
 %files
 /srv/heat/bin
@@ -59,7 +60,7 @@ cp -a src/etc/heat/* %{buildroot}/etc/heat/
 /srv/heat/lib*
 /srv/heat/share
 /srv/heat/pip-selfcheck.json
-/usr/local/bin
+/srv/heat/systemd-services
 /etc/sudoers.d/heat
 /etc/logrotate.d/heat
 /etc/heat
@@ -75,19 +76,20 @@ exit 0
 %post
 for cmd in heat-rootwrap privsep-helper
 do
-    ln -sf /srv/heat/bin/$cmd /usr/local/bin/$cmd
+    ln -sf /srv/heat/bin/$cmd /usr/bin/$cmd
 done
 
 %post services
-for init in api api-cfn engine
+for name in api api-cfn engine
 do
-    name=heat-$init-init.d
-    ln -sf /srv/heat/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-heat-$name
 done
 
 %changelog
-* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-5
+* Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
+- switch to new systemd services
+
+* Tue Dec 06 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
 - Update to newest virtualenv tarballs built for CentOS
 
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4

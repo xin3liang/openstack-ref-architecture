@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -39,9 +39,9 @@ rm -rf src/.git
 install -d \
            %{buildroot}/srv/cinder \
            %{buildroot}/etc/cinder \
+           %{buildroot}/usr/lib/systemd/system \
            %{buildroot}/var/log/cinder \
            %{buildroot}/var/lib/cinder \
-           %{buildroot}/usr/local/bin \
            %{buildroot}/etc/logrotate.d \
            %{buildroot}/etc/sudoers.d
 
@@ -50,6 +50,7 @@ install -m 0644 %{_sourcedir}/cinder.sudoers   %{buildroot}/etc/sudoers.d/cinder
 
 cp -a * %{buildroot}/srv/cinder/
 cp -a src/etc/cinder/* %{buildroot}/etc/cinder/
+cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 
 %files src
 /srv/cinder/src
@@ -61,16 +62,17 @@ cp -a src/etc/cinder/* %{buildroot}/etc/cinder/
 /srv/cinder/lib*
 /srv/cinder/share
 /srv/cinder/pip-selfcheck.json
+/srv/cinder/systemd-services
 /etc/sudoers.d/cinder
 /etc/logrotate.d/cinder
 /etc/cinder
 
 %files services
-/srv/cinder/cinder-api-init.d
-/srv/cinder/cinder-scheduler-init.d
+/usr/lib/systemd/system/erp-cinder-api.service
+/usr/lib/systemd/system/erp-cinder-scheduler.service
 
 %files compute-node-services
-/srv/cinder/cinder-volume-init.d
+/usr/lib/systemd/system/erp-cinder-volume.service
 
 %pre
 getent group  cinder >/dev/null || groupadd -r cinder
@@ -83,27 +85,26 @@ exit 0
 %post
 for cmd in cinder-rootwrap privsep-helper
 do
-    ln -sf /srv/cinder/bin/$cmd /usr/local/bin/$cmd
+    ln -sf /srv/cinder/bin/$cmd /usr/bin/$cmd
 done
 
 %post services
-for init in api scheduler
+for name in api scheduler
 do
-    name=cinder-$init-init.d
-    ln -sf /srv/cinder/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-cinder-$name
 done
 
 %post compute-node-services
-for init in volume
+for name in volume
 do
-    name=cinder-$init-init.d
-    ln -sf /srv/cinder/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-cinder-$name
 done
 
 %changelog
-* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-6
+* Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
+- switch to new systemd services
+
+* Tue Dec 06 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
 - Update to newest virtualenv tarballs built for CentOS
 
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5

@@ -34,10 +34,10 @@ ln -sf /srv/horizon/apache.conf %{buildroot}/etc/httpd/conf.d/horizon.conf
 /etc/httpd/conf.d/horizon.conf
 
 %changelog
-* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-5
+* Tue Dec 06 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
 - integrate -src package into main one - it contains webpage code
 
-* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-4
+* Tue Dec 06 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
 - Update to newest virtualenv tarballs built for CentOS
 
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-3

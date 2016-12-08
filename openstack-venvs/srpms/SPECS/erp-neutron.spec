@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -41,9 +41,9 @@ rm -rf src/.git
 install -d \
            %{buildroot}/srv/neutron \
            %{buildroot}/etc/neutron \
+           %{buildroot}/usr/lib/systemd/system \
            %{buildroot}/var/log/neutron \
            %{buildroot}/var/lib/neutron \
-           %{buildroot}/usr/local/bin \
            %{buildroot}/etc/logrotate.d \
            %{buildroot}/etc/sudoers.d
 
@@ -52,6 +52,7 @@ install -m 0644 %{_sourcedir}/neutron.sudoers   %{buildroot}/etc/sudoers.d/neutr
 
 cp -a * %{buildroot}/srv/neutron/
 cp -a src/etc/neutron/* %{buildroot}/etc/neutron/
+cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 
 %files src
 /srv/neutron/src
@@ -62,19 +63,19 @@ cp -a src/etc/neutron/* %{buildroot}/etc/neutron/
 /srv/neutron/include
 /srv/neutron/lib*
 /srv/neutron/pip-selfcheck.json
-/usr/local/bin
+/srv/neutron/systemd-services
 /etc/sudoers.d/neutron
 /etc/logrotate.d/neutron
 /etc/neutron
 
 %files services
-/srv/neutron/neutron-dhcp-agent-init.d
-/srv/neutron/neutron-l3-agent-init.d
-/srv/neutron/neutron-metadata-agent-init.d
-/srv/neutron/neutron-server-init.d
+/usr/lib/systemd/system/erp-neutron-dhcp-agent.service
+/usr/lib/systemd/system/erp-neutron-l3-agent.service
+/usr/lib/systemd/system/erp-neutron-metadata-agent.service
+/usr/lib/systemd/system/erp-neutron-server.service
 
 %files compute-node-services
-/srv/neutron/neutron-openvswitch-agent-init.d
+/usr/lib/systemd/system/erp-neutron-openvswitch-agent.service
 
 %pre
 getent group  neutron >/dev/null || groupadd -r neutron
@@ -87,27 +88,26 @@ exit 0
 %post
 for cmd in neutron-rootwrap privsep-helper neutron-ns-metadata-proxy
 do
-    ln -sf /srv/neutron/bin/$cmd /usr/local/bin/$cmd
+    ln -sf /srv/neutron/bin/$cmd /usr/bin/$cmd
 done
 
 %post services
-for init in dhcp-agent l3-agent metadata-agent server
+for name in dhcp-agent l3-agent metadata-agent server
 do
-    name=neutron-$init-init.d
-    ln -sf /srv/neutron/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-neutron-$name
 done
 
 %post compute-node-services
-for init in openvswitch-agent
+for name in openvswitch-agent
 do
-    name=neutron-$init-init.d
-    ln -sf /srv/neutron/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-neutron-$name
 done
 
 %changelog
-* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-6
+* Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
+- switch to new systemd services
+
+* Tue Dec 06 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
 - Update to newest virtualenv tarballs built for CentOS
 
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5

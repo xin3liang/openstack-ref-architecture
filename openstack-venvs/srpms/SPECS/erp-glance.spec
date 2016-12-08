@@ -1,6 +1,6 @@
 Name:		erp-glance
 Version:	2016.12
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -32,9 +32,9 @@ rm -rf src/.git
 install -d \
            %{buildroot}/srv/glance \
            %{buildroot}/etc/glance \
+           %{buildroot}/usr/lib/systemd/system \
            %{buildroot}/var/log/glance \
            %{buildroot}/var/lib/glance \
-           %{buildroot}/usr/local/bin \
            %{buildroot}/etc/logrotate.d \
            %{buildroot}/etc/sudoers.d
 
@@ -43,6 +43,7 @@ install -m 0644 %{_sourcedir}/glance.sudoers   %{buildroot}/etc/sudoers.d/glance
 
 cp -a * %{buildroot}/srv/glance/
 cp -a src/etc/* %{buildroot}/etc/glance/
+cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 
 %files src
 /srv/glance/src
@@ -54,13 +55,14 @@ cp -a src/etc/* %{buildroot}/etc/glance/
 /srv/glance/lib*
 /srv/glance/share
 /srv/glance/pip-selfcheck.json
+/srv/glance/systemd-services
 /etc/sudoers.d/glance
 /etc/logrotate.d/glance
 /etc/glance
 
 %files services
-/srv/glance/glance-api-init.d
-/srv/glance/glance-registry-init.d
+/usr/lib/systemd/system/erp-glance-api.service
+/usr/lib/systemd/system/erp-glance-registry.service
 
 %pre
 getent group  glance >/dev/null || groupadd -r glance
@@ -73,19 +75,20 @@ exit 0
 %post
 for cmd in glance-rootwrap privsep-helper
 do
-    ln -sf /srv/glance/bin/$cmd /usr/local/bin/$cmd
+    ln -sf /srv/glance/bin/$cmd /usr/bin/$cmd
 done
 
 %post services
-for init in api registry
+for name in api registry
 do
-    name=glance-$init-init.d
-    ln -sf /srv/glance/$name /etc/init.d/$name
-    systemctl enable $name
+    systemctl enable erp-glance-$name
 done
 
 %changelog
-* Tue Dec 06 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-5
+* Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
+- switch to new systemd services
+
+* Tue Dec 06 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-5
 - Update to newest virtualenv tarballs built for CentOS
 
 * Mon Dec 05 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
