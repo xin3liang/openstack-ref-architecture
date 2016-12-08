@@ -6,6 +6,5 @@ cinder_volume_deps:
   - python-rados
   - python-rbd
   - ceph-common
-  - girl1.2-libosinfo-1.0
   - python-ceph
   - sysfsutils
