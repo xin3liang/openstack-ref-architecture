@@ -1,8 +1,6 @@
 - name: Install horizon dependencies
-  apt: pkg={{item}} state=installed
-  with_items:
-    - apache2
-    - libapache2-mod-wsgi
+  package: name={{item}} state=present
+  with_items: "{{horizon_packages}}"
 
 - include: roles/common/deploy_venv.yml component=horizon notify=restart-horizon
            url={{horizon_venv_url}} checksum={{horizon_venv_checksum}}
@@ -33,6 +31,7 @@
   notify: restart-horizon
 
 - name: Disable OS default site config
+  when: ansible_os_family == 'Debian'
   command: a2dissite 000-default
   register: result
   changed_when: "'already disabled' not in result.stdout"

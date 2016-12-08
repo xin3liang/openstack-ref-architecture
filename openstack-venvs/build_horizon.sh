@@ -42,7 +42,10 @@ pip install -U "XStatic-roboto-fontface==0.4.3.2"
 cat >$VENV/setup.sh <<EOF
 #!/bin/sh
 conf=/etc/apache2/sites-enabled/horizon.conf
-[ -f \$CONF ] && rm \$CONF
+if [ -f /etc/redhat-release ]; then
+   conf=/etc/httpd/conf.d/horizon.conf
+fi
+[ -f \$conf ] && rm \$conf
 ln -s /srv/horizon/apache.conf \$conf
 EOF
 chmod +x $VENV/setup.sh
