@@ -26,16 +26,12 @@
 # neutron's setup.sh sets up *all* neutron daemons. We only need to run
 # the neutron server from here
 - name: Ensure only neutron service is enabled
-  file: state=absent path={{item}}
+  file: state=absent path=/lib/systemd/system/{{item}}
   with_items:
-   - /etc/init.d/neutron-dhcp-agent
-   - /run/systemd/generator.late/neutron-dhcp-agent.service
-   - /etc/init.d/neutron-l3-agent
-   - /run/systemd/generator.late/neutron-l3-agent.service
-   - /etc/init.d/neutron-linuxbridge-agent
-   - /run/systemd/generator.late/neutron-linuxbridge-agent.service
-   - /etc/init.d/neutron-metadata-agent
-   - /run/systemd/generator.late/neutron-metadata-agent.service
+   - erp-neutron-dhcp-agent.service
+   - erp-neutron-l3-agent.service
+   - erp-neutron-linuxbridge-agent.service
+   - erp-neutron-metadata-agent.service
 
 - name: Configure neutron.conf
   template: src=neutron.conf dest=/etc/neutron/neutron.conf
