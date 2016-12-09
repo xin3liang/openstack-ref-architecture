@@ -1,11 +1,7 @@
 - include_vars: "{{ ansible_os_family }}.yml"
 
-- name: Install dependencies
-  package: name={{item}} state=present
-  with_items: "{{ cinder_volume_deps }}"
-
-- include: roles/common/deploy_venv.yml component=cinder notify=restart-cinder-volume
-           url={{cinder_venv_url}} checksum={{cinder_venv_checksum}}
+- include: roles/common/deploy_pkg.yml component=cinder notify=restart-cinder-volume
+           name={{cinder_pkg}}
 
 # python-ceph can't really be built into venv (and doesn't exist in pip)
 # so symlink in what cinder-volume needs
