@@ -1,12 +1,13 @@
 Name:		erp-keystone
 Version:	2016.12
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
 Source0:	keystone.tgz
 
 Requires:	httpd mod_wsgi MySQL-python
+Requires(pre):  shadow-utils
 
 %description
 
@@ -39,7 +40,17 @@ rm -f %{buildroot}/srv/keystone/apache.conf
 /srv/keystone/pip-selfcheck.json
 /etc/keystone
 
+%pre
+getent group  keystone >/dev/null || groupadd -r keystone
+getent passwd keystone >/dev/null || \
+    useradd -r -g keystone -d /home/keystone -s /sbin/nologin \
+        -c "OpenStack keystone component account" keystone
+exit 0
+
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
+- create keystone user
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
 - fixing email in changelog
 
