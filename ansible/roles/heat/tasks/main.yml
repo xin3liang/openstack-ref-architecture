@@ -1,4 +1,4 @@
-- include_vars: "{{ansible_os_family}}.yml"
+- include: roles/common/deploy_pkg.yml pkg_name={{heat_pkg}}
 
 - name: Setup Heat
   openstack_service: user={{heat_user}} password={{heat_pass}} type=orchestration
@@ -23,13 +23,6 @@
 - name: Add heat DB user
   mysql_user: name={{heat_db_user}} password={{heat_db_pass}} priv=heat.*:ALL state=present
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
-
-- name: Install heat packages
-  package: name={{item}} state=present
-  with_items: "{{heat_packages}}"
-
-- include: roles/common/deploy_venv.yml component=heat notify=restart-heat
-           url={{heat_venv_url}} checksum={{heat_venv_checksum}}
 
 - name: Configure heat.conf
   template: src=heat.conf dest=/etc/heat/

@@ -24,7 +24,7 @@ debian_openstack_repo: ""
 cinder_compute_pkg: erp-cinder-compute-node-services
 cinder_pkg: erp-cinder
 glance_pkg: erp-glance-services
-heat_package: erp-heat-services
+heat_pkg: erp-heat-services
 horizon_pkg: erp-horizon
 keystone_pkg: erp-keystone
 neutron_compute_pkg: erp-neutron-compute-node-services
