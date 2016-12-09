@@ -1,5 +1,1 @@
-horizon_packages:
-  - httpd
-  - mod_wsgi
-
 apache_daemon: httpd

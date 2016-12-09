@@ -1,11 +1,6 @@
 - include_vars: "{{ansible_os_family}}.yml"
 
-- name: Install horizon dependencies
-  package: name={{item}} state=present
-  with_items: "{{horizon_packages}}"
-
-- include: roles/common/deploy_venv.yml component=horizon notify=restart-horizon
-           url={{horizon_venv_url}} checksum={{horizon_venv_checksum}}
+- include: roles/common/deploy_pkg.yml pkg_name={{horizon_pkg}}
 
 - name: Ensure devcloud theme directory exists
   file: path=/srv/horizon/src/openstack_dashboard/themes/devcloud/img state=directory
