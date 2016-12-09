@@ -1,6 +1,6 @@
 Name:		erp-glance
 Version:	2016.12
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -58,8 +58,8 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/glance/pip-selfcheck.json
 /srv/glance/systemd-services
 %attr(-,glance,glance) /var/log/glance
-%attr(-,glance,glance) /etc/sudoers.d/glance
-%attr(-,glance,glance) /etc/logrotate.d/glance
+/etc/sudoers.d/glance
+/etc/logrotate.d/glance
 %attr(-,glance,glance) /etc/glance
 
 %files services
@@ -87,6 +87,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
+- fix ownership for logrotate and sudo config files
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-11
 - set ownership for logs and configs
 

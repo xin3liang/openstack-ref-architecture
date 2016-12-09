@@ -1,6 +1,6 @@
 Name:		erp-heat
 Version:	2016.12
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -62,8 +62,8 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/heat/pip-selfcheck.json
 /srv/heat/systemd-services
 %attr(-,heat,heat) /var/log/heat
-%attr(-,heat,heat) /etc/sudoers.d/heat
-%attr(-,heat,heat) /etc/logrotate.d/heat
+/etc/sudoers.d/heat
+/etc/logrotate.d/heat
 %attr(-,heat,heat) /etc/heat
 
 
@@ -87,6 +87,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-11
+- fix ownership for logrotate and sudo config files
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
 - set ownership for logs and configs
 

@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -65,8 +65,8 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/cinder/pip-selfcheck.json
 /srv/cinder/systemd-services
 %attr(-,cinder,cinder) /var/log/cinder
-%attr(-,cinder,cinder) /etc/sudoers.d/cinder
-%attr(-,cinder,cinder) /etc/logrotate.d/cinder
+/etc/sudoers.d/cinder
+/etc/logrotate.d/cinder
 %attr(-,cinder,cinder) /etc/cinder
 
 %files services
@@ -103,6 +103,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-13
+- fix ownership for logrotate and sudo config files
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
 - set ownership for logs and configs
 

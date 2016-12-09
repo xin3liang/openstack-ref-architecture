@@ -1,6 +1,6 @@
 Name:		erp-nova
 Version:	2016.12
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -101,8 +101,8 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/nova/pip-selfcheck.json
 /srv/nova/systemd-services
 %attr(-,nova,nova) /var/log/nova
-%attr(-,nova,nova) /etc/sudoers.d/nova
-%attr(-,nova,nova) /etc/logrotate.d/nova
+/etc/sudoers.d/nova
+/etc/logrotate.d/nova
 %attr(-,nova,nova) /etc/nova
 
 
@@ -133,6 +133,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-11
+- fix ownership for logrotate and sudo config files
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
 - set ownership for logs and configs
 

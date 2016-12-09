@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -65,8 +65,8 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/neutron/pip-selfcheck.json
 /srv/neutron/systemd-services
 %attr(-,neutron,neutron) /var/log/neutron
-%attr(-,neutron,neutron) /etc/sudoers.d/neutron
-%attr(-,neutron,neutron) /etc/logrotate.d/neutron
+/etc/sudoers.d/neutron
+/etc/logrotate.d/neutron
 %attr(-,neutron,neutron) /etc/neutron
 
 %files services
@@ -105,6 +105,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-13
+- fix ownership for logrotate and sudo config files
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
 - fixed config files
 
