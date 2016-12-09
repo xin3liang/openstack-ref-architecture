@@ -1,5 +1,7 @@
 - include_vars: "{{ansible_os_family}}.yml"
 
+- include: roles/common/deploy_pkg.yml pkg_name={{glance_pkg}}
+
 - name: Setup glance service
   openstack_service: user={{glance_user}} password={{glance_pass}} type=image
                      description="OpenStack Image Service"
@@ -15,10 +17,6 @@
 - name: Add glance DB user
   mysql_user: name={{glance_db_user}} password={{glance_db_pass}} priv=glance.*:ALL state=present
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
-
-
-- include: roles/common/deploy_pkg.yml component=glance notify=restart-glance
-           name={{glance_pkg}}
 
 # python-ceph can't really be built into venv (and doesn't exist in pip)
 # so symlink in what glance needs
@@ -38,5 +36,5 @@
   notify: restart-glance
 
 - name: Run DB sync
-  when: venv.changed
+  when: pkg_changed.changed
   command: /srv/glance/bin/glance-manage db sync
