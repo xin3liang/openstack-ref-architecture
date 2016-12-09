@@ -1,12 +1,14 @@
 - name: Add OpenStack repo
-  when: {{ ansible_os_family }} == "RedHat"
+  when: ansible_os_family == "RedHat"
   yum_repository:
     name: linaro-openstack
     description: Linaro OpenStack Yum repo
-    baseurl: {{ centos_openstack_repo }}
+    baseurl: "{{centos_openstack_repo}}"
     state: present
+    gpgcheck: no
 
 - name: Installing {{ pkg_name }} and dependencies
   package:
-    name: {{ pkg_name }}
-    state: {{ pkg_policy }}
+    name: "{{pkg_name}}"
+    state: "{{pkg_policy}}"
+  register: pkg_changed
