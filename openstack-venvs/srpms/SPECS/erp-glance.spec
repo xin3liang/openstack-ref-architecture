@@ -1,6 +1,6 @@
 Name:		erp-glance
 Version:	2016.12
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -9,6 +9,7 @@ Source1:	glance.logrotate
 Source2:	glance.sudoers
 
 Requires:	python-ceph
+Requires:	python-rados python-rbd
 Requires(pre):	shadow-utils libvirt
 
 %description
@@ -85,6 +86,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 linaro - 2016.12-8
+- added missing deps on python-rados, python-rdb
+
 * Fri Dec 09 2016 linaro - 2016.12-7
 - rebuild with centos-virtualenv 11 build
 

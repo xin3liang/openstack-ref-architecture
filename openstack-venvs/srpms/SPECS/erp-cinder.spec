@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -9,7 +9,8 @@ Source1:	cinder.logrotate
 Source2:	cinder.sudoers
 
 Requires:	ceph-common python-ceph sysfsutils
-Requires:	lvm2 sudo qemu-img sysfsutils
+Requires:	lvm2 sudo qemu-img
+Requires:	python-rados python-rbd
 Requires(pre):  shadow-utils libvirt
 
 %description
@@ -101,6 +102,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 linaro - 2016.12-9
+- added missing deps on python-rados, python-rdb
+
 * Fri Dec 09 2016 linaro - 2016.12-8
 - rebuild with centos-virtualenv 11 build
 
