@@ -29,7 +29,7 @@
   notify: restart-heat
 
 - name: Run DB sync
-  when: venv.changed
+  when: pkg_changed.changed
   command: /srv/heat/bin/heat-manage db_sync
 
 # TODO
