@@ -1,2 +1,1 @@
-- include: roles/common/deploy_venv.yml component=openstack-cli notify=[]
-           url={{cli_venv_url}} checksum={{cli_venv_checksum}}
+- include: roles/common/deploy_pkg.yml pkg_name={{openstack_cli_pkg}}
