@@ -1,11 +1,5 @@
 - include_vars: "{{ansible_os_family}}.yml"
 
-- name: Install dependencies
-  package: name={{item}} state=present
-  with_items:
-    - python-rbd
-    - python-rados
-
 - name: Setup glance service
   openstack_service: user={{glance_user}} password={{glance_pass}} type=image
                      description="OpenStack Image Service"
@@ -23,8 +17,8 @@
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 
-- include: roles/common/deploy_venv.yml component=glance notify=restart-glance
-           url={{glance_venv_url}} checksum={{glance_venv_checksum}}
+- include: roles/common/deploy_pkg.yml component=glance notify=restart-glance
+           name={{glance_pkg}}
 
 # python-ceph can't really be built into venv (and doesn't exist in pip)
 # so symlink in what glance needs
