@@ -1,6 +1,6 @@
 Name:		erp-openstack-cli
 Version:	2016.12
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	OpenStack CLI venv
 
 License:	Apache
@@ -25,9 +25,14 @@ done
 
 %files
 /srv/openstack-cli
-/usr/bin
+/usr/bin/openstack
+/usr/bin/nova
+/usr/bin/neutron
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
+- fixed /usr/bin ownership
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
 - fixing email in changelog
 
