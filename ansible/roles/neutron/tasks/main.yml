@@ -1,4 +1,4 @@
-- include_vars: "{{ansible_os_family}}.yml"
+- include: roles/common/deploy_pkg.yml pkg_name={{neutron_pkg}}
 
 - name: Setup neutron service
   openstack_service: user={{neutron_user}} password={{neutron_pass}} type=network
@@ -16,13 +16,6 @@
   mysql_user: name={{neutron_db_user}} password={{neutron_db_pass}} priv=neutron.*:ALL state=present
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
-- name: Install neutron packages
-  package: name={{item}} state=present
-  with_items: "{{neutron_packages}}"
-
-- include: roles/common/deploy_venv.yml component=neutron notify=restart-neutron-service
-           url={{neutron_venv_url}} checksum={{neutron_venv_checksum}}
-
 # neutron's setup.sh sets up *all* neutron daemons. We only need to run
 # the neutron server from here
 - name: Ensure only neutron service is enabled
@@ -38,6 +31,6 @@
   notify: restart-neutron-service
 
 - name: Run DB sync
-  when: venv.changed
+  when: pkg_changed.changed
   command: /srv/neutron/bin/neutron-db-manage --config-file /etc/neutron/neutron.conf
            upgrade head

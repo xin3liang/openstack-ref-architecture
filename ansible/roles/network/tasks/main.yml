@@ -1,8 +1,4 @@
-- include_vars: "{{ansible_os_family}}.yml"
-
-- name: Install neutron packages
-  package: name={{item}} state=present
-  with_items: "{{network_packages}}"
+- include: roles/common/deploy_pkg.yml pkg_name={{neutron_compute_pkg}}
 
 - name: Ensure ovs is enabled and running
   service: name=openvswitch enabled=true state=started
@@ -25,9 +21,6 @@
 - name: Add external interface to the bridge
   when: "bridge_ports is defined and '{{network_external_iface}}' not in bridge_ports.stdout"
   command: ovs-vsctl add-port br-ex {{network_external_iface}}
-
-- include: roles/common/deploy_venv.yml component=neutron notify=restart-network-service
-           url={{neutron_venv_url}} checksum={{neutron_venv_checksum}}
 
 - name: Ensure the neutron-server isn't enabled
   file: state=absent path={{item}}
