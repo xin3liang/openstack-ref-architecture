@@ -1,9 +1,5 @@
 - include_vars: "{{ansible_os_family}}.yml"
 
-- name: Install keystone dependencies
-  package: pkg={{item}} state=present
-  with_items: "{{keystone_packages}}"
-
 - name: Add keystone DB
   mysql_db: name=keystone state=present
             login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
@@ -12,8 +8,8 @@
   mysql_user: name={{keystone_db_user}} password={{keystone_db_pass}} priv=keystone.*:ALL state=present
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
-- include: roles/common/deploy_venv.yml component=keystone notify=restart-keystone
-           url={{keystone_venv_url}} checksum={{keystone_venv_checksum}}
+- include: roles/common/deploy_pkg.yml component=keystone notify=restart-keystone
+           pkg_name={{keystone_pkg}}
 
 - name: Configure keystone.conf
   template: src=keystone.conf dest=/etc/keystone/

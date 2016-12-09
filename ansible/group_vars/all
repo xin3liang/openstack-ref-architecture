@@ -17,6 +17,27 @@ cli_venv_checksum: sha256:fd0a9dd6ed48ba09f65f04972f4ded757b2e9209104285a20b01e6
 heat_venv_url: http://people.linaro.org/~andy.doan/devcloud/newton-heat-venv.tgz
 heat_venv_checksum: sha256:c72f2941cd36c08d808d77247b8ef72dc83d88072b1edf8a79c8f9ab4d8ed67a
 
+# Service files have the main package as dependancy
+# Keystone and horizon are started with apache
+centos_openstack_repo: http://people.linaro.org/~marcin.juszkiewicz/centos7/venvs-rpm/
+debian_openstack_repo: ""
+cinder_compute_pkg: erp-cinder-compute-node-services
+cinder_pkg: erp-cinder
+glance_pkg: erp-glance-services
+heat_package: erp-heat-services
+horizon_pkg: erp-horizon
+keystone_pkg: erp-keystone
+neutron_compute_pkg: erp-neutron-compute-node-services
+neutron_pkg: erp-neutron-services
+nova_compute_pkg: erp-nova-compute-node-services
+nova_pkg: erp-nova-services
+openstack_cli_pkg: erp-openstack-cli
+
+# Packages can be installed and kept at the current versions (present) or
+# upgraded to latest (latest)
+#
+# upgrades are untested in 16.12
+pkg_policy: present
 
 # Ceph needs an odd number of MONs. 3 is a good number for a small/mid-sized deployment
 ceph_mons: "{% for host in groups['ceph_monitor_servers'] %}{{ hostvars[host]['ansible_fqdn'] }}{% if not loop.last %}, {% endif %}{% endfor %}"
