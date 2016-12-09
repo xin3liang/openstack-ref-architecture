@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -102,10 +102,13 @@ do
 done
 
 %changelog
-* Fri Dec 09 2016 linaro - 2016.12-9
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
+- fixing email in changelog
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-9
 - added missing deps on python-rados, python-rdb
 
-* Fri Dec 09 2016 linaro - 2016.12-8
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-8
 - rebuild with centos-virtualenv 11 build
 
 * Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7

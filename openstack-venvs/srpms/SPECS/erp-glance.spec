@@ -1,6 +1,6 @@
 Name:		erp-glance
 Version:	2016.12
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -86,10 +86,13 @@ do
 done
 
 %changelog
-* Fri Dec 09 2016 linaro - 2016.12-8
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-9
+- fixing email in changelog
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-8
 - added missing deps on python-rados, python-rdb
 
-* Fri Dec 09 2016 linaro - 2016.12-7
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
 - rebuild with centos-virtualenv 11 build
 
 * Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
