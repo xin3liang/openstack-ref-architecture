@@ -1,6 +1,6 @@
 Name:		erp-nova
 Version:	2016.12
-Release:	8%{?dist}
+Release:	10%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -41,15 +41,15 @@ Requires(pre):  shadow-utils libvirt
 
 %package compute-node-services
 Summary:	OpenStack Nova venv services for compute node
-%description compute-node-services
 Requires(post):   systemd
 Requires:	erp-nova
+%description compute-node-services
 
 %package services
 Summary:	OpenStack Nova venv services
-%description services
 Requires(post):   systemd
 Requires:	erp-nova
+%description services
 
 %package src
 Summary:	OpenStack Nova venv src
@@ -100,9 +100,10 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/nova/share
 /srv/nova/pip-selfcheck.json
 /srv/nova/systemd-services
-/etc/sudoers.d/nova
-/etc/logrotate.d/nova
-/etc/nova
+%attr(-,nova,nova) /var/log/nova
+%attr(-,nova,nova) /etc/sudoers.d/nova
+%attr(-,nova,nova) /etc/logrotate.d/nova
+%attr(-,nova,nova) /etc/nova
 
 
 %pre
@@ -132,6 +133,13 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
+- set ownership for logs and configs
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-9
+- fix subpackages deps
+- added missing log directory
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-8
 - fixing email in changelog
 

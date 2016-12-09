@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	9%{?dist}
+Release:	12%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -18,15 +18,15 @@ Requires(pre):	shadow-utils libvirt
 
 %package services
 Summary:	OpenStack neutron venv services
-%description services
 Requires(post):   systemd
 Requires:	erp-neutron
+%description services
 
 %package compute-node-services
 Summary:	OpenStack neutron venv services for compute node
-%description compute-node-services
 Requires(post):   systemd
 Requires:	erp-neutron
+%description compute-node-services
 
 %package src
 Summary:	OpenStack neutron venv src
@@ -51,7 +51,7 @@ install -m 0644 %{_sourcedir}/neutron.logrotate %{buildroot}/etc/logrotate.d/neu
 install -m 0644 %{_sourcedir}/neutron.sudoers   %{buildroot}/etc/sudoers.d/neutron
 
 cp -a * %{buildroot}/srv/neutron/
-cp -a src/etc/neutron/* %{buildroot}/etc/neutron/
+cp -a src/etc/ %{buildroot}/etc/neutron/
 cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 
 %files src
@@ -64,9 +64,10 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/neutron/lib*
 /srv/neutron/pip-selfcheck.json
 /srv/neutron/systemd-services
-/etc/sudoers.d/neutron
-/etc/logrotate.d/neutron
-/etc/neutron
+%attr(-,neutron,neutron) /var/log/neutron
+%attr(-,neutron,neutron) /etc/sudoers.d/neutron
+%attr(-,neutron,neutron) /etc/logrotate.d/neutron
+%attr(-,neutron,neutron) /etc/neutron
 
 %files services
 /usr/lib/systemd/system/erp-neutron-dhcp-agent.service
@@ -104,6 +105,16 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
+- fixed config files
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-11
+- set ownership for logs and configs
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
+- fix subpackages deps
+- added missing log directory
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-9
 - fixing email in changelog
 

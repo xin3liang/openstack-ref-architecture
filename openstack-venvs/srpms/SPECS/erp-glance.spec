@@ -1,6 +1,6 @@
 Name:		erp-glance
 Version:	2016.12
-Release:	9%{?dist}
+Release:	11%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -16,9 +16,9 @@ Requires(pre):	shadow-utils libvirt
 
 %package services
 Summary:	OpenStack glance venv services
-%description services
 Requires(post):   systemd
 Requires:	erp-glance
+%description services
 
 %package src
 Summary:	OpenStack glance venv src
@@ -57,9 +57,10 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/glance/share
 /srv/glance/pip-selfcheck.json
 /srv/glance/systemd-services
-/etc/sudoers.d/glance
-/etc/logrotate.d/glance
-/etc/glance
+%attr(-,glance,glance) /var/log/glance
+%attr(-,glance,glance) /etc/sudoers.d/glance
+%attr(-,glance,glance) /etc/logrotate.d/glance
+%attr(-,glance,glance) /etc/glance
 
 %files services
 /usr/lib/systemd/system/erp-glance-api.service
@@ -86,6 +87,13 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-11
+- set ownership for logs and configs
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
+- fix subpackages deps
+- added missing log directory
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-9
 - fixing email in changelog
 

@@ -1,6 +1,6 @@
 Name:		erp-heat
 Version:	2016.12
-Release:	8%{?dist}
+Release:	10%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -14,9 +14,9 @@ Requires(pre):	shadow-utils
 
 %package services
 Summary:	OpenStack heat venv services
-%description services
 Requires(post):   systemd
 Requires:	erp-heat
+%description services
 
 %package src
 Summary:	OpenStack heat venv src
@@ -61,9 +61,10 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/heat/share
 /srv/heat/pip-selfcheck.json
 /srv/heat/systemd-services
-/etc/sudoers.d/heat
-/etc/logrotate.d/heat
-/etc/heat
+%attr(-,heat,heat) /var/log/heat
+%attr(-,heat,heat) /etc/sudoers.d/heat
+%attr(-,heat,heat) /etc/logrotate.d/heat
+%attr(-,heat,heat) /etc/heat
 
 
 %pre
@@ -86,6 +87,13 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
+- set ownership for logs and configs
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-9
+- fix subpackages deps
+- added missing log directory
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-8
 - fixing email in changelog
 

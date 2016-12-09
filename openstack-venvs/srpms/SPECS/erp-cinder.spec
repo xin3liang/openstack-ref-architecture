@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	10%{?dist}
+Release:	12%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -17,15 +17,15 @@ Requires(pre):  shadow-utils libvirt
 
 %package services
 Summary:	OpenStack cinder venv services
-%description services
 Requires(post):   systemd
 Requires:	erp-cinder
+%description services
 
 %package compute-node-services
 Summary:	OpenStack cinder venv services for compute node
-%description compute-node-services
 Requires(post):   systemd
 Requires:	erp-cinder
+%description compute-node-services
 
 %package src
 Summary:	OpenStack cinder venv src
@@ -64,9 +64,10 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/cinder/share
 /srv/cinder/pip-selfcheck.json
 /srv/cinder/systemd-services
-/etc/sudoers.d/cinder
-/etc/logrotate.d/cinder
-/etc/cinder
+%attr(-,cinder,cinder) /var/log/cinder
+%attr(-,cinder,cinder) /etc/sudoers.d/cinder
+%attr(-,cinder,cinder) /etc/logrotate.d/cinder
+%attr(-,cinder,cinder) /etc/cinder
 
 %files services
 /usr/lib/systemd/system/erp-cinder-api.service
@@ -102,6 +103,13 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
+- set ownership for logs and configs
+
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-11
+- fix subpackages deps
+- added missing log directory
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-10
 - fixing email in changelog
 
