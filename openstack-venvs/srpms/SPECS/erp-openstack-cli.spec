@@ -1,6 +1,6 @@
 Name:		erp-openstack-cli
 Version:	2016.12
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	OpenStack CLI venv
 
 License:	Apache
@@ -28,6 +28,9 @@ done
 /usr/bin
 
 %changelog
+* Fri Dec 09 2016 linaro - 2016.12-5
+- rebuild with centos-virtualenv 11 build
+
 * Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-4
 - move binaries to /usr/bin
 

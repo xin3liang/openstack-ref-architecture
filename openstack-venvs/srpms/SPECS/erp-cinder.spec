@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -101,6 +101,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 linaro - 2016.12-8
+- rebuild with centos-virtualenv 11 build
+
 * Thu Dec 08 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
 - switch to new systemd services
 
