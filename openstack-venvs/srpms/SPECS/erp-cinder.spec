@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -11,7 +11,7 @@ Source2:	cinder.sudoers
 Requires:	ceph-common python-ceph sysfsutils
 Requires:	lvm2 sudo qemu-img
 Requires:	python-rados python-rbd
-Requires(pre):  shadow-utils libvirt
+Requires(pre):  shadow-utils
 
 %description
 
@@ -81,7 +81,6 @@ getent group  cinder >/dev/null || groupadd -r cinder
 getent passwd cinder >/dev/null || \
     useradd -r -g cinder -d /home/cinder -s /sbin/nologin \
         -c "OpenStack cinder component account" cinder
-usermod -G libvirt cinder
 exit 0
 
 %post
@@ -103,6 +102,9 @@ do
 done
 
 %changelog
+* Mon Dec 12 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-15
+- cinder user do not have to be in libvirt group - #2751
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-14
 - tell sudo that tty is not required
 
