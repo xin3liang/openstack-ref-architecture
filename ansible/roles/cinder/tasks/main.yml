@@ -22,7 +22,7 @@
   mysql_user: name={{cinder_db_user}} password={{cinder_db_pass}} priv=cinder.*:ALL state=present
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
-- include: roles/common/deploy_pkg.yml name={{cinder_pkg}}
+- include: roles/common/deploy_pkg.yml pkg_name={{cinder_pkg}}
 
 - name: Configure cinder.conf
   template: src=cinder.conf dest=/etc/cinder/
