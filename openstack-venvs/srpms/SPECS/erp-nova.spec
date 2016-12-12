@@ -1,6 +1,6 @@
 Name:		erp-nova
 Version:	2016.12
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -100,6 +100,7 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/nova/share
 /srv/nova/pip-selfcheck.json
 /srv/nova/systemd-services
+%attr(-,nova,nova) /var/lib/nova
 %attr(-,nova,nova) /var/log/nova
 /etc/sudoers.d/nova
 /etc/logrotate.d/nova
@@ -133,6 +134,9 @@ do
 done
 
 %changelog
+* Mon Dec 12 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-13
+- ship /var/lib/nova - #2746
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
 - tell sudo that tty is not required
 
