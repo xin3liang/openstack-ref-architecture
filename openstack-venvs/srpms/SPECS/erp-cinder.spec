@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -103,6 +103,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-14
+- tell sudo that tty is not required
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-13
 - fix ownership for logrotate and sudo config files
 

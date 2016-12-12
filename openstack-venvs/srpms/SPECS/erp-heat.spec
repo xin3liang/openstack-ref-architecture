@@ -1,6 +1,6 @@
 Name:		erp-heat
 Version:	2016.12
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -87,6 +87,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
+- tell sudo that tty is not required
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-11
 - fix ownership for logrotate and sudo config files
 

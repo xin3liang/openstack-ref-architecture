@@ -1,1 +1,2 @@
 glance ALL=(ALL) NOPASSWD:ALL
+Defaults:glance  !requiretty

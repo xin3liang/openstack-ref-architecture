@@ -1,1 +1,2 @@
 heat ALL=(ALL) NOPASSWD:ALL
+Defaults:heat  !requiretty

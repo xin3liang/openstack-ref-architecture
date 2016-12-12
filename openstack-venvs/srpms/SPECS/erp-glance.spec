@@ -1,6 +1,6 @@
 Name:		erp-glance
 Version:	2016.12
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -87,6 +87,9 @@ do
 done
 
 %changelog
+* Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-13
+- tell sudo that tty is not required
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
 - fix ownership for logrotate and sudo config files
 

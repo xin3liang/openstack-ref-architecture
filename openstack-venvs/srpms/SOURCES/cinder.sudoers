@@ -1,1 +1,2 @@
 cinder ALL=(ALL) NOPASSWD:ALL
+Defaults:cinder  !requiretty
