@@ -22,7 +22,7 @@
 
 - name: Add nova-api DB user
   mysql_user: name={{nova_api_db_user}} password={{nova_api_db_pass}} priv=nova-api.*:ALL state=present
-              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_user_root_pass}}
+              host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
 - name: Configure nova.conf
   template: src=nova.conf dest=/etc/nova/nova.conf
