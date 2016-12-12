@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -51,7 +51,7 @@ install -m 0644 %{_sourcedir}/neutron.logrotate %{buildroot}/etc/logrotate.d/neu
 install -m 0644 %{_sourcedir}/neutron.sudoers   %{buildroot}/etc/sudoers.d/neutron
 
 cp -a * %{buildroot}/srv/neutron/
-cp -a src/etc/ %{buildroot}/etc/neutron/
+cp -a src/etc/* %{buildroot}/etc/neutron/
 cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 
 %files src
@@ -105,6 +105,9 @@ do
 done
 
 %changelog
+* Mon Dec 12 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-15
+- fix handling /etc contents - #2749
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-14
 - tell sudo that tty is not required
 
