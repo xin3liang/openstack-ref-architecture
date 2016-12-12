@@ -31,7 +31,7 @@ done
 
 %changelog
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
-- fixed /usr/bin ownership
+- fixed /usr/bin ownership - #2742
 
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-6
 - fixing email in changelog
