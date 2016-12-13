@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -65,6 +65,7 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/cinder/pip-selfcheck.json
 /srv/cinder/systemd-services
 %attr(-,cinder,cinder) /var/log/cinder
+%attr(-,cinder,cinder) /var/lib/cinder
 /etc/sudoers.d/cinder
 /etc/logrotate.d/cinder
 %attr(-,cinder,cinder) /etc/cinder
@@ -102,6 +103,9 @@ do
 done
 
 %changelog
+* Tue Dec 13 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-16
+- erp-cinder: ship /var/lib/cinder - #2752
+
 * Mon Dec 12 2016 Marcin Juszkiewicz <mjuszkiewicz@redhat.com> - 2016.12-15
 - cinder user do not have to be in libvirt group - #2751
 
