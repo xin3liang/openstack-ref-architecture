@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -52,6 +52,9 @@ install -m 0644 %{_sourcedir}/neutron.sudoers   %{buildroot}/etc/sudoers.d/neutr
 
 cp -a * %{buildroot}/srv/neutron/
 cp -a src/etc/* %{buildroot}/etc/neutron/
+mv %{buildroot}/etc/neutron/neutron/* %{buildroot}/etc/neutron/
+rm -rf %{buildroot}/etc/neutron/neutron/
+
 cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 
 %files src
@@ -105,6 +108,9 @@ do
 done
 
 %changelog
+* Tue Dec 13 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-16
+- erp-neutron: some more /etc/ fixes - #2754
+
 * Mon Dec 12 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-15
 - fix handling /etc contents - #2749
 
