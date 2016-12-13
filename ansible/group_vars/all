@@ -22,7 +22,7 @@ heat_venv_checksum: sha256:c72f2941cd36c08d808d77247b8ef72dc83d88072b1edf8a79c8f
 centos_openstack_repo: http://people.linaro.org/~marcin.juszkiewicz/centos7/venvs-rpm/
 debian_openstack_repo: ""
 cinder_compute_pkg: erp-cinder-compute-node-services
-cinder_pkg: erp-cinder
+cinder_pkg: erp-cinder-services
 glance_pkg: erp-glance-services
 heat_pkg: erp-heat-services
 horizon_pkg: erp-horizon
