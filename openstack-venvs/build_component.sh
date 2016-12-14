@@ -43,6 +43,9 @@ pip install --upgrade setuptools
 pip install kombu==3.0.35
 pip install vine==1.1.3
 
+pip install eventlet==0.19.0
+pip install tenacity==3.4.0
+
 # add requirements based on our deployment choices
 cp $VENV/src/requirements.txt $VENV/src/reqs.txt
 echo "python-memcached" >> $VENV/src/reqs.txt
