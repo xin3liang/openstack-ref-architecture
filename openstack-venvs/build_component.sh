@@ -14,7 +14,7 @@ if [ -f /etc/redhat-release ]; then
 	CMD=dnf
     fi
 
-    $CMD install -y gcc make libyaml-devel libxml2-devel libxslt-devel mysql-devel libffi-devel openssl-devel libvirt-devel python-devel pkgconfig python-virtualenv
+    $CMD install -y gcc make libyaml-devel libxml2-devel libxslt-devel mysql-devel libffi-devel openssl-devel libvirt-devel python-devel pkgconfig python-virtualenv git
 fi
 
 rm -rf $VENV
