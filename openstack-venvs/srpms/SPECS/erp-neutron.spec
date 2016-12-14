@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -68,6 +68,7 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 /srv/neutron/pip-selfcheck.json
 /srv/neutron/systemd-services
 %attr(-,neutron,neutron) /var/log/neutron
+%attr(-,neutron,neutron) /var/lib/neutron
 /etc/sudoers.d/neutron
 /etc/logrotate.d/neutron
 %attr(-,neutron,neutron) /etc/neutron
@@ -108,6 +109,9 @@ do
 done
 
 %changelog
+* Wed Dec 14 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-17
+- ship /var/lib/neutron directory - #2753
+
 * Tue Dec 13 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-16
 - erp-neutron: some more /etc/ fixes - #2754
 
