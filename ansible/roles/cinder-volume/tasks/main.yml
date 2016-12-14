@@ -1,7 +1,7 @@
 - include_vars: "{{ ansible_os_family }}.yml"
 
 - include: roles/common/deploy_pkg.yml component=cinder notify=restart-cinder-volume
-           pkg_name={{cinder_pkg}}
+           pkg_name={{cinder_compute_pkg}}
 
 # python-ceph can't really be built into venv (and doesn't exist in pip)
 # so symlink in what cinder-volume needs
