@@ -16,7 +16,7 @@ fields = {
     'admin_password': {'required': True, 'type': "str"},
 }
 
-oscli = '/usr/local/bin/openstack'
+oscli = '/usr/bin/openstack'
 
 
 def _os_env(admin_pass, keystone_url):
