@@ -1,6 +1,6 @@
 Name:		erp-keystone
 Version:	2016.12
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -48,6 +48,9 @@ getent passwd keystone >/dev/null || \
 exit 0
 
 %changelog
+* Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-8
+- rebuild with CentOS virtualenv build 13
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
 - create keystone user
 

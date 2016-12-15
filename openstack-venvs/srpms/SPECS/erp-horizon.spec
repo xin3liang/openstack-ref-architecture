@@ -1,6 +1,6 @@
 Name:		erp-horizon
 Version:	2016.12
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	OpenStack horizon venv
 
 License:	Apache
@@ -34,6 +34,9 @@ ln -sf /srv/horizon/apache.conf %{buildroot}/etc/httpd/conf.d/horizon.conf
 /etc/httpd/conf.d/horizon.conf
 
 %changelog
+* Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-8
+- rebuild with CentOS virtualenv build 13
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-7
 - fixing email in changelog
 

@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -109,6 +109,9 @@ do
 done
 
 %changelog
+* Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-18
+- rebuild with CentOS virtualenv build 13
+
 * Wed Dec 14 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-17
 - ship /var/lib/neutron directory - #2753
 

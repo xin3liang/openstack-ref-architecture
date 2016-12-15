@@ -1,6 +1,6 @@
 Name:		erp-nova
 Version:	2016.12
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	OpenStack Nova venv
 
 License:	Apache
@@ -134,6 +134,9 @@ do
 done
 
 %changelog
+* Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-14
+- rebuild with CentOS virtualenv build 13
+
 * Mon Dec 12 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-13
 - ship /var/lib/nova - #2746
 

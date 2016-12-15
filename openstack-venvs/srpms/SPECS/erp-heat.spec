@@ -1,6 +1,6 @@
 Name:		erp-heat
 Version:	2016.12
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -87,6 +87,9 @@ do
 done
 
 %changelog
+* Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-13
+- rebuild with CentOS virtualenv build 13
+
 * Fri Dec 09 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-12
 - tell sudo that tty is not required
 

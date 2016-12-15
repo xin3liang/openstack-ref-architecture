@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -103,6 +103,9 @@ do
 done
 
 %changelog
+* Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-17
+- rebuild with CentOS virtualenv build 13
+
 * Tue Dec 13 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-16
 - erp-cinder: ship /var/lib/cinder - #2752
 
