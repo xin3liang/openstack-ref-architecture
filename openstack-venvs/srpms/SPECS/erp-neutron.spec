@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	18%{?dist}
+Release:	19%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -9,7 +9,7 @@ Source1:	neutron.logrotate
 Source2:	neutron.sudoers
 
 Requires:	dnsmasq dnsmasq-utils iputils
-Requires:	radvd conntrack-tools
+Requires:	radvd conntrack-tools openvswitch
 Requires:	keepalived ipset iptables psmisc sudo
 Requires:	bridge-utils ebtables kmod
 Requires(pre):	shadow-utils libvirt
@@ -109,6 +109,9 @@ do
 done
 
 %changelog
+* Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-19
+- added dependency on openvswitch - #2753
+
 * Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-18
 - rebuild with CentOS virtualenv build 13
 
