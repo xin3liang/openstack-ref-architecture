@@ -72,7 +72,7 @@ sqlparse
 kombu
 cachetools
 cliff
-libvirt-python
+libvirt-python==2.5.0
 retrying
 futurist
 EOF
