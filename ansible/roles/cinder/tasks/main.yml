@@ -31,3 +31,9 @@
 - name: Run DB sync
   when: pkg_changed.changed
   command: /srv/cinder/bin/cinder-manage db sync
+
+- name: Ensure cinder services are enabled and running
+  service: name={{item}} state=started
+  with_items:
+    - erp-cinder-api
+    - erp-cinder-scheduler

@@ -12,11 +12,12 @@
   notify:
     - restart-nova
 
-- name: Ensure the neutron-server isn't enabled
-  file: state=absent path={{item}}
+- name: Ensure the neutron server components aren't enabled
+  service: name={{item}} enabled=no state=stopped
   with_items:
-   - /etc/init.d/neutron-server
-   - /lib/systemd/system/neutron-server
+   - erp-neutron-dhcp-agent
+   - erp-neutron-l3-agent
+   - erp-neutron-metadata-agent
 
 - name: Configure nova-compute
   template: src=nova-compute.conf dest=/etc/nova
@@ -43,8 +44,12 @@
   template: src=libvirtd.conf dest=/etc/libvirt/libvirtd.conf
   notify: restart-libvirtd
 
-- name: Ensure libvirtd is running
-  service: name=libvirtd enabled=true state=started
+- name: Ensure compute services are enabled and running
+  service: name={{item}} enabled=true state=started
+  with_items:
+    - libvirtd
+    - erp-nova-compute
+    - erp-neutron-openvswitch-agent
 
 - include: virsh-secret.yml client=nova virsh_uuid={{nova_ceph_virsh_uuid}}
 - include: virsh-secret.yml client=cinder virsh_uuid={{cinder_ceph_virsh_uuid}}

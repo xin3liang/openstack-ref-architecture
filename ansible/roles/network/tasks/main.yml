@@ -22,12 +22,6 @@
   when: "bridge_ports is defined and '{{network_external_iface}}' not in bridge_ports.stdout"
   command: ovs-vsctl add-port br-ex {{network_external_iface}}
 
-- name: Ensure the neutron-server isn't enabled
-  file: state=absent path={{item}}
-  with_items:
-   - /etc/init.d/neutron-server
-   - /run/systemd/generator.late/neutron-server.service
-
 - name: Configure neutron.conf
   template: src=roles/neutron/templates/neutron.conf dest=/etc/neutron/neutron.conf
   notify: restart-network-service
@@ -47,3 +41,11 @@
 - name: Configure metadata_agent.ini
   template: src=metadata_agent.ini dest=/etc/neutron/
   notify: restart-network-service
+
+- name: Ensure the network daemons are enabled
+  service: name={{item}} enabled=yes state=started
+  with_items:
+    - erp-neutron-dhcp-agent
+    - erp-neutron-l3-agent
+    - erp-neutron-metadata-agent
+    - erp-neutron-openvswitch-agent

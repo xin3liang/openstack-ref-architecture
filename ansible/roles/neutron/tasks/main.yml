@@ -16,16 +16,6 @@
   mysql_user: name={{neutron_db_user}} password={{neutron_db_pass}} priv=neutron.*:ALL state=present
               host=% login_host={{mysql_host}} login_user={{mysql_root_user}} login_password={{mysql_root_pass}}
 
-# neutron's setup.sh sets up *all* neutron daemons. We only need to run
-# the neutron server from here
-- name: Ensure only neutron service is enabled
-  file: state=absent path=/lib/systemd/system/{{item}}
-  with_items:
-   - erp-neutron-dhcp-agent.service
-   - erp-neutron-l3-agent.service
-   - erp-neutron-linuxbridge-agent.service
-   - erp-neutron-metadata-agent.service
-
 - name: Configure neutron.conf
   template: src=neutron.conf dest=/etc/neutron/neutron.conf
   notify: restart-neutron-service
@@ -34,3 +24,6 @@
   when: pkg_changed.changed
   command: /srv/neutron/bin/neutron-db-manage --config-file /etc/neutron/neutron.conf
            upgrade head
+
+- name: Ensure neutron service is enabled and running
+  service: name=erp-neutron-server enabled=yes state=started
