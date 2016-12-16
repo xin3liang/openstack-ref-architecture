@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -74,13 +74,13 @@ cp -a systemd-services/* %{buildroot}/usr/lib/systemd/system/
 %attr(-,neutron,neutron) /etc/neutron
 
 %files services
-/usr/lib/systemd/system/erp-neutron-dhcp-agent.service
-/usr/lib/systemd/system/erp-neutron-l3-agent.service
-/usr/lib/systemd/system/erp-neutron-metadata-agent.service
 /usr/lib/systemd/system/erp-neutron-server.service
 
 %files compute-node-services
 /usr/lib/systemd/system/erp-neutron-openvswitch-agent.service
+/usr/lib/systemd/system/erp-neutron-dhcp-agent.service
+/usr/lib/systemd/system/erp-neutron-l3-agent.service
+/usr/lib/systemd/system/erp-neutron-metadata-agent.service
 
 %pre
 getent group  neutron >/dev/null || groupadd -r neutron
@@ -109,6 +109,9 @@ do
 done
 
 %changelog
+* Fri Dec 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-20
+- move dhcp/l3/metadata agents to compute node services - #2753
+
 * Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-19
 - added dependency on openvswitch - #2753
 
