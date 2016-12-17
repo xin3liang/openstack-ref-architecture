@@ -48,6 +48,7 @@
   service: name={{item}} enabled=true state=started
   with_items:
     - libvirtd
+    - virtlogd
     - erp-nova-compute
     - erp-neutron-openvswitch-agent
 
