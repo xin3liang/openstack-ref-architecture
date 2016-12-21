@@ -35,6 +35,18 @@
   template: src=openvswitch_agent.ini dest=/etc/neutron/plugins/ml2/
   notify: restart-neutron
 
+# HACK to make nova-compute work with EDK2
+# nova-compute is hard-coded to expect files in these locations
+- name: nova-compute hack for EDK2
+  file: path=/usr/share/AAVMF state=directory
+- name: nova-compute hack for EDK2
+  file: src={{item.src}} dest={{item.dest}} state=link
+  with_items:
+    - src: /usr/share/edk2/aarch64/QEMU_EFI-pflash.raw
+      dest: /usr/share/AAVMF/AAVMF_CODE.fd
+    - src: /usr/share/edk2/aarch64/vars-template-pflash.raw
+      dest: /usr/share/AAVMF/AAVMF_VARS.fd
+
 # configure libvirtd to allow VM migration
 - name: Copy /etc/default/libvirtd
   copy: src=default-libvirtd dest=/etc/default/libvirtd
