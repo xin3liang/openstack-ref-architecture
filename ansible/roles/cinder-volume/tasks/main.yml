@@ -7,7 +7,7 @@
 # so symlink in what cinder-volume needs
 - name: Hack symlinks for python-ceph into cinder venv
   file: src={{item}}
-        dest=/srv/cinder/lib/python2.7/site-packages/{{item.split('/'[-1])}} state=link
+        dest=/srv/cinder/lib/python2.7/site-packages/{{item.split('/')[-1]}} state=link
   with_items: "{{ceph_python_libs}}"
   notify:
     - restart-cinder-volume
