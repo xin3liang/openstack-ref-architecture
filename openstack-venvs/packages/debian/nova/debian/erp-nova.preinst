@@ -1,0 +1,8 @@
+#! /bin/sh
+
+getent group  nova >/dev/null || groupadd -r nova
+getent passwd nova >/dev/null || \
+    useradd -r -g nova -G libvirt -d /home/nova -s /sbin/nologin \
+        -c "OpenStack nova component account" nova
+usermod -G libvirt,libvirt-qemu nova
+exit 0

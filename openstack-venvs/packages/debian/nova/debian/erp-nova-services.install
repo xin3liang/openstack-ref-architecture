@@ -1,0 +1,5 @@
+usr/lib/systemd/system/erp-nova-api.service
+usr/lib/systemd/system/erp-nova-cert.service
+usr/lib/systemd/system/erp-nova-conductor.service
+usr/lib/systemd/system/erp-nova-consoleauth.service
+usr/lib/systemd/system/erp-nova-scheduler.service

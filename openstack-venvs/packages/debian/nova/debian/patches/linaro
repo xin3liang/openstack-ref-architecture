@@ -1,0 +1,21 @@
+Description: Ship logrotate and sudo configs
+ .
+
+---
+
+--- /dev/null
++++ erp-nova-2016.12/nova.logrotate
+@@ -0,0 +1,8 @@
++/var/log/nova/*.log {
++    daily
++    missingok
++    rotate 7
++    compress
++    notifempty
++    nocreate
++}
+--- /dev/null
++++ erp-nova-2016.12/nova.sudoers
+@@ -0,0 +1,2 @@
++nova ALL=(ALL) NOPASSWD:ALL
++Defaults:nova  !requiretty

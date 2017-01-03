@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in api cert conductor consoleauth scheduler
+do
+    systemctl enable erp-nova-$name
+done

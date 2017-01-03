@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	           $(CURDIR)/debian/tmp/srv/nova \
+	           $(CURDIR)/debian/tmp/etc/nova \
+	           $(CURDIR)/debian/tmp/usr/lib/systemd/system \
+	           $(CURDIR)/debian/tmp/var/log/nova \
+	           $(CURDIR)/debian/tmp/var/lib/nova/instances \
+	           $(CURDIR)/debian/tmp/etc/logrotate.d \
+	           $(CURDIR)/debian/tmp/etc/sudoers.d
+	install -m 0644 nova.logrotate $(CURDIR)/debian/tmp/etc/logrotate.d/nova
+	install -m 0644 nova.sudoers   $(CURDIR)/debian/tmp/etc/sudoers.d/nova
+
+	cp -a bin etc include lib share src pip*json $(CURDIR)/debian/tmp/srv/nova/
+	cp -a src/etc/nova/* $(CURDIR)/debian/tmp/etc/nova/
+	cp -a systemd-services/* $(CURDIR)/debian/tmp/usr/lib/systemd/system/
+
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp

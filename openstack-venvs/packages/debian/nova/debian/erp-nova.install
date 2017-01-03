@@ -1,0 +1,11 @@
+srv/nova/bin
+srv/nova/etc
+srv/nova/include
+srv/nova/lib
+srv/nova/share
+srv/nova/pip-selfcheck.json
+etc/nova
+etc/logrotate.d/nova
+etc/sudoers.d/nova
+var/lib/nova/instances
+var/log/nova

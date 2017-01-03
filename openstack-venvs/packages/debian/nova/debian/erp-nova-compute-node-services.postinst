@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in compute
+do
+    systemctl enable erp-nova-$name
+done

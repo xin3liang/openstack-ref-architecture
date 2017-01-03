@@ -1,0 +1,8 @@
+#! /bin/sh
+
+for cmd in nova-rootwrap privsep-helper
+do
+    ln -sf /srv/nova/bin/$cmd /usr/bin/$cmd
+done
+
+chown -R nova:nova /var/log/nova /var/lib/nova
