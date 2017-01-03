@@ -1,0 +1,25 @@
+erp-neutron (2016.12-build20.4) stable; urgency=medium
+
+  * drop qemu-efi dependency
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Fri, 20 Jan 2017 12:05:24 +0100
+
+erp-neutron (2016.12-build20.3) stable; urgency=medium
+
+  * take care of /var/lib/neutron ownership
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Fri, 20 Jan 2017 10:00:41 +0100
+
+erp-neutron (2016.12-build20.2) stable; urgency=medium
+
+  * take care of log files ownership
+  * fixed dependency on openvswitch service
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Thu, 19 Jan 2017 10:12:05 +0100
+
+erp-neutron (2016.12-build20.1) stable; urgency=low
+
+  * First version
+  * Versioning will contain venv build numer used.
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Tue, 17 Jan 2017 17:46:00 +0100

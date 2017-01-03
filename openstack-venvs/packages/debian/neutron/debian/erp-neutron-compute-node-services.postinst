@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in openvswitch-agent
+do
+    systemctl enable erp-neutron-$name
+done

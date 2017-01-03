@@ -1,0 +1,8 @@
+#! /bin/sh
+
+getent group  neutron >/dev/null || groupadd -r neutron
+getent passwd neutron >/dev/null || \
+    useradd -r -g neutron -G libvirt -d /home/neutron -s /sbin/nologin \
+        -c "OpenStack neutron component account" neutron
+usermod -G libvirt,libvirt-qemu neutron
+exit 0

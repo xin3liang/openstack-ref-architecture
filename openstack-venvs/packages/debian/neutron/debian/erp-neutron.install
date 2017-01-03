@@ -1,0 +1,10 @@
+srv/neutron/bin
+srv/neutron/etc
+srv/neutron/include
+srv/neutron/lib
+srv/neutron/pip-selfcheck.json
+etc/neutron
+etc/logrotate.d/neutron
+etc/sudoers.d/neutron
+var/lib/neutron
+var/log/neutron

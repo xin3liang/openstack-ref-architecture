@@ -1,0 +1,8 @@
+#! /bin/sh
+
+for cmd in neutron-rootwrap privsep-helper neutron-ns-metadata-proxy
+do
+    ln -sf /srv/neutron/bin/$cmd /usr/bin/$cmd
+done
+
+chown -R neutron:neutron /var/log/neutron /var/lib/neutron

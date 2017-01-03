@@ -1,0 +1,19 @@
+Description: Add sudo and logrotate configs
+Author: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
+
+--- /dev/null
++++ erp-neutron-2016.12/neutron.logrotate
+@@ -0,0 +1,8 @@
++/var/log/neutron/*.log {
++    daily
++    missingok
++    rotate 7
++    compress
++    notifempty
++    nocreate
++}
+--- /dev/null
++++ erp-neutron-2016.12/neutron.sudoers
+@@ -0,0 +1,2 @@
++neutron ALL=(ALL) NOPASSWD:ALL
++Defaults:neutron  !requiretty

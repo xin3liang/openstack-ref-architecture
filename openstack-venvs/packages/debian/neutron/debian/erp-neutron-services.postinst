@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in dhcp-agent l3-agent metadata-agent server
+do
+    systemctl enable erp-neutron-$name
+done

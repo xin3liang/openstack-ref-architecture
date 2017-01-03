@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	           $(CURDIR)/debian/tmp/srv/neutron \
+	           $(CURDIR)/debian/tmp/etc/neutron \
+	           $(CURDIR)/debian/tmp/usr/lib/systemd/system \
+	           $(CURDIR)/debian/tmp/var/log/neutron \
+	           $(CURDIR)/debian/tmp/var/lib/neutron \
+	           $(CURDIR)/debian/tmp/etc/logrotate.d \
+	           $(CURDIR)/debian/tmp/etc/sudoers.d
+	install -m 0644 neutron.logrotate $(CURDIR)/debian/tmp/etc/logrotate.d/neutron
+	install -m 0644 neutron.sudoers   $(CURDIR)/debian/tmp/etc/sudoers.d/neutron
+
+	cp -a bin etc include lib src pip*json $(CURDIR)/debian/tmp/srv/neutron/
+	cp -a src/etc/* $(CURDIR)/debian/tmp/etc/neutron/
+	mv $(CURDIR)/debian/tmp/etc/neutron/neutron/* $(CURDIR)/debian/tmp/etc/neutron/
+	rm -rf $(CURDIR)/debian/tmp/etc/neutron/neutron/
+	cp -a systemd-services/* $(CURDIR)/debian/tmp/usr/lib/systemd/system/
+	sed -i -e 's/openvswitch.service/openvswitch-switch.service/g' $(CURDIR)/debian/tmp/usr/lib/systemd/system/erp-neutron-openvswitch-agent.service
+
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp
