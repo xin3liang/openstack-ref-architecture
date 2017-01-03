@@ -1,0 +1,8 @@
+#! /bin/sh
+
+for cmd in glance-rootwrap privsep-helper
+do
+    ln -sf /srv/glance/bin/$cmd /usr/bin/$cmd
+done
+
+chown -R glance:glance /var/log/glance

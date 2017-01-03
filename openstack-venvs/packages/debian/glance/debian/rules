@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	           $(CURDIR)/debian/tmp/srv/glance \
+	           $(CURDIR)/debian/tmp/etc/glance \
+	           $(CURDIR)/debian/tmp/usr/lib/systemd/system \
+	           $(CURDIR)/debian/tmp/var/log/glance \
+	           $(CURDIR)/debian/tmp/var/lib/glance \
+	           $(CURDIR)/debian/tmp/etc/logrotate.d \
+	           $(CURDIR)/debian/tmp/etc/sudoers.d
+	install -m 0644 glance.logrotate $(CURDIR)/debian/tmp/etc/logrotate.d/glance
+	install -m 0644 glance.sudoers   $(CURDIR)/debian/tmp/etc/sudoers.d/glance
+
+	cp -a bin etc include lib share src pip*json $(CURDIR)/debian/tmp/srv/glance/
+	cp -a src/etc/* $(CURDIR)/debian/tmp/etc/glance/
+	cp -a systemd-services/* $(CURDIR)/debian/tmp/usr/lib/systemd/system/
+
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp

@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in api registry
+do
+    systemctl enable erp-glance-$name
+done

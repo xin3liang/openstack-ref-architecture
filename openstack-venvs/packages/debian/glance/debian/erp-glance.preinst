@@ -1,0 +1,8 @@
+#! /bin/sh
+
+getent group  glance >/dev/null || groupadd -r glance
+getent passwd glance >/dev/null || \
+    useradd -r -g glance -G libvirt -d /home/glance -s /sbin/nologin \
+        -c "OpenStack glance component account" glance
+usermod -G libvirt,libvirt-qemu glance
+exit 0

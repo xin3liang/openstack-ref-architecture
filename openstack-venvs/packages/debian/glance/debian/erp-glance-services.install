@@ -1,0 +1,2 @@
+usr/lib/systemd/system/erp-glance-api.service
+usr/lib/systemd/system/erp-glance-registry.service
