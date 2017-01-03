@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in api scheduler
+do
+    systemctl enable erp-cinder-$name
+done

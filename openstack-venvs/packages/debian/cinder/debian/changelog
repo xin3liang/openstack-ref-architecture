@@ -1,0 +1,6 @@
+erp-cinder (2016.12-build20.1) stable; urgency=low
+
+  * First version
+  * Versioning will contain venv build numer used.
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Tue, 17 Jan 2017 17:46:00 +0100

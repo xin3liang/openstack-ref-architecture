@@ -1,0 +1,11 @@
+srv/cinder/bin
+srv/cinder/etc
+srv/cinder/include
+srv/cinder/lib
+srv/cinder/share
+srv/cinder/pip-selfcheck.json
+etc/cinder
+etc/logrotate.d/cinder
+etc/sudoers.d/cinder
+var/lib/cinder
+var/log/cinder

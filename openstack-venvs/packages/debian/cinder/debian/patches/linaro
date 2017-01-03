@@ -1,0 +1,21 @@
+Description: Ship logrotate and sudo configs
+ .
+
+---
+
+--- /dev/null
++++ erp-cinder-2016.12/cinder.logrotate
+@@ -0,0 +1,8 @@
++/var/log/cinder/*.log {
++    daily
++    missingok
++    rotate 7
++    compress
++    notifempty
++    nocreate
++}
+--- /dev/null
++++ erp-cinder-2016.12/cinder.sudoers
+@@ -0,0 +1,2 @@
++cinder ALL=(ALL) NOPASSWD:ALL
++Defaults:cinder  !requiretty

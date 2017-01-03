@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in volume
+do
+    systemctl enable erp-cinder-$name
+done

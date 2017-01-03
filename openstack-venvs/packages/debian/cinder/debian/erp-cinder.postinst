@@ -1,0 +1,8 @@
+#! /bin/sh
+
+for cmd in cinder-rootwrap privsep-helper
+do
+    ln -sf /srv/cinder/bin/$cmd /usr/bin/$cmd
+done
+
+chown -R cinder:cinder /var/log/cinder

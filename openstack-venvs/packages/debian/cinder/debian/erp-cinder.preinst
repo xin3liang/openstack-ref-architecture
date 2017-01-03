@@ -1,0 +1,7 @@
+#! /bin/sh
+
+getent group  cinder >/dev/null || groupadd -r cinder
+getent passwd cinder >/dev/null || \
+    useradd -r -g cinder -d /home/cinder -s /sbin/nologin \
+        -c "OpenStack cinder component account" cinder
+exit 0

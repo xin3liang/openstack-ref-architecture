@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	           $(CURDIR)/debian/tmp/srv/cinder \
+	           $(CURDIR)/debian/tmp/etc/cinder \
+	           $(CURDIR)/debian/tmp/usr/lib/systemd/system \
+	           $(CURDIR)/debian/tmp/var/log/cinder \
+	           $(CURDIR)/debian/tmp/var/lib/cinder \
+	           $(CURDIR)/debian/tmp/etc/logrotate.d \
+	           $(CURDIR)/debian/tmp/etc/sudoers.d
+	install -m 0644 cinder.logrotate $(CURDIR)/debian/tmp/etc/logrotate.d/cinder
+	install -m 0644 cinder.sudoers   $(CURDIR)/debian/tmp/etc/sudoers.d/cinder
+
+	cp -a bin etc include lib share src pip*json $(CURDIR)/debian/tmp/srv/cinder/
+	cp -a src/etc/cinder/* $(CURDIR)/debian/tmp/etc/cinder/
+	cp -a systemd-services/* $(CURDIR)/debian/tmp/usr/lib/systemd/system/
+
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp
