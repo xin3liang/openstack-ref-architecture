@@ -1,0 +1,8 @@
+#! /bin/sh
+
+for cmd in heat-rootwrap privsep-helper
+do
+    ln -sf /srv/heat/bin/$cmd /usr/bin/$cmd
+done
+
+chown -R heat:heat /var/log/heat

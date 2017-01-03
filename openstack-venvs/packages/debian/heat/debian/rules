@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	           $(CURDIR)/debian/tmp/srv/heat \
+	           $(CURDIR)/debian/tmp/etc/heat \
+	           $(CURDIR)/debian/tmp/usr/lib/systemd/system \
+	           $(CURDIR)/debian/tmp/var/log/heat \
+	           $(CURDIR)/debian/tmp/var/lib/heat/instances \
+	           $(CURDIR)/debian/tmp/etc/logrotate.d \
+	           $(CURDIR)/debian/tmp/etc/sudoers.d
+	install -m 0644 heat.logrotate $(CURDIR)/debian/tmp/etc/logrotate.d/heat
+	install -m 0644 heat.sudoers   $(CURDIR)/debian/tmp/etc/sudoers.d/heat
+
+	cp -a bin etc include lib share src pip*json $(CURDIR)/debian/tmp/srv/heat/
+	cp -a src/etc/heat/* $(CURDIR)/debian/tmp/etc/heat/
+	cp -a systemd-services/* $(CURDIR)/debian/tmp/usr/lib/systemd/system/
+
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp

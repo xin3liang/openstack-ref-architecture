@@ -1,0 +1,6 @@
+#! /bin/sh
+
+for name in api api-cfn engine
+do
+    systemctl enable erp-heat-$name
+done

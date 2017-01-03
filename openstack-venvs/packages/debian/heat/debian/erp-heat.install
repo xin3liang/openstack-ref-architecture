@@ -1,0 +1,10 @@
+srv/heat/bin
+srv/heat/etc
+srv/heat/include
+srv/heat/lib
+srv/heat/share
+srv/heat/pip-selfcheck.json
+etc/heat
+etc/logrotate.d/heat
+etc/sudoers.d/heat
+var/log/heat

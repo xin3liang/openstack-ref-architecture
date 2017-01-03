@@ -1,0 +1,21 @@
+Description: Ship logrotate and sudo configs
+ .
+
+---
+
+--- /dev/null
++++ erp-heat-2016.12/heat.logrotate
+@@ -0,0 +1,8 @@
++/var/log/heat/*.log {
++    daily
++    missingok
++    rotate 7
++    compress
++    notifempty
++    nocreate
++}
+--- /dev/null
++++ erp-heat-2016.12/heat.sudoers
+@@ -0,0 +1,2 @@
++heat ALL=(ALL) NOPASSWD:ALL
++Defaults:heat  !requiretty

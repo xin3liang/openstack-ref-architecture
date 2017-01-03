@@ -1,0 +1,7 @@
+#! /bin/sh
+
+getent group  heat >/dev/null || groupadd -r heat
+getent passwd heat >/dev/null || \
+    useradd -r -g heat -d /home/heat -s /sbin/nologin \
+        -c "OpenStack heat component account" heat
+exit 0
