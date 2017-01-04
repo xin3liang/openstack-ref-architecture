@@ -1,6 +1,6 @@
 Name:		erp-neutron
 Version:	2016.12
-Release:	20%{?dist}
+Release:	build14.21%{?dist}
 Summary:	OpenStack neutron venv
 
 License:	Apache
@@ -109,6 +109,10 @@ do
 done
 
 %changelog
+* Wed Jan 04 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build14.21
+- Use virtualenv tarballs 14
+- Use vnvs build number in release tag
+
 * Fri Dec 16 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-20
 - move dhcp/l3/metadata agents to compute node services - #2753
 

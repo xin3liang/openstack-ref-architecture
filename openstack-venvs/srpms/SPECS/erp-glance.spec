@@ -1,6 +1,6 @@
 Name:		erp-glance
 Version:	2016.12
-Release:	14%{?dist}
+Release:	build14.15%{?dist}
 Summary:	OpenStack glance venv
 
 License:	Apache
@@ -87,6 +87,10 @@ do
 done
 
 %changelog
+* Wed Jan 04 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build14.15
+- Use virtualenv tarballs 14
+- Use vnvs build number in release tag
+
 * Thu Dec 15 2016 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-14
 - rebuild with CentOS virtualenv build 13
 
