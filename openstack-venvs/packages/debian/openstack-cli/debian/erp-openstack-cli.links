@@ -1,0 +1,3 @@
+srv/openstack-cli/bin/openstack usr/bin/openstack
+srv/openstack-cli/bin/nova      usr/bin/nova
+srv/openstack-cli/bin/neutron   usr/bin/neutron

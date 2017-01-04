@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	    $(CURDIR)/debian/tmp/srv/openstack-cli \
+	    $(CURDIR)/debian/tmp/usr/bin
+
+	cp -a bin include lib src pip*json $(CURDIR)/debian/tmp/srv/openstack-cli/
+
+	dh_link
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp
