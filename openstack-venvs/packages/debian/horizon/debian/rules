@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	           $(CURDIR)/debian/tmp/srv/horizon \
+	           $(CURDIR)/debian/tmp/etc/apache2/sites-available
+
+	cp -a apache.conf bin include lib share src $(CURDIR)/debian/tmp/srv/horizon/
+
+	dh_link
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp
