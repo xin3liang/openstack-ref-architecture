@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_install:
+	install -d \
+	           $(CURDIR)/debian/tmp/srv/keystone \
+	           $(CURDIR)/debian/tmp/etc/keystone
+
+	cp -a bin etc include lib src pip*json $(CURDIR)/debian/tmp/srv/keystone/
+	cp -a src/etc/* $(CURDIR)/debian/tmp/etc/keystone/
+
+	dh_install --list-missing --fail-missing --sourcedir=debian/tmp

@@ -1,0 +1,24 @@
+Priority: optional
+Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
+Source: erp-keystone
+Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Standards-Version: 3.8.2
+
+Package: erp-keystone
+Section: libs
+Depends:
+    ${shlibs:Depends},
+    apache2,
+    libapache2-mod-wsgi,
+    python-mysqldb
+Architecture: any
+Description: OpenStack Keyston component - core files
+ .
+ Part of Linaro Reference Platform release
+
+Package: erp-keystone-src
+Section: libs
+Architecture: all
+Description: OpenStack Keyston component - sources
+ .
+ Part of Linaro Reference Platform release

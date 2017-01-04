@@ -1,0 +1,9 @@
+#! /bin/sh
+
+getent group  keystone >/dev/null || groupadd -r keystone
+getent passwd keystone >/dev/null || \
+    useradd -r -g keystone -d /home/keystone -s /sbin/nologin \
+        -c "OpenStack keystone component account" keystone
+
+install -o keystone -g keystone -d /home/keystone
+exit 0
