@@ -31,7 +31,7 @@ git clone $GIT_URL $VENV/src
 cd $VENV/src
 git config user.email "ci_notifications@linaro.org"
 git config user.name "Jenkins"
-git checkout -b $VERSION
+git checkout -b $VERSION $VERSION
 
 . $VENV/bin/activate
 # openstack requires latest versions of pip, pbr, and setuptools to build itself
