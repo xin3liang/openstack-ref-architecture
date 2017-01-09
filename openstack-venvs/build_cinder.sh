@@ -15,6 +15,9 @@ DAEMON=/srv/cinder/bin/cinder-scheduler
 CONFIG_FILE=/etc/cinder/cinder.conf
 source ./build_component.sh
 
+# https://bugs.linaro.org/show_bug.cgi?id=2787
+pip install os-vif=1.3.0
+
 cd $HERE
 
 DESC="OpenStack Block Storage API"
