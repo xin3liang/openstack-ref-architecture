@@ -48,7 +48,7 @@ pip install tenacity==3.4.0
 
 # let use the same as we had in CentOS #14
 # jinja2 2.9.4 causes rpm packages build failure
-pip install jinja2=2.8.1
+pip install jinja2==2.8.1
 
 # https://bugs.linaro.org/show_bug.cgi?id=2802
 pip install webob==1.6.3
