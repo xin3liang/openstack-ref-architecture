@@ -1,6 +1,6 @@
 Name:		erp-cinder
 Version:	2016.12
-Release:	build14.18%{?dist}
+Release:	build17.19%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -103,6 +103,9 @@ do
 done
 
 %changelog
+* Tue Jan 10 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build17.19
+- Rebuild with CentOS virtualenv tarballs from build #17
+
 * Wed Jan 04 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build14.18
 - Use virtualenv tarballs 14
 - Use vnvs build number in release tag

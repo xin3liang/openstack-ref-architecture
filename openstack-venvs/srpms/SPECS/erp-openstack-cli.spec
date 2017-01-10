@@ -1,6 +1,6 @@
 Name:		erp-openstack-cli
 Version:	2016.12
-Release:	build14.9%{?dist}
+Release:	build17.10%{?dis
 Summary:	OpenStack CLI venv
 
 License:	Apache
@@ -30,6 +30,9 @@ done
 /usr/bin/neutron
 
 %changelog
+* Tue Jan 10 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build17.10
+- Rebuild with CentOS virtualenv tarballs from build #17
+
 * Wed Jan 04 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build14.9
 - Use virtualenv tarballs 14
 - Use venvs build number in release tag.

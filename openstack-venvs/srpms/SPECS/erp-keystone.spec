@@ -1,6 +1,6 @@
 Name:		erp-keystone
 Version:	2016.12
-Release:	build14.9%{?dist}
+Release:	build17.10%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -48,6 +48,9 @@ getent passwd keystone >/dev/null || \
 exit 0
 
 %changelog
+* Tue Jan 10 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build17.10
+- Rebuild with CentOS virtualenv tarballs from build #17
+
 * Wed Jan 04 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12-build14.9
 - Use virtualenv tarballs 14
 - Use vnvs build number in release tag
