@@ -1,7 +1,7 @@
 This repository provides all the support code required to deploy a "Developer
 Cloud".
 
-## OpenStack packages
+# OpenStack packages
 
 The OpenStack packages are built by Linaro and made available in the following
 location:
@@ -18,7 +18,7 @@ own risk.
 The reference architecture deploys a cloud that uses Ceph as backend for OpenStack.
 
 See block diagram of how the servers should be connected to the network and how to
-spread the services on the different hosts on a default configuration [here](docs/architecture.md).
+spread the services on the different hosts on a default configuration in the [architecture document](docs/architecture.md).
 
 # Pre-requisites
 
@@ -28,8 +28,7 @@ have networking configured in a way that they can see/resolve each other's names
 
 1. The nodes that will be used as Ceph OSDs need to have at least one extra harddrive for Ceph.
 
-1. The networking node should have 3 NICs connected as described in the [architecture](docs/architecture.md)
-document.
+1. The networking node should have 3 NICs connected as described in the [architecture document](docs/architecture.md).
 
 # Configuration
 
