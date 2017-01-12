@@ -7,7 +7,7 @@
 
 # Make sure monitoring agent and time agent are in all servers
 #
-- name: Configure ntp and zabbix_agents
+- name: Configure ntp
   hosts: all
   become: yes
   vars_files:
@@ -15,7 +15,6 @@
     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
   roles:
     - {role: ntp, tags: [ntp]}
-#    - {role: zabbix-agent, tags: [zabbix-agent]}
 
 # Data Node Deployment
 #
@@ -193,14 +192,3 @@
     - ["secrets/deployment-vars", "deployment-vars.example"]
   roles:
     - {role: web-frontend, tags: [web-frontend]}
-
-# Deploy Zabbix
-# - name: Configure zabbix-server
-#   hosts: zabbix_servers
-#   vars_files:
-#     - ["secrets/deployment-vars", "deployment-vars.example"]
-#     - ["secrets/host_vars/{{inventory_hostname}}", "vars/empty"]
-#   become: yes
-#   roles:
-#     - {role: zabbix-server, tags: [zabbix-server]}
-
