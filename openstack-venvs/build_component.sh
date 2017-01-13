@@ -53,6 +53,9 @@ pip install jinja2==2.8.1
 # https://bugs.linaro.org/show_bug.cgi?id=2802
 pip install webob==1.6.3
 
+# https://bugs.linaro.org/show_bug.cgi?id=2817
+pip install python_novaclient==6.0.0
+
 # add requirements based on our deployment choices
 cp $VENV/src/requirements.txt $VENV/src/reqs.txt
 echo "python-memcached" >> $VENV/src/reqs.txt
