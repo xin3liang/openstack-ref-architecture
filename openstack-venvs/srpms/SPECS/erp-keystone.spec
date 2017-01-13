@@ -1,6 +1,6 @@
 Name:		erp-keystone
-Version:	2016.12.build20
-Release:	2%{?dist}
+Version:	2016.12.build21
+Release:	3%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -48,6 +48,9 @@ getent passwd keystone >/dev/null || \
 exit 0
 
 %changelog
+* Fri Jan 13 2017 root - 2016.12.build21-3
+- Rebuild with CentOS virtualenv tarballs from build #21
+
 * Fri Jan 13 2017 root - 2016.12.build20-2
 - Rebuild with CentOS virtualenv tarballs from build #20
 
