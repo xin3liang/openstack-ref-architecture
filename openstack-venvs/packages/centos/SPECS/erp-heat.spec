@@ -1,6 +1,6 @@
 Name:		erp-heat
-Version:	2016.12.build21
-Release:	3%{?dist}
+Version:	2016.12.build23
+Release:	4%{?dist}
 Summary:	OpenStack heat venv
 
 License:	Apache
@@ -87,6 +87,9 @@ do
 done
 
 %changelog
+* Tue Jan 17 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build23-4
+- Rebuild with CentOS virtualenv tarballs from build #23
+
 * Fri Jan 13 2017 root - 2016.12.build21-3
 - Rebuild with CentOS virtualenv tarballs from build #21
 
