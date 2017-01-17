@@ -6,7 +6,7 @@ Cloud".
 The OpenStack packages are built by Linaro and made available in the following
 location:
 
-TBD
+http://repo.linaro.org/rpm/linaro-overlay/centos-7/repo
 
 The build scripts for the packages are available in this repository on the
 `openstack-venvs` folder. These scripts are provided on as is basis, and they
