@@ -25,6 +25,10 @@ EOF
 
 . bin/activate
 pip install --upgrade setuptools
+
+# https://bugs.linaro.org/show_bug.cgi?id=2817
+pip install python_novaclient==6.0.0
+
 pip install pytz
 pip install -r src/requirements.txt
 pip install python-memcached
