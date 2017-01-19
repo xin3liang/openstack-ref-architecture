@@ -1,7 +1,7 @@
 - include: roles/common/deploy_pkg.yml pkg_name={{neutron_compute_pkg}}
 
 - name: Ensure ovs is enabled and running
-  service: name=openvswitch enabled=true state=started
+  service: name={{ovs_daemon}} enabled=true state=started
 
 - name: Check if external bridge exists
   command: ovs-vsctl br-exists br-ex

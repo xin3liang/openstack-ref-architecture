@@ -1,0 +1,7 @@
+# MANAGED BY ANSIBLE - DO NOT HAND EDIT!
+
+# The tunnel interface for tenant networking
+auto {{tunnel_interface}}
+iface {{tunnel_interface}} inet static
+  address 192.168.0.{{last_quad}}
+  netmask 255.255.0.0
