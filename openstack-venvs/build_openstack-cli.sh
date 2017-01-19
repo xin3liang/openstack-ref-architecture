@@ -22,13 +22,16 @@ pip install --upgrade pip
 pip install --upgrade pbr
 pip install --upgrade setuptools
 
+pip install osc-lib==1.0.2
+pip install openstacksdk==0.9.2
+
 for x in $CLIENTS ; do
 	cd $VENV/src
 	repo=$(echo $x | cut -d: -f1)
 	version=$(echo $x | cut -d: -f2)
 	git clone https://github.com/openstack/$repo
 	cd $repo
-	git checkout $version
+	git checkout -b $version $version
 	pip install -r requirements.txt
 	python setup.py install
 done
