@@ -19,6 +19,10 @@ public_api_host: "https://www.example.cloud"
 
 mysql_root_user: mysql
 mysql_root_pass: UnsafeMySQLPassw0rd
+# Note: "mysql_max_open_files" should be greater than
+# "mysql_max_connections"
+mysql_max_open_files: 2048
+mysql_max_connections: 1500
 
 keystone_admin_pass: Not5afe4Pr0duct!on
 keystone_db_user: keystone
