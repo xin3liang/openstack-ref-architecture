@@ -1,4 +1,5 @@
 # MANAGED BY ANSIBLE - DO NOT HAND EDIT!
 [mysqld]
 bind-address={{mysql_bind_addr}}
-max_connections=1500
+max_connections = {{mysql_max_connections}}
+open_files_limit = {{mysql_max_open_files}}
