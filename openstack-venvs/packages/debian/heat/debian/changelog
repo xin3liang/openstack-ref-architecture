@@ -1,3 +1,9 @@
+erp-heat (2016.12-build21.2) stable; urgency=medium
+
+  * rebuild with virtualenv builds #21
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Mon, 23 Jan 2017 14:11:16 +0100
+
 erp-heat (2016.12-build20.1) stable; urgency=low
 
   * First version

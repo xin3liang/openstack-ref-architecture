@@ -1,3 +1,9 @@
+erp-glance (2016.12-build21.3) stable; urgency=medium
+
+  * rebuild with virtualenv builds #21
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Mon, 23 Jan 2017 14:11:14 +0100
+
 erp-glance (2016.12-build20.2) stable; urgency=medium
 
   * take care of log files ownership

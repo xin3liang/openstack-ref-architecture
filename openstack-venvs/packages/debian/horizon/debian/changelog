@@ -1,9 +1,14 @@
-erp-horizon (2016.12-build20.3) UNRELEASED; urgency=medium
+erp-horizon (2016.12-build21.4) stable; urgency=medium
 
-  * Non-maintainer upload.
+  * rebuild with virtualenv builds #21
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Mon, 23 Jan 2017 14:11:21 +0100
+
+erp-horizon (2016.12-build20.3) stable; urgency=medium
+
   * depend on libapache2-mod-wsgi not uwsgi
 
- --  <hrw@pinkiepie.lan>  Fri, 20 Jan 2017 09:33:42 +0100
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Fri, 20 Jan 2017 09:33:42 +0100
 
 erp-horizon (2016.12-build20.2) stable; urgency=medium
 

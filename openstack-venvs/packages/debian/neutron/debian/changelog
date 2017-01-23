@@ -1,3 +1,9 @@
+erp-neutron (2016.12-build21.5) stable; urgency=medium
+
+  * rebuild with virtualenv builds #21
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Mon, 23 Jan 2017 14:11:18 +0100
+
 erp-neutron (2016.12-build20.4) stable; urgency=medium
 
   * drop qemu-efi dependency
