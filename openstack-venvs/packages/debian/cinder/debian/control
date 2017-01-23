@@ -1,20 +1,19 @@
 Priority: optional
 Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 Source: erp-cinder
-Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), libpython-dev, libssl-dev
 Standards-Version: 3.8.2
 
 Package: erp-cinder
 Section: libs
 Architecture: any
-Depends:
-    ${shlibs:Depends},
-    python-ceph,
-    sysfsutils,
-    ceph-common,
-    lvm2,
-    sudo,
-    qemu-utils
+Depends: ceph-common,
+         lvm2,
+         python-ceph,
+         qemu-utils,
+         sudo,
+         sysfsutils,
+         ${shlibs:Depends}
 Description: OpenStack Cinder component - core files
  .
  Part of Linaro Reference Platform release

@@ -1,16 +1,13 @@
 Priority: optional
 Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 Source: erp-horizon
-Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), libpython-dev, libssl-dev
 Standards-Version: 3.8.2
 
 Package: erp-horizon
 Section: libs
 Architecture: any
-Depends:
-    ${shlibs:Depends},
-    apache2,
-    libapache2-mod-wsgi
+Depends: apache2, libapache2-mod-wsgi, ${shlibs:Depends}
 Description: OpenStack Horizon component
  .
  Part of Linaro Reference Platform release

@@ -1,17 +1,14 @@
 Priority: optional
 Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 Source: erp-glance
-Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), libpython-dev, libssl-dev
 Standards-Version: 3.8.2
 
 Package: erp-glance
 Section: libs
 Architecture: any
-Pre-Depends:
-    libvirt-daemon-system
-Depends:
-    ${shlibs:Depends},
-    python-ceph
+Pre-Depends: libvirt-daemon-system
+Depends: python-ceph, ${shlibs:Depends}
 Description: OpenStack Glance component - core files
  .
  Part of Linaro Reference Platform release

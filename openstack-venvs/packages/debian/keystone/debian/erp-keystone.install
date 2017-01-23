@@ -1,6 +1,6 @@
+etc/keystone
 srv/keystone/bin
 srv/keystone/etc
 srv/keystone/include
 srv/keystone/lib
 srv/keystone/pip-selfcheck.json
-etc/keystone

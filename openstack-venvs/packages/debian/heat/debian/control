@@ -1,13 +1,13 @@
 Priority: optional
 Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 Source: erp-heat
-Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), libpython-dev, libssl-dev
 Standards-Version: 3.8.2
 
 Package: erp-heat
 Section: libs
 Architecture: any
-Depends: ${shlibs:Depends}, libpython2.7
+Depends: libpython2.7, ${shlibs:Depends}
 Description: OpenStack Heat component - core files
  .
  Part of Linaro Reference Platform release
@@ -26,4 +26,3 @@ Architecture: all
 Description: OpenStack Heat component - sources
  .
  Part of Linaro Reference Platform release
-

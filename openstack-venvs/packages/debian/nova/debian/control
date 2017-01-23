@@ -1,43 +1,41 @@
 Priority: optional
 Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 Source: erp-nova
-Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), libpython-dev, libssl-dev
 Standards-Version: 3.8.2
 Homepage:
 
 Package: erp-nova
 Section: libs
 Architecture: any
-Pre-Depends:
-    libvirt-daemon-system
-Depends:
-    ${shlibs:Depends},
-    bridge-utils,
-    conntrack,
-    curl,
-    dnsmasq,
-    dnsmasq-utils,
-    ebtables,
-    genisoimage,
-    ipmitool,
-    ipset,
-    iptables,
-    open-iscsi,
-    libvirt-clients,
-    libvirt-daemon,
-    python-libvirt,
-    lvm2,
-    openssh-server,
-    openssh-client,
-    python-ceph,
-    qemu-block-extra,
-    qemu-system-aarch64,
-    qemu-efi,
-    radvd,
-    rsync,
-    sg3-utils,
-    sudo,
-    sysfsutils
+Pre-Depends: libvirt-daemon-system
+Depends: bridge-utils,
+         conntrack,
+         curl,
+         dnsmasq,
+         dnsmasq-utils,
+         ebtables,
+         genisoimage,
+         ipmitool,
+         ipset,
+         iptables,
+         libvirt-clients,
+         libvirt-daemon,
+         lvm2,
+         open-iscsi,
+         openssh-client,
+         openssh-server,
+         python-ceph,
+         python-libvirt,
+         qemu-block-extra,
+         qemu-efi,
+         qemu-system-aarch64,
+         radvd,
+         rsync,
+         sg3-utils,
+         sudo,
+         sysfsutils,
+         ${shlibs:Depends}
 Description: OpenStack Nova component - core files
  .
  Part of Linaro Reference Platform release

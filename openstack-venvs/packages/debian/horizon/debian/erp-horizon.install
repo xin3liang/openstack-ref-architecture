@@ -1,7 +1,7 @@
-srv/horizon/src
+etc/apache2
+srv/horizon/apache.conf
 srv/horizon/bin
 srv/horizon/include
 srv/horizon/lib
 srv/horizon/share
-srv/horizon/apache.conf
-etc/apache2
+srv/horizon/src

@@ -1,32 +1,30 @@
 Priority: optional
 Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 Source: erp-neutron
-Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), libpython-dev, libssl-dev
 Standards-Version: 3.8.2
 
 Package: erp-neutron
 Section: libs
 Architecture: any
-Pre-Depends:
-    libvirt-daemon-system
-Depends:
-    ${shlibs:Depends},
-    libpython2.7,
-    bridge-utils,
-    conntrack,
-    dnsmasq,
-    dnsmasq-utils,
-    ebtables,
-    ipset,
-    iptables,
-    iputils-arping,
-    iputils-ping,
-    keepalived,
-    kmod,
-    openvswitch-switch,
-    psmisc,
-    radvd,
-    sudo
+Pre-Depends: libvirt-daemon-system
+Depends: bridge-utils,
+         conntrack,
+         dnsmasq,
+         dnsmasq-utils,
+         ebtables,
+         ipset,
+         iptables,
+         iputils-arping,
+         iputils-ping,
+         keepalived,
+         kmod,
+         libpython2.7,
+         openvswitch-switch,
+         psmisc,
+         radvd,
+         sudo,
+         ${shlibs:Depends}
 Description: OpenStack Neutron component - core files
  .
  Part of Linaro Reference Platform release

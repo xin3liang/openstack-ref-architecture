@@ -1,16 +1,12 @@
 Priority: optional
 Maintainer: Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>
 Source: erp-keystone
-Build-Depends: dh-systemd (>= 1.5), debhelper (>= 9), libssl-dev, libpython-dev
+Build-Depends: debhelper (>= 9), dh-systemd (>= 1.5), libpython-dev, libssl-dev
 Standards-Version: 3.8.2
 
 Package: erp-keystone
 Section: libs
-Depends:
-    ${shlibs:Depends},
-    apache2,
-    libapache2-mod-wsgi,
-    python-mysqldb
+Depends: apache2, libapache2-mod-wsgi, python-mysqldb, ${shlibs:Depends}
 Architecture: any
 Description: OpenStack Keyston component - core files
  .

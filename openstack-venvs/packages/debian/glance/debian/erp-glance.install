@@ -1,10 +1,10 @@
+etc/glance
+etc/logrotate.d/glance
+etc/sudoers.d/glance
 srv/glance/bin
 srv/glance/etc
 srv/glance/include
 srv/glance/lib
-srv/glance/share
 srv/glance/pip-selfcheck.json
-etc/glance
-etc/logrotate.d/glance
-etc/sudoers.d/glance
+srv/glance/share
 var/log/glance
