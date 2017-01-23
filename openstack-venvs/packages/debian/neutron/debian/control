@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 Package: erp-neutron
 Section: libs
 Architecture: any
-Pre-Depends: libvirt-daemon-system
+Pre-Depends: libvirt-daemon-system (>= 2.2.0)
 Depends: bridge-utils,
          conntrack,
          dnsmasq,

@@ -8,7 +8,7 @@ Homepage:
 Package: erp-nova
 Section: libs
 Architecture: any
-Pre-Depends: libvirt-daemon-system
+Pre-Depends: libvirt-daemon-system (>= 2.2.0)
 Depends: bridge-utils,
          conntrack,
          curl,
@@ -19,7 +19,7 @@ Depends: bridge-utils,
          ipmitool,
          ipset,
          iptables,
-         libvirt-clients,
+         libvirt-clients (>= 2.2.0),
          libvirt-daemon (>= 2.2.0),
          lvm2,
          open-iscsi,
@@ -27,8 +27,10 @@ Depends: bridge-utils,
          openssh-server,
          python-ceph (>= 10.2.3),
          python-libvirt,
-         qemu-block-extra,
+         qemu-block-extra (<< 1:2.8),
+         qemu-block-extra (>= 1:2.7.0),
          qemu-efi,
+         qemu-system-arm (<< 1:2.8),
          qemu-system-arm (>= 1:2.7.0),
          radvd,
          rsync,

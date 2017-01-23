@@ -1,3 +1,10 @@
+erp-neutron (2016.12-build21.6) stable; urgency=medium
+
+  * tight deps closer - jessie-backports has qemu 2.8 which we did not
+    test
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Mon, 23 Jan 2017 17:24:07 +0100
+
 erp-neutron (2016.12-build21.5) stable; urgency=medium
 
   * rebuild with virtualenv builds #21

@@ -10,6 +10,7 @@ Architecture: any
 Depends: ceph-common (>= 10.2.3),
          lvm2,
          python-ceph (>= 10.2.3),
+         qemu-utils (<< 1:2.8),
          qemu-utils (>= 1:2.7.0),
          sudo,
          sysfsutils,
