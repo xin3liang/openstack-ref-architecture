@@ -8,7 +8,7 @@
   register: projects_net
 
 - name: Setup ext nic
-  when: ansible_hostname in groups['networking_servers']
+  when: inventory_hostname in groups['networking_servers']
   template: src={{ext_nic.src}} dest={{ext_nic.dest}} mode=0444
   register: ext_net
 
