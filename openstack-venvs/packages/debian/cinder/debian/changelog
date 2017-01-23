@@ -1,3 +1,9 @@
+erp-cinder (2016.12-build20.2) stable; urgency=medium
+
+  * take care of /var/lib/cinder ownership - #2841
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Mon, 23 Jan 2017 11:11:22 +0100
+
 erp-cinder (2016.12-build20.1) stable; urgency=low
 
   * First version
