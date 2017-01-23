@@ -24,6 +24,7 @@ Depends: bridge-utils,
          psmisc,
          radvd,
          sudo,
+         systemd (>= 230),
          ${shlibs:Depends}
 Description: OpenStack Neutron component - core files
  .

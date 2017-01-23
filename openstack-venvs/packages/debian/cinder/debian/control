@@ -7,12 +7,13 @@ Standards-Version: 3.8.2
 Package: erp-cinder
 Section: libs
 Architecture: any
-Depends: ceph-common,
+Depends: ceph-common (>= 10.2.3),
          lvm2,
-         python-ceph,
-         qemu-utils,
+         python-ceph (>= 10.2.3),
+         qemu-utils (>= 1:2.7.0),
          sudo,
          sysfsutils,
+         systemd (>= 230),
          ${shlibs:Depends}
 Description: OpenStack Cinder component - core files
  .

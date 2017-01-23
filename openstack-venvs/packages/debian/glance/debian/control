@@ -8,7 +8,7 @@ Package: erp-glance
 Section: libs
 Architecture: any
 Pre-Depends: libvirt-daemon-system
-Depends: python-ceph, ${shlibs:Depends}
+Depends: python-ceph (>= 10.2.3), systemd (>= 230), ${shlibs:Depends}
 Description: OpenStack Glance component - core files
  .
  Part of Linaro Reference Platform release

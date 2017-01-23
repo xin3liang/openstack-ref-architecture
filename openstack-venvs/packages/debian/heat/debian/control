@@ -7,7 +7,7 @@ Standards-Version: 3.8.2
 Package: erp-heat
 Section: libs
 Architecture: any
-Depends: libpython2.7, ${shlibs:Depends}
+Depends: libpython2.7, systemd (>= 230), ${shlibs:Depends}
 Description: OpenStack Heat component - core files
  .
  Part of Linaro Reference Platform release
