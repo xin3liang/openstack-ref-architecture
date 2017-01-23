@@ -38,6 +38,9 @@ pip install python_novaclient==6.0.0
 # TODO: remove later
 pip install -U "XStatic-roboto-fontface==0.4.3.2"
 
+pip install -U "XStatic_Angular==1.4.10.1"
+pip install -U "XStatic_Angular_Bootstrap==0.11.0.8"
+
 ./src/manage.py collectstatic --noinput
 ./src/manage.py compress
 ./src/manage.py make_web_conf --wsgi
