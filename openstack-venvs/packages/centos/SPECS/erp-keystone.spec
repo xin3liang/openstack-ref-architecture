@@ -1,6 +1,6 @@
 Name:		erp-keystone
-Version:	2016.12.build24
-Release:	5%{?dist}
+Version:	2016.12.build26
+Release:	6%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -48,6 +48,9 @@ getent passwd keystone >/dev/null || \
 exit 0
 
 %changelog
+* Tue Jan 24 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build26-6
+- Rebuild with CentOS virtualenv tarballs from build #26
+
 * Mon Jan 23 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build24-5
 - Rebuild with CentOS virtualenv tarballs from build #24
 - Fix maintainer name in changelog entries.
