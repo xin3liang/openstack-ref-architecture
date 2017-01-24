@@ -99,6 +99,7 @@ heat_private_api: "http://{{heat_host}}:8004/v1/%(tenant_id)s"
 heat_cfm_private_api: "http://{{heat_host}}:8000/v1/%(tenant_id)s"
 
 
+front_end_ip: "*"
 front_end_services:
   - name: horizon
     port: 443
