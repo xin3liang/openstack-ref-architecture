@@ -27,7 +27,7 @@ pip install --upgrade setuptools==33.1.1
 pip install pytz==2016.10
 
 # generated from Debian build #21
-pip install -r $HERE/pips/openstack-cli.pipreqs
+pip install -r $HERE/pips/openstack-cli.pipreqs -r $HERE/pips/common.pipreqs
 
 for x in $CLIENTS ; do
 	cd $VENV/src

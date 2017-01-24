@@ -34,7 +34,7 @@ pip install --upgrade pbr==1.10.0
 pip install pytz==2016.10
 
 # generated from Debian build #21
-pip install -r $HERE/pips/horizon.pipreqs
+pip install -r $HERE/pips/horizon.pipreqs -r $HERE/pips/common.pipreqs
 
 pip install -r src/requirements.txt
 

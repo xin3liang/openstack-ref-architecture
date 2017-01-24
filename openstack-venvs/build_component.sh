@@ -42,7 +42,7 @@ pip install --upgrade setuptools==33.1.1
 pip install pytz==2016.10
 
 # generated from Debian build #21
-pip install -r $HERE/pips/${PROJECT_NAME}.pipreqs
+pip install -r $HERE/pips/${PROJECT_NAME}.pipreqs -r $HERE/pips/components-common.pipreqs -r $HERE/pips/common.pipreqs
 
 cd $VENV/src
 pip install -r requirements.txt
