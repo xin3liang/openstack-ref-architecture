@@ -1,6 +1,6 @@
 Name:		erp-horizon
 Version:	2016.12.build26
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	OpenStack horizon venv
 
 License:	Apache
@@ -29,11 +29,15 @@ ln -sf /srv/horizon/apache.conf %{buildroot}/etc/httpd/conf.d/horizon.conf
 /srv/horizon/bin
 /srv/horizon/include
 /srv/horizon/lib*
+/srv/horizon/pip-selfcheck.json
 /srv/horizon/share
 /srv/horizon/apache.conf
 /etc/httpd/conf.d/horizon.conf
 
 %changelog
+* Tue Jan 24 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build26-7
+- package pip-selfcheck.json too
+
 * Tue Jan 24 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build26-6
 - Rebuild with CentOS virtualenv tarballs from build #26
 
