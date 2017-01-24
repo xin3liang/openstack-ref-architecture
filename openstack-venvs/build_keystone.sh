@@ -1,6 +1,7 @@
 #!/bin/bash -ex
 
-cd $(dirname $(readlink -f $0))
+HERE=$(dirname $(readlink -f $0))
+cd $HERE
 
 # newton on Aug 22
 VERSION="0cd732b2b0d3e18cbdbceecf66a83cd378c27717"

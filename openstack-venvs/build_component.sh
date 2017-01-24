@@ -35,52 +35,15 @@ git checkout -b $VERSION $VERSION
 
 . $VENV/bin/activate
 # openstack requires latest versions of pip, pbr, and setuptools to build itself
-pip install --upgrade pip
-pip install --upgrade pbr
-pip install --upgrade setuptools
+pip install --upgrade pip==9.0.1
+pip install --upgrade pbr==1.10.0
+pip install --upgrade setuptools==33.1.1
 
-# Newton requires 3.0 version of kombu and its now 4.0
-pip install kombu==3.0.35
-pip install vine==1.1.3
+pip install pytz==2016.10
 
-pip install eventlet==0.19.0
-pip install tenacity==3.4.0
-
-# let use the same as we had in CentOS #14
-# jinja2 2.9.4 causes rpm packages build failure
-pip install jinja2==2.8.1
-
-# https://bugs.linaro.org/show_bug.cgi?id=2802
-pip install webob==1.6.3
-
-# https://bugs.linaro.org/show_bug.cgi?id=2817
-pip install python_novaclient==6.0.0
-
-# add requirements based on our deployment choices
-cp $VENV/src/requirements.txt $VENV/src/reqs.txt
-echo "python-memcached" >> $VENV/src/reqs.txt
-echo "pymysql" >> $VENV/src/reqs.txt
-
-if [ "$PROJECT_NAME" == "nova" ] ; then
-	sed -i '1s/^/pytz\n/' $VENV/src/reqs.txt
-	cat >> $VENV/src/reqs.txt <<EOF
-monotonic
-debtcollector
-python-dateutil
-fasteners
-positional
-functools32
-tempita
-sqlparse
-kombu
-cachetools
-cliff
-libvirt-python==2.5.0
-retrying
-futurist
-EOF
-fi
+# generated from Debian build #21
+pip install -r $HERE/pips/${PROJECT_NAME}.pipreqs
 
 cd $VENV/src
-pip install -r reqs.txt
+pip install -r requirements.txt
 python setup.py install

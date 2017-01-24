@@ -1,6 +1,7 @@
 #!/bin/bash -ex
 
-cd $(dirname $(readlink -f $0))
+HERE=$(dirname $(readlink -f $0))
+cd $HERE
 
 # newton on Aug 22
 VERSION="a95159d1482e59920512c3af1915401d13841609"
@@ -24,22 +25,18 @@ COMPRESS_ENABLED = True
 EOF
 
 . bin/activate
-pip install --upgrade setuptools
 
-pip install pytz
+# openstack requires latest versions of pip, pbr, and setuptools to build itself
+pip install --upgrade pip==9.0.1
+pip install --upgrade setuptools==33.1.1
+pip install --upgrade pbr==1.10.0
+
+pip install pytz==2016.10
+
+# generated from Debian build #21
+pip install -r $HERE/pips/horizon.pipreqs
+
 pip install -r src/requirements.txt
-pip install python-memcached
-
-# https://bugs.linaro.org/show_bug.cgi?id=2817
-pip install python_novaclient==6.0.0
-
-# Adding dependancy due to upstream bug
-# https://bugs.launchpad.net/horizon/+bug/1643689
-# TODO: remove later
-pip install -U "XStatic-roboto-fontface==0.4.3.2"
-
-pip install -U "XStatic_Angular==1.4.10.1"
-pip install -U "XStatic_Angular_Bootstrap==0.11.0.8"
 
 ./src/manage.py collectstatic --noinput
 ./src/manage.py compress

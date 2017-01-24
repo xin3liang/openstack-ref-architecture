@@ -1,6 +1,7 @@
 #!/bin/bash -ex
 
-cd $(dirname $(readlink -f $0))
+HERE=$(dirname $(readlink -f $0))
+cd $HERE
 
 # newton on Aug 22
 VENV=/srv/openstack-cli
@@ -17,13 +18,16 @@ CLIENTS="
 virtualenv $VENV
 mkdir $VENV/src
 . $VENV/bin/activate
-# openstack requires latest versions of pip, pbr, and setuptools to build itself
-pip install --upgrade pip
-pip install --upgrade pbr
-pip install --upgrade setuptools
 
-pip install osc-lib==1.0.2
-pip install openstacksdk==0.9.2
+# openstack requires latest versions of pip, pbr, and setuptools to build itself
+pip install --upgrade pip==9.0.1
+pip install --upgrade pbr==1.10.0
+pip install --upgrade setuptools==33.1.1
+
+pip install pytz==2016.10
+
+# generated from Debian build #21
+pip install -r $HERE/pips/openstack-cli.pipreqs
 
 for x in $CLIENTS ; do
 	cd $VENV/src
