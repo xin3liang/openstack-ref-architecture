@@ -1,3 +1,9 @@
+erp-horizon (2016.12-build23.6) stable; urgency=medium
+
+  * rebuild with virtualenv build #23
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Tue, 24 Jan 2017 18:26:57 +0100
+
 erp-horizon (2016.12-build21.5) stable; urgency=medium
 
   * tight deps closer - jessie-backports has qemu 2.8 which we did not
