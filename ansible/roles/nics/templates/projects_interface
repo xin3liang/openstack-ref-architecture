@@ -3,5 +3,5 @@
 # The tunnel interface for tenant networking
 auto {{tunnel_interface}}
 iface {{tunnel_interface}} inet static
-  address 192.168.0.{{last_quad}}
+  address {{network_tunnel_ip}}
   netmask 255.255.0.0

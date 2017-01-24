@@ -33,7 +33,7 @@ ceph_host_osds:
 
 # the network interface for compute and network nodes to handle tenant networking
 tunnel_interface: eth1
-network_tunnel_ip: "{{ansible_eth1.ipv4.address}}"
+network_tunnel_ip: "192.168.0.{{ansible_default_ipv4.address.split('.')[3]}}"
 
 # the network node's interface connected to public internet
 network_external_iface: eth2

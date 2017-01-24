@@ -1,8 +1,5 @@
 - include_vars: "{{ansible_os_family}}.yml"
 
-- name: Determine host's last ipv4 quad to use in tunnel network
-  set_fact: last_quad="{{ ansible_default_ipv4.address.split('.')[3] }}"
-
 - name: Setup projects nic
   template: src={{projects_nic.src}} dest={{projects_nic.dest}} mode=0444
   register: projects_net
@@ -11,13 +8,6 @@
   when: inventory_hostname in groups['networking_servers']
   template: src={{ext_nic.src}} dest={{ext_nic.dest}} mode=0444
   register: ext_net
-
-# normally this is just set as "{{ansible_eth1.ipv4.address}}" in group_vars
-# however, ansible_eth1 won't exist on the first run, so we have to set it
-# to allow the playbook to complete on the first try.
-- name: Update tunnel ip
-  when: projects_net.changed
-  set_fact: network_tunnel_ip=192.168.0.{{last_quad}}
 
 - name: Bring up tunnel interface
   when: projects_net.changed
