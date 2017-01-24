@@ -5,6 +5,10 @@
   apache2_module: state=present name=proxy_http
   notify: restart-apache
 
+- name: Enable mod-headers-http
+  apache2_module: state=present name=headers
+  notify: restart-apache
+
 - name: Install apache configuration
   template: src=apache.conf dest=/etc/apache2/sites-available/devcloud.conf
   notify: restart-apache

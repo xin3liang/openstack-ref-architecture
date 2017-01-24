@@ -14,6 +14,10 @@ AVAILABLE_THEMES = [
     ('devcloud', 'DevCloud', 'themes/devcloud'),
 ]
 
+# allows us to return https through our web front-end
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 OPENSTACK_KEYSTONE_DEFAULT_ROLE = 'user'
 OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'default'
 
