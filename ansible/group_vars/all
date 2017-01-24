@@ -48,6 +48,14 @@ heat_host: "{{ hostvars[groups['heat_servers'][0]]['ansible_fqdn'] }}"
 mysql_host: "{{ hostvars[groups['mysql_servers'][0]]['ansible_fqdn'] }}"
 rabbit_host: "{{ hostvars[groups['rabbit_servers'][0]]['ansible_fqdn'] }}"
 
+openstack_debug_logging: "True"
+keystone_debug_logging: "{{openstack_debug_logging}}"
+glance_debug_logging: "{{openstack_debug_logging}}"
+nova_debug_logging: "{{openstack_debug_logging}}"
+neutron_debug_logging: "{{openstack_debug_logging}}"
+cinder_debug_logging: "{{openstack_debug_logging}}"
+heat_debug_logging: "{{openstack_debug_logging}}"
+
 # future (with DNS):
 # mysql_servers: "mysql.mycloud"
 # memcached_servers: "memcached.mycloud"
