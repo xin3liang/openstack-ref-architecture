@@ -1,3 +1,9 @@
+erp-nova (2016.12-build24.7) stable; urgency=medium
+
+  * rebuild with virtualenv build 24
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Wed, 25 Jan 2017 10:22:25 +0100
+
 erp-nova (2016.12-build23.6) stable; urgency=medium
 
   * rebuild with virtualenv build #23

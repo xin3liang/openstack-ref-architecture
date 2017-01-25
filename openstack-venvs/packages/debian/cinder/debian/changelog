@@ -1,3 +1,9 @@
+erp-cinder (2016.12-build24.6) stable; urgency=medium
+
+  * rebuild with virtualenv build 24
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Wed, 25 Jan 2017 10:22:16 +0100
+
 erp-cinder (2016.12-build23.5) stable; urgency=medium
 
   * rebuild with virtualenv build #23

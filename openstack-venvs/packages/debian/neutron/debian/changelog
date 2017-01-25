@@ -1,3 +1,9 @@
+erp-neutron (2016.12-build24.8) stable; urgency=medium
+
+  * rebuild with virtualenv build 24
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Wed, 25 Jan 2017 10:22:23 +0100
+
 erp-neutron (2016.12-build23.7) stable; urgency=medium
 
   * rebuild with virtualenv build #23
