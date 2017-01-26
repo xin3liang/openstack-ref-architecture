@@ -14,9 +14,6 @@ AVAILABLE_THEMES = [
     ('devcloud', 'DevCloud', 'themes/devcloud'),
 ]
 
-OPENSTACK_HOST = "{{keystone_host}}"
-OPENSTACK_KEYSTONE_URL = "http://%s:5000/v3" % OPENSTACK_HOST
-
 OPENSTACK_KEYSTONE_DEFAULT_ROLE = 'user'
 OPENSTACK_KEYSTONE_DEFAULT_DOMAIN = 'default'
 
@@ -32,10 +29,15 @@ CACHES = {
 }
 
 OPENSTACK_API_VERSIONS = {
+    "data-processing": 1.1,
     "identity": 3,
     "image": 2,
     "volume": 2,
 }
+
+OPENSTACK_HOST = "{{keystone_host}}"
+OPENSTACK_KEYSTONE_URL = "http://%s:5000/v3" % OPENSTACK_HOST
+OPENSTACK_KEYSTONE_MULTIDOMAIN_SUPPORT = {{ ldap_multidomain_support }}
 
 # just need some secret value
 SECRET_KEY = '{{keystone_admin_pass}}'

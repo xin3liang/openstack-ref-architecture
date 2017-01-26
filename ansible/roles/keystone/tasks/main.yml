@@ -15,6 +15,15 @@
   template: src=keystone.conf dest=/etc/keystone/
   notify: restart-keystone
 
+- name: Create domains directory
+  when: ldap_multidomain_support == True
+  file: path=/etc/keystone/domains state=directory mode=0755
+
+- name: Configure domain keystone.{{ ldap_domain }}.conf
+  when: ldap_multidomain_support == True
+  copy: src=keystone.domain.conf dest=/etc/keystone/domains/keystone.{{ ldap_domain }}.conf
+  notify: restart-keystone
+
 - name: Configure keystone-paste.ini
   copy: src=keystone-paste.ini dest=/etc/keystone/
   notify: restart-keystone

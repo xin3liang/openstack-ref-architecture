@@ -43,6 +43,21 @@ Ensure to use host names, instead of ips to avoid some known deployment issues.
 The playbook assumes your own files are in a folder called `ansible/secrets`, so the recommendation
 is to place your files there.
 
+## Enabling LDAP authentication
+
+LDAP authentication can be enabled for users of the cloud.
+
+Service accounts (like the admin account, or nova and
+glance accounts) must exist for services to authenticate via [keystonemiddleware](https://github.com/openstack/keystonemiddleware).
+User accounts will be stored in an LDAP.
+
+The default domain will be used for service accounts that will be stored in SQL and the LDAP domain will store the user accounts in LDAP.
+
+There are a few settings that need to be configured, see [ansible/deployment-vars.example](ansible/deployment-vars.example) for details. LDAP configuration can be skipped by
+setting the variable `multidomain_support` to `False`. This is the default setting.
+
+For further information on how to set up LDAP from the OpenStack perspective, read this document from the [Keystone PTL](https://developer.ibm.com/opentech/2015/08/14/configuring-keystone-with-ibms-bluepages-ldap/) at the time.
+
 # The deployment
 
 The deployment can be split in two different parts. Ceph and OpenStack.

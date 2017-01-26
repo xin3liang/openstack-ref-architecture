@@ -76,3 +76,31 @@ zabbix_server: monitoring.example.com
 ssl_cert: /etc/letsencrypt/live/{{inventory_hostname}}/cert.pem
 ssl_key: /etc/letsencrypt/live/{{inventory_hostname}}/privkey.pem
 ssl_ca_cert: /etc/letsencrypt/live/{{inventory_hostname}}/chain.pem
+
+# If deploying with LDAP
+# these variables will need to be filled and ldap_multidomain_support
+# will need to be set to True
+
+ldap_multidomain_support: False
+ldap_domain: linaro
+ldap_url: ldaps://example.com
+ldap_user: cn=openstack,ou=linaro,dc=example,dc=com
+ldap_password: Unsaf3
+ldap_suffix: dc=example,dc=org
+
+ldap_user_tree_dn: ou=accounts,dc=example,dc=com
+ldap_user_objectclass: inetOrgPerson
+ldap_user_id_attribute: uid
+ldap_user_name_attribute: cn
+ldap_user_mail_attribute: mail
+ldap_user_pass_attribute: password
+ldap_user_enabled_attribute: enabled
+
+ldap_group_tree_dn: ou=groups,dc=example,dc=com
+ldap_group_objectclass: groupOfUniqueNames
+ldap_group_id_attribute: cn
+ldap_group_name_attribute: cn
+ldap_group_member_attribute: uniqueMember
+ldap_group_desc_attribute: description
+
+ldap_user_filter: (memberof=cn=openstack-users,ou=group,dc=example,dc=com)

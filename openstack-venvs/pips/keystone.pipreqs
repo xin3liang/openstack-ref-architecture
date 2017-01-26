@@ -25,3 +25,5 @@ repoze.who==2.3
 requestsexceptions==1.1.3
 warlock==1.2.0
 zope.interface==4.3.3
+pyldap==2.4.28
+ldappool==2.0.0
