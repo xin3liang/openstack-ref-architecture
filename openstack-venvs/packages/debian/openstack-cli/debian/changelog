@@ -1,3 +1,9 @@
+erp-openstack-cli (2016.12-build26.6) stable; urgency=medium
+
+  * rebuild with virtualenv build 26
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Tue, 31 Jan 2017 10:33:28 +0100
+
 erp-openstack-cli (2016.12-build24.5) stable; urgency=medium
 
   * rebuild with virtualenv build 24

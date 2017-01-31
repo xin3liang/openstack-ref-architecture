@@ -1,3 +1,9 @@
+erp-horizon (2016.12-build26.8) stable; urgency=medium
+
+  * rebuild with virtualenv build 26
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Tue, 31 Jan 2017 10:33:23 +0100
+
 erp-horizon (2016.12-build24.7) stable; urgency=medium
 
   * rebuild with virtualenv build 24
