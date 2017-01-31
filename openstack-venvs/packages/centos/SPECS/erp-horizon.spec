@@ -1,6 +1,6 @@
 Name:		erp-horizon
-Version:	2016.12.build27
-Release:	8%{?dist}
+Version:	2016.12.build30
+Release:	9%{?dist}
 Summary:	OpenStack horizon venv
 
 License:	Apache
@@ -35,7 +35,10 @@ ln -sf /srv/horizon/apache.conf %{buildroot}/etc/httpd/conf.d/horizon.conf
 /etc/httpd/conf.d/horizon.conf
 
 %changelog
-* Wed Jan 25 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build27-8
+* Tue Jan 31 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build27-9
+- rebuild with virtualenv build 30
+
+* Wed Jan 25 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build30-8
 - rebuild with virtualenv build 27
 
 * Tue Jan 24 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build26-7

@@ -1,6 +1,6 @@
 Name:		erp-cinder
-Version:	2016.12.build27
-Release:	7%{?dist}
+Version:	2016.12.build30
+Release:	8%{?dist}
 Summary:	OpenStack cinder venv
 
 License:	Apache
@@ -103,6 +103,9 @@ do
 done
 
 %changelog
+* Tue Jan 31 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build30-8
+- rebuild with virtualenv build 30
+
 * Wed Jan 25 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build27-7
 - rebuild with virtualenv build 27
 
