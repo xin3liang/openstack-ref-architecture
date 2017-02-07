@@ -16,8 +16,8 @@ CONFIG_FILE=/etc/nova/nova.conf
 source ./build_component.sh
 
 # APPLY PATCH UEFI shutdown patch
-# https://review.openstack.org/#/c/335512/4
-git fetch git://git.openstack.org/openstack/nova refs/changes/12/335512/4 && git cherry-pick FETCH_HEAD
+# https://review.openstack.org/#/c/357190/
+git fetch git://git.openstack.org/openstack/nova refs/changes/14/428314/1 && git cherry-pick FETCH_HEAD
 python setup.py install
 
 cd $HERE
