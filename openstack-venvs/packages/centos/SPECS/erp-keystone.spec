@@ -1,6 +1,6 @@
 Name:		erp-keystone
-Version:	2016.12.build30
-Release:	8%{?dist}
+Version:	2016.12.build31
+Release:	9%{?dist}
 Summary:	OpenStack keystone venv
 
 License:	Apache
@@ -48,6 +48,9 @@ getent passwd keystone >/dev/null || \
 exit 0
 
 %changelog
+* Thu Feb 09 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build31-9
+- rebuild with virtualenv build 31
+
 * Tue Jan 31 2017 Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org> - 2016.12.build30-8
 - rebuild with virtualenv build 30
 
