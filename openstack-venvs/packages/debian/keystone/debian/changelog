@@ -1,3 +1,9 @@
+erp-keystone (2016.12-build29.9) stable; urgency=medium
+
+  * rebuild with virtualenv build 29
+
+ -- Marcin Juszkiewicz <marcin.juszkiewicz@linaro.org>  Thu, 09 Feb 2017 20:23:01 +0100
+
 erp-keystone (2016.12-build26.8) stable; urgency=medium
 
   * rebuild with virtualenv build 26
