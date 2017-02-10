@@ -9,5 +9,5 @@ IPV6INIT=no
 NAME={{tunnel_interface}}
 DEVICE={{tunnel_interface}}
 ONBOOT=yes
-IPADDR=192.168.0.{{last_quad}}
+IPADDR={{network_tunnel_ip}}
 NETMASK=255.255.0.0
