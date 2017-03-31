@@ -21,7 +21,7 @@
 
 - name: Configure domain keystone.{{ ldap_domain }}.conf
   when: ldap_multidomain_support == True
-  copy: src=keystone.domain.conf dest=/etc/keystone/domains/keystone.{{ ldap_domain }}.conf
+  template: src=keystone.domains.conf dest=/etc/keystone/domains/keystone.{{ ldap_domain }}.conf
   notify: restart-keystone
 
 - name: Configure keystone-paste.ini
