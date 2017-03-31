@@ -1,12 +1,12 @@
 - name: Install apache
   apt: pkg=apache2 state=installed
 
-- name: Enable mod-proxy-http
-  apache2_module: state=present name=proxy_http
-  notify: restart-apache
-
-- name: Enable mod-headers-http
-  apache2_module: state=present name=headers
+- name: Enable apache2 modules
+  apache2_module: state=present name="{{item}}"
+  with_items:
+    - proxy_http
+    - headers
+    - ssl
   notify: restart-apache
 
 - name: Install apache configuration
